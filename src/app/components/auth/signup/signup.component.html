@@ -1,0 +1,94 @@
+<div class="signup-container">
+  <a routerLink="/" class="logo-link">
+    <img src="assets/images/logo.png" alt="WanderMundo Logo" class="logo">
+  </a>
+  <div class="signup-form-wrapper animate__animated animate__fadeIn">
+    <h2 class="signup-title">Join WanderMundo</h2>
+    
+    <p-steps [model]="steps" [activeIndex]="currentStep" [readonly]="true"></p-steps>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+      <!-- Step 1: Account -->
+      <div *ngIf="currentStep === 0">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" pInputText id="email" formControlName="email" required>
+          <div *ngIf="f['email'].touched && f['email'].invalid" class="error-message">
+            <div *ngIf="f['email'].errors?.['required']">Email is required.</div>
+            <div *ngIf="f['email'].errors?.['email']">Please enter a valid email address.</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" pInputText id="password" formControlName="password" required>
+          <div *ngIf="f['password'].touched && f['password'].invalid" class="error-message">
+            <div *ngIf="f['password'].errors?.['required']">Password is required.</div>
+            <div *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters long.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Personal Info -->
+      <div *ngIf="currentStep === 1">
+        <div class="form-group">
+          <label for="full_name">What's your name?</label>
+          <input type="text" pInputText id="full_name" formControlName="full_name" required>
+        </div>
+        <div class="form-group">
+          <label for="whatsapp_number">What's your WhatsApp number?</label>
+          <input type="text" pInputText id="whatsapp_number" formControlName="whatsapp_number" required>
+        </div>
+      </div>
+
+      <!-- Step 3: Nomad Life -->
+      <div *ngIf="currentStep === 2">
+        <div class="form-group">
+          <label for="about_nomad">What makes you a Digital Nomad?</label>
+          <textarea pInputTextarea id="about_nomad" formControlName="about_nomad" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="country">Which country are you from?</label>
+          <input type="text" pInputText id="country" formControlName="country" required>
+        </div>
+      </div>
+
+      <!-- Step 4: Community -->
+      <div *ngIf="currentStep === 3">
+        <div class="form-group">
+          <label for="heard_from">How did you hear about us?</label>
+          <input type="text" pInputText id="heard_from" formControlName="heard_from" required>
+        </div>
+        <div class="form-group">
+          <label for="referred_by">Referred By (Optional)</label>
+          <input type="text" pInputText id="referred_by" formControlName="referred_by">
+        </div>
+        <div class="form-group">
+          <label for="comments">Any comments you want to share?</label>
+          <textarea pInputTextarea id="comments" formControlName="comments" rows="3"></textarea>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="button-container">
+        <p-button *ngIf="currentStep > 0" 
+                  type="button" 
+                  label="Previous" 
+                  (onClick)="previousStep()"
+                  styleClass="p-button-secondary"></p-button>
+        
+        <p-button *ngIf="currentStep < 3" 
+                  type="button" 
+                  label="Next" 
+                  (onClick)="nextStep()"
+                  [disabled]="!isStepValid()"></p-button>
+        
+        <p-button *ngIf="currentStep === 3" 
+                  type="submit" 
+                  [label]="loading ? 'Creating Account...' : 'Start Your Journey'"
+                  [disabled]="signupForm.invalid || loading"></p-button>
+      </div>
+    </form>
+
+    <p class="login-link">Already have an account? <a routerLink="/login">Log in here</a></p>
+  </div>
+</div>

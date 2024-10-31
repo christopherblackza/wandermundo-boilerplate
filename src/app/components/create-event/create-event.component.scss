@@ -1,0 +1,88 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+.create-event-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 64px); // Adjust based on your navbar height
+  padding: 20px;
+  box-sizing: border-box;
+  margin-top: 64px;
+}
+
+.create-event-form-wrapper {
+  width: 100%;
+  max-width: 600px;
+  padding: 30px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.create-event-title {
+  font-size: 28px;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #333;
+}
+
+.event-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.p-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+  }
+}
+
+:host ::ng-deep {
+  .p-calendar, .p-inputnumber {
+    width: 100%;
+  }
+
+  .p-button {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+.cropped-image-preview {
+  margin-top: 20px;
+  text-align: center;
+
+  img {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+  }
+}
+
+.animate__animated {
+  animation-duration: 1s;
+}
+
+.animate__fadeIn {
+  animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .create-event-form-wrapper {
+    padding: 20px;
+  }
+}

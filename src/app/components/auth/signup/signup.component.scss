@@ -1,0 +1,214 @@
+// Update the deep styles for PrimeNG components
+:host ::ng-deep {
+  .p-steps {
+    margin: 2rem 0 3rem;
+
+    .p-steps-item {
+      .p-menuitem-link {
+        padding: 1rem 0;
+        text-decoration: none !important; // Remove underline
+        cursor: default;
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      // Customize step numbers
+      .p-steps-number {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.2rem;
+        border-radius: 50%;
+        background-color: #f8f9fa;
+        color: #6c757d;
+        border: 2px solid #6c757d;
+        line-height: 1.75rem;
+        margin-bottom: 0.5rem;
+      }
+
+      // Active step styling
+      &.p-highlight {
+        .p-steps-number {
+          background-color: #4CAF50;
+          color: #ffffff;
+          border-color: #4CAF50;
+        }
+      }
+
+      // Step labels
+      .p-steps-title {
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-top: 1rem;
+      }
+    }
+
+    // Connector line between steps
+    .p-steps-item:before {
+      margin-top: 1rem;
+      border-top: 2px solid #dee2e6;
+    }
+  }
+
+  .p-inputtextarea {
+    width: 100%;
+    min-height: 120px;
+    margin-top: 0.5rem;
+  }
+
+  .p-button {
+    height: 3rem;
+    font-weight: 500;
+
+    &.p-button-secondary {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      
+      &:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+      }
+    }
+  }
+
+  // Input styling
+  .p-inputtext {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+  }
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.signup-form-wrapper {
+  width: 100%;
+  max-width: 500px; // Increased from 400px
+  padding: 2.5rem;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.signup-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+  }
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+  
+  :last-child {
+    margin-left: auto;
+  }
+
+}
+
+.login-link {
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  color: #6c757d;
+
+  a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 500;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.logo {
+  width: 320px;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .signup-form-wrapper {
+    padding: 1.5rem;
+  }
+
+  :host ::ng-deep {
+    .p-steps {
+      .p-steps-item {
+        .p-steps-number {
+          width: 1.75rem;
+          height: 1.75rem;
+          font-size: 1rem;
+          line-height: 1.5rem;
+        }
+
+        .p-steps-title {
+          font-size: 0.75rem;
+        }
+      }
+    }
+  }
+
+  .logo {
+    width: 260px;
+  }
+}
+
+// Animation
+.animate__animated {
+  animation-duration: 0.8s;
+}
+
+.animate__fadeIn {
+  animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

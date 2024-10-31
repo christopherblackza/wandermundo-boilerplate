@@ -1,0 +1,12 @@
+<div class="content-wrapper">
+  <div *ngIf="!isLoaded" class="app-loading">
+    <div class="app-loading-content">
+      <div class="app-loading-text">Loading Wandermundo...</div>
+      <div class="app-loading-bar-container">
+        <div class="app-loading-bar" [style.width.%]="loadingPercentage"></div>
+      </div>
+      <div class="app-loading-percentage">{{ loadingPercentage }}%</div>
+    </div>
+  </div>
+  <router-outlet *ngIf="isLoaded"></router-outlet>
+</div>

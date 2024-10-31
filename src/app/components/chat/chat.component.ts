@@ -1,92 +1,122 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SupabaseService } from '../../services/supabase.service';
+import { Subject, Subscription, take, takeUntil } from 'rxjs';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { User } from '@supabase/supabase-js';
+import { AuthService, Profile } from '../../services/auth.service';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  template: `
-    <h2>Real-Time Chat</h2>
-    <div class="chat-container">
-      <div class="chat-messages">
-        <div *ngFor="let message of messages" class="message">
-          <strong>{{ message.user_email }}</strong> 
-          <small>({{ message.created_at | date:'short' }})</small>: 
-          {{ message.content }}
-        </div>
-      </div>
-      <div class="chat-input">
-        <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type a message...">
-        <button (click)="sendMessage()" class="btn btn-primary">Send</button>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .chat-container {
-      display: flex;
-      flex-direction: column;
-      height: 400px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 10px;
-    }
-    .chat-input {
-      display: flex;
-      padding: 10px;
-    }
-    .chat-input input {
-      flex: 1;
-      margin-right: 10px;
-    }
-    .message {
-      margin-bottom: 10px;
-    }
-  `]
+  imports: [CommonModule, FormsModule, NavbarComponent],
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
+  @ViewChild('chatMessages') private chatMessagesContainer!: ElementRef;
+
   messages: any[] = [];
   newMessage: string = '';
-  user: any;
+  
 
-  constructor(private supabaseService: SupabaseService) {}
+
+  private userSubscription!: Subscription;
+  private messageSubscription!: Subscription;
+
+  user: User | null = null;
+  profile: Profile | null = null;
+  private unsubscribe$: Subject<void> = new Subject<void>();
+
+  constructor(
+    public authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.supabaseService.getUser().then(({ data }) => {
-      this.user = data.user;
-      this.loadMessages();
+    console.log('ChatComponent initialized');
+
+    this.authService.profile$.subscribe(profile => {
+      if (profile) {
+        // Use profile data
+        console.log('Profile:', profile);
+        this.profile = profile;
+      }
     });
 
-    this.supabaseService.subscribeToMessages((payload) => {
-      this.messages.push(payload.new);
+    this.authService.setViewingChat(true);
+    this.authService.resetUnreadMessages();
+    this.authService.subscribeToMessages();
+
+
+    this.authService.user$
+    .pipe(takeUntil(this.unsubscribe$))  // Automatically unsubscribe when destroyed
+    .subscribe(user => {
+      this.user = user;
+      console.log('user', user);
+      
+      if (user) {
+        this.loadMessages();
+      }
+    });
+
+
+
+    this.messageSubscription = this.authService.message$.subscribe(message => {
+      console.log('New message received:', message);
+      if (message) {
+        this.messages.push(message);
+        setTimeout(() => this.scrollToBottom(), 0);
+      }
     });
   }
 
+  ngOnDestroy() {
+    this.authService.setViewingChat(false);
+
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
+    if (this.messageSubscription) {
+      this.messageSubscription.unsubscribe();
+    }
+
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  private scrollToBottom(): void {
+    try {
+      this.chatMessagesContainer.nativeElement.scrollTop = this.chatMessagesContainer.nativeElement.scrollHeight;
+    } catch(err) { }
+  }
+
   async loadMessages() {
-    const { data, error } = await this.supabaseService.getMessages();
+    const { data, error } = await this.authService.getMessages();
     if (error) {
       console.error('Error loading messages:', error);
     } else {
       this.messages = data || [];
+      console.log('messages', this.messages);
+      setTimeout(() => this.scrollToBottom(), 0);
     }
   }
 
   async sendMessage() {
     if (this.newMessage.trim() && this.user) {
       const message = {
-        user_id: this.user.id,
         content: this.newMessage.trim()
       };
-      const { error } = await this.supabaseService.sendMessage(message);
+      const { error } = await this.authService.sendMessage(this.user, message, this.profile);
       if (error) {
         console.error('Error sending message:', error);
       } else {
         this.newMessage = '';
+        // No need to call loadMessages() here
       }
     }
   }

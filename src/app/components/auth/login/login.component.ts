@@ -1,45 +1,60 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { SupabaseService } from '../../../services/supabase.service';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
-  template: `
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <h2 class="text-center mb-4">Login</h2>
-        <form (ngSubmit)="onSubmit()">
-          <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" [(ngModel)]="password" name="password" required>
-          </div>
-          <button type="submit" class="btn btn-primary w-100">Login</button>
-        </form>
-      </div>
-    </div>
-  `
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
-  email: string = '';
-  password: string = '';
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
 
-  constructor(private supabaseService: SupabaseService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private supabaseService: SupabaseService, 
+    private router: Router,
+    private toastr: ToastrService
+  ) {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+
+  ngOnInit() {}
+
+  get f() { return this.loginForm.controls; }
 
   async onSubmit() {
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    // try {
+    //   const { error } = await this.supabaseService.signIn(this.f['email'].value, this.f['password'].value);
+    //   if (error) throw error;
+    //   this.toastr.success('Login successful!', 'Welcome');
+    //   this.router.navigate(['/']);
+    // } catch (error: any) {
+    //   console.error('Error logging in:', error);
+    //   this.toastr.error(error.message || 'An error occurred during login', 'Login Failed');
+    // }
     try {
-      const { error } = await this.supabaseService.signIn(this.email, this.password);
+      const { error } = await this.authService.signIn(this.f['email'].value, this.f['password'].value);
       if (error) throw error;
+      this.toastr.success('Login successful!', 'Welcome');
       this.router.navigate(['/']);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error logging in:', error);
-      // Handle error (e.g., show error message to user)
+      this.toastr.error(error.message || 'An error occurred during login', 'Login Failed');
     }
   }
 }

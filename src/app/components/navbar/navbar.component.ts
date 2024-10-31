@@ -1,59 +1,69 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, HostListener } from '@angular/core';
+import { RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SupabaseService } from '../../services/supabase.service';
+import { Subscription, take } from 'rxjs';
+import { Router } from '@angular/router';
+import { User } from '@supabase/supabase-js';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, CommonModule],
-  template: `
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" routerLink="/">Wandermundo</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/events">Events</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/community">Community</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="/chat">Chat</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item" *ngIf="!user">
-              <a class="nav-link" routerLink="/login">Login</a>
-            </li>
-            <li class="nav-item" *ngIf="!user">
-              <a class="nav-link" routerLink="/signup">Sign Up</a>
-            </li>
-            <li class="nav-item" *ngIf="user">
-              <a class="nav-link" (click)="signOut()">Sign Out</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  `
+  imports: [RouterLink, CommonModule, RouterModule],
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  user: any;
+  // user: User | null = null;
+  unreadMessages: number = 0;
+  private userSubscription!: Subscription;
+  private unreadMessagesSubscription!: Subscription;
 
-  constructor(private supabaseService: SupabaseService) {
-    this.supabaseService.getUser().then(({ data }) => {
-      this.user = data.user;
+  isMenuOpen = false;
+  isHeaderScrolled = false;
+
+  user$ = this.authService.user$;
+
+  
+
+  constructor(public authService: AuthService, private router: Router) {}
+
+  ngOnInit() {
+
+
+    this.unreadMessagesSubscription = this.authService.unreadMessages$.subscribe(count => {
+      this.unreadMessages = count;
+      console.log('unreadMessages', this.unreadMessages);
     });
+  }
+
+  ngOnDestroy() {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
+    if (this.unreadMessagesSubscription) {
+      this.unreadMessagesSubscription.unsubscribe();
+    }
   }
 
   signOut() {
-    this.supabaseService.signOut().then(() => {
-      this.user = null;
-    });
+    this.authService.signOut();
   }
+
+  goToChat() {
+    this.authService.resetUnreadMessages();
+    this.router.navigate(['/chat']);
+  }
+
+  
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    this.isHeaderScrolled = window.pageYOffset > 50;
+  }
+  
 }

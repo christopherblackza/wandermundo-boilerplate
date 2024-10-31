@@ -1,0 +1,164 @@
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+  
+    &.scrolled {
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+      .logo {
+        color: #333;
+      }
+
+      .nav-link {
+        color: #333;
+      }
+
+    }
+
+
+  }
+  
+.no-events-found {
+  color: white;
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+  nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  
+    span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #333;
+      margin-bottom: 5px;
+      transition: all 0.3s ease;
+    }
+  }
+
+.hero-section {
+
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+  
+    h1 {
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+  
+    .lead {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+  
+    .search-bar {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+  
+      input {
+        flex-grow: 1;
+        margin-right: 10px;
+      }
+    }
+  }
+  
+  .section-title {
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+    color: white;
+  }
+
+
+  // Event Cards
+  .event-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  
+    &:hover {
+      transform: translateY(-2px) scale(1.01); /* Adjust this to avoid conflict */
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+  
+    .event-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+  
+    .event-details {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+  
+      h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #333;
+      }
+  
+      p {
+        margin-bottom: 5px;
+        color: #6c757d;
+      }
+  
+      .event-description {
+        flex-grow: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        line-clamp: 3;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+  
+      .event-meta {
+        margin-top: auto;
+      }
+    }
+  }
+  
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+  }

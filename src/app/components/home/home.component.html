@@ -1,0 +1,54 @@
+
+
+<div class="hero-section">
+  <div class="container">
+    <h1 class="display-3 mb-4">Discover Extraordinary Events</h1>
+    <p class="lead mb-5">
+      Explore a world of experiences tailored just for you
+    </p>
+    <div class="search-bar">
+      <div class="input-group input-group-lg">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Search events by title, description, or location"
+          class="form-control form-control-lg" aria-label="Search events" aria-describedby="search-button" />
+        <div class="input-group-append">
+          <button (click)="searchEvents()" class="btn btn-primary btn-lg" id="search-button">
+            <i class="fas fa-search mr-2"></i> Find
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <h2 class="section-title">
+    {{ isSearchPerformed ? "Search Results" : "Upcoming Events" }}
+  </h2>
+  <div *ngIf="(isSearchPerformed ? searchResults : upcomingEvents).length === 0" class="text-center">
+    <p class="no-events-found">
+      No events found. Try a different search or check back later!
+    </p>
+  </div>
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="
+        let event of isSearchPerformed ? searchResults : upcomingEvents;
+        let i = index
+      ">
+      <div class="event-card animate-fade-in-up" [style.animation-delay]="i * 0.1 + 's'"
+        (click)="navigateToEventDetail(event)">
+        <img [src]="event.image_url || 'assets/images/default-event.jpg'" [alt]="event.title" class="event-image" />
+        <div class="event-details">
+          <h3>{{ event.name }}</h3>
+          <p class="event-description">{{ event.description }}</p>
+          <div class="event-meta">
+            <p>
+              <i class="far fa-calendar-alt"></i>
+              {{ event.date | date : "mediumDate" }} at {{ event.time }}
+            </p>
+            <p><i class="fas fa-map-marker-alt"></i> {{ event.location }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<app-navbar></app-navbar>
+<div class="create-event-container">
+  <div class="create-event-form-wrapper animate__animated animate__fadeIn">
+    <h2 class="create-event-title">Create a New Event</h2>
+
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="event-form">
+      <div class="p-field">
+        <label for="name">Event Name</label>
+        <input id="name" type="text" pInputText formControlName="name" required>
+      </div>
+
+      <div class="p-field">
+        <label for="description">Description</label>
+        <textarea id="description" pInputTextarea formControlName="description" rows="4" required></textarea>
+      </div>
+
+      <div class="p-field">
+        <label for="date">Date</label>
+        <p-calendar id="date" formControlName="date"[readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+      </div>
+
+      <div class="p-field">
+        <label for="time">Time</label>
+        <p-calendar id="time" formControlName="time" [timeOnly]="true" required></p-calendar>
+      </div>
+
+      <div class="p-field">
+        <label for="location">Location (South Africa)</label>
+        <input id="location" type="text" pInputText formControlName="location" required #locationInput placeholder="Enter a location in South Africa">
+      </div>
+
+      <div class="p-field">
+        <label for="maxParticipants">Max Participants</label>
+        <p-inputNumber id="maxParticipants" formControlName="maxParticipants" [min]="1" required></p-inputNumber>
+      </div>
+
+      <div class="p-field">
+        <label for="fileInput">Upload Image</label>
+        <input type="file" (change)="onFileChange($event)" accept="image/*">
+        <!-- <p-fileUpload #fileUpload mode="basic" chooseLabel="Choose" name="fileInput" accept="image/*" [auto]="true" [maxFileSize]="1000000" (onSelect)="onFileChange($event)"></p-fileUpload> -->
+      </div>
+
+      <p-dialog header="Crop Image" [(visible)]="showCropper" [modal]="true" [style]="{width: '50vw'}" >
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="4 / 3"
+          format="png"
+          (imageCropped)="imageCropped($event)"
+          (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+        <ng-template pTemplate="footer">
+          <p-button (click)="showCropper=false" label="Done"></p-button>
+        </ng-template>
+      </p-dialog>
+
+
+      <div *ngIf="croppedImage" class="cropped-image-preview">
+        <img [src]="croppedImage" alt="Cropped image preview">
+      </div>
+
+      <p-button type="submit" label="Create Event" [disabled]="!eventForm.valid || !selectedFile"></p-button>
+    </form>
+  </div>
+</div>

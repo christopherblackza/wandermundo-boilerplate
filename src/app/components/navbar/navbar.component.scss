@@ -1,0 +1,143 @@
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+  
+    &.scrolled {
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  
+      .logo, .nav-link {
+        color: #333;
+      }
+    }
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .left-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  
+  .nav-links, .auth-links {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-item {
+    margin-left: 20px;
+  }
+  
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    padding-right: 1rem !important; // Space for the badge
+  
+  }
+  
+  .badge {
+    font-size: 0.75rem;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+  
+    span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #333;
+      margin-bottom: 5px;
+      transition: all 0.3s ease;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    header {
+      flex-wrap: wrap;
+    }
+
+      
+  .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  
+    .left-section {
+      flex: 1;
+      justify-content: space-between;
+    }
+  
+    .right-section {
+      flex: 0 0 100%;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+  
+    .nav-links {
+      display: none;
+    }
+  
+    .hamburger {
+      display: flex;
+    }
+
+    .logo, .nav-link {
+      color: #333;
+    }
+  
+    .auth-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 20px;
+  
+      &.active {
+        display: flex;
+      }
+    }
+  
+    .auth-links .nav-item {
+      margin: 10px 0;
+    }
+  }

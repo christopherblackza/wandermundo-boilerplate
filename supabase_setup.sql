@@ -74,3 +74,16 @@ INSERT INTO public.whatsapp_groups (name, description, link) VALUES
 ('Digital Nomads Global', 'Connect with digital nomads worldwide', 'https://chat.whatsapp.com/example1'),
 ('Remote Work Enthusiasts', 'Share tips and tricks for remote work', 'https://chat.whatsapp.com/example2'),
 ('Travel Hackers Unite', 'Exchange travel hacks and destination ideas', 'https://chat.whatsapp.com/example3');
+
+
+-- Modify the messages table to include user_email
+ALTER TABLE public.messages ADD COLUMN user_email TEXT NOT NULL;
+
+-- Update the RLS policy for inserting messages
+DROP POLICY IF EXISTS "Authenticated users can insert messages" ON public.messages;
+CREATE POLICY "Authenticated users can insert messages" ON public.messages
+  FOR INSERT WITH CHECK (auth.uid() = user_id AND auth.email() = user_email);
+
+  UPDATE auth.users
+SET email_confirmed_at = NOW()
+WHERE email = 'test@gmail.com';

@@ -1,0 +1,130 @@
+
+
+.overlay {
+
+  border-radius: 10px;
+  color: #fff;
+  margin-top: 100px;
+
+}
+
+.heading {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  background-color: rgba(134, 125, 125, 0.8);
+  text-align: center;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.member-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  margin: 0 1%;
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  color: #333;
+  width: 200px; // Fixed width for each card
+  height: 250px;
+
+  .name {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+  }
+
+  .occupation {
+    font-size: 14px;
+    color: #777;
+    color: white;
+  }
+
+  .avatar {
+    width: 140px; // Fixed size for avatar
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+
+}
+
+.avatar {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.occupation {
+  font-size: 14px;
+  color: #777;
+  margin-top: 5px;
+}
+
+.cta-container {
+  position: relative;
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center; 
+}
+
+.overlay:hover .cta-container {
+  opacity: 1;
+}
+
+.cta-button {
+  background-color: #ff5722;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button:hover {
+  background-color: #e64a19;
+}
+
+
+
+.carousel-container {
+
+  margin: 0 auto;
+  padding: 10px;
+  max-width: 1200px; // Add max-width to contain carousel
+
+  
+}
+
+::ng-deep .p-carousel {
+  .p-carousel-container {
+    padding: 0;
+  }
+
+  .p-carousel-items-container {
+    margin: 0;
+  }
+
+  .p-carousel-item {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+  }
+}

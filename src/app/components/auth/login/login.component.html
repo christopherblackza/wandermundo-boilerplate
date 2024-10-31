@@ -1,0 +1,28 @@
+<div class="login-container">
+  <a routerLink="/" class="logo-link">
+    <img src="assets/images/logo.png" alt="WanderMundo Logo" class="logo">
+  </a>
+  <div class="login-form-wrapper animate__animated animate__fadeIn">
+    <h2 class="login-title">Welcome Back to WanderMundo</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-input" id="email" formControlName="email" required>
+        <div *ngIf="f['email'].touched && f['email'].invalid" class="error-message">
+          <div *ngIf="f['email'].errors?.['required']">Email is required.</div>
+          <div *ngIf="f['email'].errors?.['email']">Please enter a valid email address.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-input" id="password" formControlName="password" required>
+        <div *ngIf="f['password'].touched && f['password'].invalid" class="error-message">
+          <div *ngIf="f['password'].errors?.['required']">Password is required.</div>
+          <div *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters long.</div>
+        </div>
+      </div>
+      <button type="submit" class="login-button" [disabled]="loginForm.invalid">Log In</button>
+    </form>
+    <p class="signup-link">Don't have an account? <a routerLink="/signup">Sign up here</a></p>
+  </div>
+</div>

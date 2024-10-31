@@ -1,0 +1,117 @@
+<app-navbar></app-navbar>
+<div class="landing-container">
+    <!-- <header [class.scrolled]="isHeaderScrolled">
+        <h1 class="logo">WanderMundo</h1>
+        <nav>
+          <div class="hamburger" (click)="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <ul [class.active]="isMenuOpen">
+            <li><a href="#how-it-works" class="nav-link">How it works</a></li>
+            <li><a href="#our-story" class="nav-link">Our story</a></li>
+            <li><a routerLink="/signup" class="cta-button">Apply now</a></li>
+          </ul>
+        </nav>
+      </header> -->
+  
+    <main>
+      <section id="hero">
+        <h2>Are you a digital nomad looking for events?</h2>
+        <p>Connect with fellow digital nomads, find events, and explore together!</p>
+        <button class="cta-button" (click)="scrollToSection('members')">Our Members</button>
+      </section>
+  
+      <section id="features">
+        <div class="feature" (mouseenter)="animateFeature($event)" (mouseleave)="resetFeature($event)">
+          <h3>Make new connections</h3>
+          <p>Connect with people in an easy and low-key way. Meet new friends, keep in touch, and expand your social circle.</p>
+        </div>
+        <div class="feature" (mouseenter)="animateFeature($event)" (mouseleave)="resetFeature($event)">
+          <h3>Get out there</h3>
+          <p>Join sports classes, outdoor activities, unique community events, and weekend trips – and have a good time.</p>
+        </div>
+        <div class="feature" (mouseenter)="animateFeature($event)" (mouseleave)="resetFeature($event)">
+          <h3>Feel like a local</h3>
+          <p>We share all the ins and outs, dos and don'ts, and best-kept secrets of your destination with you.</p>
+        </div>
+        <div class="feature" (mouseenter)="animateFeature($event)" (mouseleave)="resetFeature($event)">
+          <h3>Get involved and give back</h3>
+          <p>Our activities are hosted by local entrepreneurs. 10% of your monthly fee is donated to local charities.</p>
+        </div>
+        <div class="feature" (mouseenter)="animateFeature($event)" (mouseleave)="resetFeature($event)">
+          <h3>Stunning Events</h3>
+          <p>Discover and join exciting events from around the globe.</p>
+        </div>
+        <div class="feature" (mouseenter)="animateFeature($event)" (mouseleave)="resetFeature($event)">
+          <h3>Vibrant Community</h3>
+          <p>Connect with fellow travelers and share your experiences.</p>
+        </div>
+        <div class="feature" (mouseenter)="animateFeature($event)" (mouseleave)="resetFeature($event)">
+          <h3>Real-time Chat</h3>
+          <p>Stay in touch with your travel buddies through our integrated chat system.</p>
+        </div>
+        <div class="feature" (mouseenter)="animateFeature($event)" (mouseleave)="resetFeature($event)">
+          <h3>Personalized Recommendations</h3>
+          <p>Get tailored event and destination suggestions based on your preferences.</p>
+        </div>
+      </section>
+
+
+      <!-- <section id="tell-me-more">
+        <h2>Tell me more</h2>
+        <p>We're currently in the process of building our platform. Sign up to get updates and be the first to know when we launch!</p>
+        <button class="cta-button" routerLink="/signup">Sign up</button>
+      </section>
+   -->
+      <!-- <section id="testimonials">
+        <h2>What people say about us</h2>
+        <div class="testimonial-slider">
+          <div class="testimonial">
+            <p>"I've met the most amazing people and had unforgettable experiences thanks to WanderMundo."</p>
+            <p class="author">- Sarah T., Digital Nomad</p>
+          </div>
+        </div>
+      </section> -->
+      <section id="events">
+        <app-home></app-home>
+      </section>
+
+      <section id="members">
+        <app-members></app-members>
+      </section>
+
+
+  
+      <section id="cta">
+        <!-- <h2>Want a smooth landing in your next destination?</h2> -->
+        <button class="cta-button" routerLink="/signup">Join Us</button>
+      </section>
+    </main>
+  
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About us</h3>
+          <p>WanderMundo's mission is to connect travelers through our online platform and by organizing daily activities and exciting events around the world.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Pages</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#our-story">Our story</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact</h3>
+          <p>Email us: hello&#64;wandermundo.com</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 WanderMundo. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>

@@ -1,0 +1,78 @@
+<app-navbar></app-navbar>
+<div class="event-details">
+    <div class="event-header" [style.backgroundImage]="'url(' + (event.image_url || 'assets/images/default-event.jpg') + ')'">
+        <h1>{{ event.name }}</h1>
+    </div>
+    
+    <div class="event-summary">
+        <p>{{ event.description }}</p>
+    </div>
+    
+    <div class="event-info">
+        <h2>Date and time</h2>
+        <p>{{ event.date | date: 'mediumDate'}} at {{event.date | date: 'shortTime'}}</p>
+        
+        <h2>Location</h2>
+        <p>{{ event.location }}</p>
+        
+        <h2>About this event</h2>
+        <ul>
+            <li>Max Participants: {{ event.max_participants }}</li>
+        </ul>
+    </div>
+    
+    <div class="event-description">
+        <h2>Hosted By: Warren Sager</h2>
+        <p><strong>Financial Forecasting and Planning: A Scaling Up Approach to Securing Your Business's Future</strong> - Master the art of financial forecasting and planning to ensure your business's future is secure, with a focus on creating a cash flow-positive environment.</p>
+        
+        <h3>About Coach Warren Sager</h3>
+        <p>Warren has over 25 years of entrepreneurial business experience having started, scaled, and exited 6 different companies in a multitude of industries. He built one of these businesses into one of the premier e-commerce websites in the knife category. Warren's top skill is in operational efficiency where he places an emphasis on planning, leadership development, and team alignment.</p>
+        
+        <h3>Who Should Attend:</h3>
+        <p>Business Leaders (C-Suite Executives, Owners, Senior Leadership Teams, Entrepreneurs, etc.) whose companies produce 1+ million in annual revenue.</p>
+        
+        <p>www.assuredstrategy.com</p>
+        
+        <p>By registering for this webinar, you consent to the event being recorded for Assured Strategy's purposes (your name and face will not be included if/when the recording is shared).</p>
+        
+        <h3>SHRM Certification</h3>
+        <p>Assured Strategy is a SHRM (Society for Human Resource Management) Certified Organization. If you require a SHRM Certification for the completion of this event, one will be provided upon request.</p>
+        
+        <h3>CPE Credited</h3>
+    </div>
+    
+    <div class="event-tags">
+        <h2>Tags</h2>
+        <ul>
+            <li>Online Events</li>
+            <li>Things To Do Online</li>
+            <li>Online Classes</li>
+            <li>Online Business Classes</li>
+            <li>#entrepreneur</li>
+            <li>#cashflow</li>
+            <li>#business_owner</li>
+            <li>#business_growth</li>
+            <li>#financial_freedom</li>
+            <li>#executive_leadership</li>
+            <li>#business_strategy</li>
+            <li>#executive_coaching</li>
+            <li>#growth_strategy</li>
+            <li>#cashflow_management</li>
+        </ul>
+    </div>
+    
+    <div class="event-organizer">
+        <img src="https://images.unsplash.com/photo-1729427851584-0b7df5748883?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Organizer" class="organizer-image">
+        <div>
+            <h2>Organized by</h2>
+            <p>Assured Strategy</p>
+            <button>Contact</button>
+            <button>Follow</button>
+        </div>
+    </div>
+    
+    <div class="event-actions">
+        <button class="primary-button">Get tickets</button>
+        <a href="#">Report this event</a>
+    </div>
+</div>
