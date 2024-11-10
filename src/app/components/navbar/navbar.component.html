@@ -30,9 +30,12 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/about-us" routerLinkActive="active">About Us</a>
           </li>
+          <li class="nav-item" *ngIf="authService.user$ | async as user">
+            <a class="nav-link" style="cursor: pointer;" (click)="signOut()" routerLinkActive="active">Sign Out</a>
+          </li>
         </ul>
 
-        <ul class="auth-links">
+        <ul class="auth-links" *ngIf="!(authService.user$ | async)">
           <li class="nav-item">
             <a routerLink="/signup" class="nav-link">Join us</a>
           </li>
@@ -63,8 +66,11 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/about-us" routerLinkActive="active">About Us</a>
         </li>
+        <li class="nav-item" *ngIf="authService.user$ | async as user">
+          <a class="nav-link" style="cursor: pointer;" (click)="signOut()" routerLinkActive="active">Sign Out</a>
+        </li>
       </ul>
-      <ul class="auth-links">
+      <ul class="auth-links" *ngIf="!(authService.user$ | async)">
         <li class="nav-item">
           <a routerLink="/signup" class="nav-link" (click)="toggleMenu()">Apply now</a>
         </li>

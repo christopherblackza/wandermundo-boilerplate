@@ -13,6 +13,7 @@
   .hero-section {
     text-align: center;
     padding: 6rem 0;
+    
   
     h1 {
       font-size: 3.5rem;
@@ -27,6 +28,11 @@
       max-width: 800px;
       margin-left: auto;
       margin-right: auto;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      padding: 0 20px;
+      backdrop-filter: blur(3px); // Moved here to only affect paragraphs
+      background-color: rgba(0, 0, 0, 0.3); // Added subtle background for better text readability
+      border-radius: 8px; // Optional: rounds the corners of the paragraph blocks
     }
   
     p:first-of-type {

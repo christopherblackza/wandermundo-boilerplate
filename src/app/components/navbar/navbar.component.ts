@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   // user: User | null = null;
   unreadMessages: number = 0;
   private userSubscription!: Subscription;
@@ -28,7 +28,7 @@ export class NavbarComponent {
   constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-
+    window.addEventListener('scroll', this.onScroll.bind(this));
 
     this.unreadMessagesSubscription = this.authService.unreadMessages$.subscribe(count => {
       this.unreadMessages = count;
@@ -55,23 +55,14 @@ export class NavbarComponent {
   }
 
   
-
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    this.isHeaderScrolled = window.pageYOffset > 50;
-  }
-
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  // Optional: Close menu when clicking outside
-  @HostListener('window:click', ['$event'])
-  onClick(event: Event) {
-    const target = event.target as HTMLElement;
-    if (!target.closest('.hamburger') && !target.closest('.mobile-menu')) {
-      this.isMenuOpen = false;
-    }
+  private onScroll(): void {
+    console.log('onScroll');
+    this.isHeaderScrolled = window.scrollY > 50; // Change header after 50px of scrolling
   }
+
   
 }
