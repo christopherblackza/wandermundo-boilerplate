@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { createClient, RealtimeChannel, SupabaseClient } from '@supabase/supabase-js';
-import { BehaviorSubject } from 'rxjs';
+import { createClient, RealtimeChannel, SupabaseClient, User } from '@supabase/supabase-js';
+import { BehaviorSubject, catchError, from, map, Observable, switchMap, tap, throwError } from 'rxjs';
+
 import { environment } from '../../environments/environment';
+import { MyEvent } from '../models/event.model';
 
 export interface Profile {
   id: string;
@@ -19,6 +21,8 @@ export interface Profile {
   providedIn: 'root'
 })
 export class AuthService {
+
+  private bucketName = 'event-images';
 
   private supabase: SupabaseClient;
   private userSubject = new BehaviorSubject<any>(null);
@@ -71,6 +75,60 @@ export class AuthService {
 
   getUser() {
     return this.userSubject.value;
+  }
+
+  getCurrentUser(): Observable<User | null> {
+    return this.userSubject.asObservable();
+  }
+
+  createEvent(event: MyEvent, file: Blob): Observable<MyEvent> {
+
+    console.log('Creating event:', event);
+
+    return this.getCurrentUser().pipe(
+      switchMap(user => {
+        if (!user) {
+          throw new Error('User must be authenticated to create an event');
+        }
+        return from(this.uploadImage(file, user.id));
+      }),
+      switchMap(imageUrl => {
+        event.image_url = imageUrl;
+        return from(this.supabase.from('events').insert(event).single());
+      }),
+      map(({ data, error }) => {
+        if (error) {
+          throw new Error(`Failed to create event: ${error.message}`);
+        }
+        return data as MyEvent;
+      }),
+      tap(createdEvent => console.log('Created event:', createdEvent)),
+      catchError((error: any) => {
+        console.error('Error in createEvent:', error);
+        return throwError(() => new Error(`Failed to create event: ${error.message}`));
+      })
+    );
+  }
+
+  private async uploadImage(file: Blob, userId: string): Promise<string> {
+    const filePath = `events/${userId}/${Date.now()}`;
+    const { data, error } = await this.supabase.storage
+      .from(this.bucketName)
+      .upload(filePath, file, {
+        cacheControl: '3600',
+        upsert: false
+      });
+
+    if (error) {
+      console.error('Upload error:', error);
+      throw new Error(`Failed to upload image: ${error.message}`);
+    }
+
+    const { data: urlData } = this.supabase.storage
+      .from(this.bucketName)
+      .getPublicUrl(filePath);
+
+    return urlData.publicUrl;
   }
 
   async signIn(email: string, password: string) {
@@ -143,6 +201,7 @@ export class AuthService {
   getCurrentProfile(): Profile | null {
     return this.profileSubject.value;
   }
+  
 
   private isViewingChat = false;
   setViewingChat(isViewing: boolean) {

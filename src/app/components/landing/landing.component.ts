@@ -1,14 +1,15 @@
-import { Component, HostListener, OnInit } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { RouterLink, RouterModule } from "@angular/router";
-import { MembersComponent } from "../members/members.component";
-import { NavbarComponent } from "../navbar/navbar.component";
-import { HomeComponent } from "../home/home.component";
+import { CommonModule } from '@angular/common';
+import { Component, HostListener, OnInit } from '@angular/core';
+
+import { ComingSoonComponent } from '../coming-soon/coming-soon.component';
+import { HomeComponent } from '../home/home.component';
+import { MembersComponent } from '../members/members.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: "app-landing",
   standalone: true,
-  imports: [CommonModule, RouterModule, MembersComponent, RouterLink, NavbarComponent, HomeComponent],
+  imports: [CommonModule, MembersComponent, HomeComponent, NavbarComponent, ComingSoonComponent],
   templateUrl: "./landing.component.html",
   styleUrls: ["./landing.component.scss"],
 })

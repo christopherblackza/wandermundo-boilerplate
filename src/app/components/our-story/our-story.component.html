@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+<div class="our-story">
+    <section class="hero" @fadeIn>
+      <div class="container">
+        <h1>Connecting Digital Nomads Worldwide</h1>
+        <p>
+          Wandermundo is building bridges in the remote work revolution, connecting solo travelers, digital nomads, and expats to forge real-life connections wherever they go.</p>
+      </div>
+    </section>
+  
+    <section class="mission" @staggerFade>
+      <div class="container">
+        <div class="animate-item">
+          <h2>Our Mission</h2>
+          <p>WanderMundo is revolutionizing how digital nomads connect, work, and thrive in a borderless world. We're creating a global ecosystem where location-independent professionals can find their community, no matter where they are.</p>
+        </div>
+      </div>
+    </section>
+  
+    <section class="stats-section" @staggerFade>
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card animate-item" *ngFor="let stat of stats">
+            <h3>{{stat.number}}</h3>
+            <p>{{stat.label}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="vision-section" @staggerFade>
+      <div class="container">
+        <div class="vision-grid">
+          <div class="vision-content animate-item">
+            <h2>Our Vision</h2>
+            <p>We envision a world where geographical boundaries don't limit professional growth or personal connections. A world where digital nomads can easily find their tribe, share experiences, and create lasting relationships.</p>
+          </div>
+          <div class="vision-image animate-item">
+            <!-- <img src="assets/vision-image.jpg" alt="Digital nomads collaborating"> -->
+            <img src="https://media.istockphoto.com/id/1383796215/photo/silhouette-of-man-holding-binoculars-on-mountain-peak-against-bright-sunlight-sky-background.jpg?s=612x612&w=0&k=20&c=Y1bdRKzRcs6DVSPjqAn3fVQIdkrA-s1-uWHvnFviCOQ=" alt="Digital nomads collaborating">
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="values-section" @staggerFade>
+      <div class="container">
+        <h2 class="heading">Our Values</h2>
+        <div class="values-grid">
+          <div class="value-card animate-item">
+            <i class="fas fa-globe"></i>
+            <h3>Community First</h3>
+            <p>We believe in the power of meaningful connections and shared experiences.</p>
+          </div>
+          <div class="value-card animate-item">
+            <i class="fas fa-laptop"></i>
+            <h3>Digital Freedom</h3>
+            <p>Supporting location independence and professional growth.</p>
+          </div>
+          <div class="value-card animate-item">
+            <i class="fas fa-handshake"></i>
+            <h3>Authentic Connections</h3>
+            <p>Fostering genuine relationships in the digital age.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>

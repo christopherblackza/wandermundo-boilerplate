@@ -1,0 +1,28 @@
+<app-navbar></app-navbar>
+
+<div class="blog-page">
+  <header class="blog-header">
+    <div class="container">
+      <h1>Blog</h1>
+      <p>Stories, tips & guides for digital nomads</p>
+    </div>
+  </header>
+
+  <section class="featured-posts">
+    <div class="container">
+      <div class="posts-grid">
+        <article *ngFor="let post of blogPosts" class="blog-card">
+          <div class="blog-image">
+            <img [src]="post.image" [alt]="post.title">
+          </div>
+          <div class="blog-content">
+            <span class="category">{{post.category}}</span>
+            <h2>{{post.title}}</h2>
+            <p>{{post.excerpt}}</p>
+            <a [routerLink]="['/blog', post.id]" class="read-more">Read more</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</div>

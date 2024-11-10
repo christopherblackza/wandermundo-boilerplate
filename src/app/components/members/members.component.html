@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
   <div class="overlay">
-    <h1 class="heading">Life is meant for good friends, serious fun, and great adventures</h1>
+    <h1 class="heading">Our members</h1>
     <p-carousel 
       [value]="users" 
       [numVisible]="5"
@@ -10,13 +10,13 @@
       class="carousel-container">
       <ng-template pTemplate="item" let-user>
         <div class="member-card">
-          <img [src]="user.avatar_url" class="avatar">
+          <img [src]="user.avatar_url || 'assets/images/no-profile-photo.png'" class="avatar">
           <p class="name">{{ user.full_name }}</p>
           <p class="occupation">{{ user.occupation }}</p>
         </div>
       </ng-template>
     </p-carousel>
-    <div class="cta-container">
+    <div class="cta-container" *ngIf="!(authService.user$ | async)">
       <button class="cta-button" routerLink="/signup">Join Our Community</button>
     </div>
   </div>

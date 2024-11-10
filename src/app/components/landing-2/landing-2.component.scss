@@ -1,0 +1,210 @@
+:host {
+    display: block;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  section {
+    padding: 80px 0;
+    width: 100%;
+    background-color: #fff;
+  }
+  
+  h1, h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .placeholder-image {
+    background-color: #f0f0f0;
+    width: 100%;
+    aspect-ratio: 16/9;
+    margin: 2rem 0;
+    border-radius: 8px;
+  }
+  
+  .center-image {
+    max-width: 500px;
+    margin: 2rem auto;
+  }
+  
+  .cta-button {
+    background-color: #000;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: block;
+    margin: 2rem auto;
+    
+    &:hover {
+      background-color: #333;
+    }
+  }
+  
+  // Features Section
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+  
+  .feature-item {
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .icon-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+  }
+  
+  // Testimonials Section
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  
+  .testimonial-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    
+    .rating {
+      color: #ffd700;
+      margin-bottom: 1rem;
+    }
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+      
+      .avatar {
+        width: 40px;
+        height: 40px;
+        background: #f0f0f0;
+        border-radius: 50%;
+        margin-right: 1rem;
+      }
+    }
+  }
+  
+  // Team Section
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  
+  .team-member {
+    text-align: center;
+    
+    .member-image {
+      width: 150px;
+      height: 150px;
+      background: #f0f0f0;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+    }
+    
+    .social-links {
+      margin-top: 1rem;
+      span {
+        margin: 0 5px;
+        color: #666;
+      }
+    }
+  }
+  
+  // FAQ Section
+  .faq-list {
+    max-width: 800px;
+    margin: 3rem auto;
+    
+    details {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 4px;
+      background: #f8f8f8;
+      
+      summary {
+        cursor: pointer;
+        font-weight: bold;
+      }
+      
+      p {
+        margin-top: 1rem;
+        padding-left: 1rem;
+      }
+    }
+  }
+  
+  .more-questions {
+    text-align: center;
+    margin-top: 3rem;
+  }
+  
+  // Connect Section
+  .connect-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  
+  .connect-item {
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  // Responsive Design
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+    }
+    
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    section {
+      padding: 40px 0;
+    }
+    
+    .container {
+      padding: 0 15px;
+    }
+  }

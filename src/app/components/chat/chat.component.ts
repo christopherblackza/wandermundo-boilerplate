@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SupabaseService } from '../../services/supabase.service';
-import { Subject, Subscription, take, takeUntil } from 'rxjs';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { User } from '@supabase/supabase-js';
+import { Subject, Subscription, takeUntil } from 'rxjs';
+
 import { AuthService, Profile } from '../../services/auth.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-chat',
@@ -14,7 +14,7 @@ import { AuthService, Profile } from '../../services/auth.service';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('chatMessages') private chatMessagesContainer!: ElementRef;
 
   messages: any[] = [];
@@ -85,7 +85,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.unsubscribe$.complete();
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewInit() {
     this.scrollToBottom();
   }
 

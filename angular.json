@@ -5,7 +5,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "demo": {
+    "wandermundo": {
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
@@ -32,11 +32,11 @@
             ],
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "outputPath": "dist/demo",
+            "outputPath": "dist",
             "polyfills": ["zone.js"],
             "scripts": [],
             "styles": [
-              "src/global_styles.css",
+              "src/global_styles.scss",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
@@ -49,10 +49,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "development": {
-              "buildTarget": "demo:build:development"
+              "buildTarget": "wandermundo:build:development"
             },
             "production": {
-              "buildTarget": "demo:build:production"
+              "buildTarget": "wandermundo:build:production"
             }
           },
           "defaultConfiguration": "development"

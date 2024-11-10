@@ -34,11 +34,22 @@
         <p-inputNumber id="maxParticipants" formControlName="maxParticipants" [min]="1" required></p-inputNumber>
       </div>
 
-      <div class="p-field">
+      <!-- <div class="p-field">
         <label for="fileInput">Upload Image</label>
         <input type="file" (change)="onFileChange($event)" accept="image/*">
-        <!-- <p-fileUpload #fileUpload mode="basic" chooseLabel="Choose" name="fileInput" accept="image/*" [auto]="true" [maxFileSize]="1000000" (onSelect)="onFileChange($event)"></p-fileUpload> -->
+     
+      </div> -->
+
+      <div class="p-field">
+        <label for="fileInput">Upload Image</label>
+        <input type="file" #fileInput (change)="onFileChange($event)" accept="image/*" style="display: none;">
+           <!-- <p-fileUpload #fileUpload mode="basic" chooseLabel="Choose" name="fileInput" accept="image/*" [auto]="true" [maxFileSize]="1000000" (onSelect)="onFileChange($event)"></p-fileUpload> -->
+        <p-button type="button" label="Choose Image" icon="pi pi-upload" (click)="fileInput.click()"></p-button>
+
+      
       </div>
+
+
 
       <p-dialog header="Crop Image" [(visible)]="showCropper" [modal]="true" [style]="{width: '50vw'}" >
         <image-cropper
@@ -55,11 +66,11 @@
       </p-dialog>
 
 
-      <div *ngIf="croppedImage" class="cropped-image-preview">
-        <img [src]="croppedImage" alt="Cropped image preview">
+      <div *ngIf="cropppedImagePreview" class="cropped-image-preview">
+        <img [src]="cropppedImagePreview" alt="Cropped image preview">
       </div>
 
-      <p-button type="submit" label="Create Event" [disabled]="!eventForm.valid || !selectedFile"></p-button>
+      <p-button type="submit" label="Create Event" [disabled]="!eventForm.valid || !croppedImageBlob"></p-button>
     </form>
   </div>
 </div>

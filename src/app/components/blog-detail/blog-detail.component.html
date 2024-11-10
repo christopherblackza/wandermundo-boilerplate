@@ -1,0 +1,103 @@
+<app-navbar></app-navbar>
+
+<div class="blog-detail" *ngIf="!isLoading && post; else loading">
+  <!-- Hero Section -->
+  <header class="blog-header" [style.backgroundImage]="'url(' + post.image + ')'">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="header-content">
+        <span class="category">{{post.category}}</span>
+        <h1>{{post.title}}</h1>
+        <div class="meta">
+          <div class="author">
+            <img [src]="post.authorImage" [alt]="post.author">
+            <span>{{post.author}}</span>
+          </div>
+          <div class="divider">•</div>
+          <div class="date">{{post.date | date:'mediumDate'}}</div>
+          <div class="divider">•</div>
+          <div class="read-time">{{post.readTime}} min read</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="content">
+    <div class="container">
+      <div class="content-grid">
+        <!-- Article Content -->
+        <article class="main-content">
+          <div [innerHTML]="post.content"></div>
+          
+          <!-- Tags -->
+          <div class="tags">
+            <span class="tag" *ngFor="let tag of post.tags">{{tag}}</span>
+          </div>
+
+          <!-- Author Bio -->
+          <div class="author-bio">
+            <img [src]="post.authorImage" [alt]="post.author">
+            <div class="bio-content">
+              <h3>{{post.author}}</h3>
+              <p>{{post.authorBio}}</p>
+            </div>
+          </div>
+
+          <!-- Share Section -->
+          <!-- <div class="share-section">
+            <h4>Share this article</h4>
+            <div class="share-buttons">
+              <button (click)="shareOnSocialMedia('twitter')" class="share-btn twitter">
+                <i class="fab fa-twitter"></i>
+              </button>
+              <button (click)="shareOnSocialMedia('facebook')" class="share-btn facebook">
+                <i class="fab fa-facebook-f"></i>
+              </button>
+              <button (click)="shareOnSocialMedia('linkedin')" class="share-btn linkedin">
+                <i class="fab fa-linkedin-in"></i>
+              </button>
+              <button (click)="copyLinkToClipboard()" class="share-btn copy">
+                <i class="fas fa-link"></i>
+              </button>
+            </div>
+          </div> -->
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <!-- Related Posts -->
+          <!-- <div class="related-posts">
+            <h3>Related Articles</h3>
+            <div class="related-post" *ngFor="let related of relatedPosts">
+              <img [src]="related.image" [alt]="related.title">
+              <div class="related-content">
+                <h4>{{related.title}}</h4>
+                <p>{{related.excerpt}}</p>
+                <a [routerLink]="['/blog', related.id]">Read More →</a>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- Newsletter Signup -->
+          <!-- <div class="newsletter">
+            <h3>Subscribe to our Newsletter</h3>
+            <p>Get the latest posts delivered right to your inbox.</p>
+            <form (ngSubmit)="subscribeToNewsletter(email.value)">
+              <input #email type="email" placeholder="Your email address" required>
+              <button type="submit">Subscribe</button>
+            </form>
+          </div> -->
+        </aside>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Loading Template -->
+<ng-template #loading>
+  <div class="loading-state" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading article...</p>
+  </div>
+</ng-template>

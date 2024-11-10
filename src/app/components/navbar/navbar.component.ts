@@ -1,10 +1,8 @@
-import { Component, HostListener } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { SupabaseService } from '../../services/supabase.service';
-import { Subscription, take } from 'rxjs';
-import { Router } from '@angular/router';
-import { User } from '@supabase/supabase-js';
+import { Component, HostListener } from '@angular/core';
+import { Router, RouterLink, RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -57,13 +55,23 @@ export class NavbarComponent {
   }
 
   
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     this.isHeaderScrolled = window.pageYOffset > 50;
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  // Optional: Close menu when clicking outside
+  @HostListener('window:click', ['$event'])
+  onClick(event: Event) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.hamburger') && !target.closest('.mobile-menu')) {
+      this.isMenuOpen = false;
+    }
   }
   
 }

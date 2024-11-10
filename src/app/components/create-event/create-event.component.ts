@@ -1,23 +1,24 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SupabaseService } from '../../services/supabase.service';
-import { switchMap, take } from 'rxjs';
-import { MyEvent } from '../../models/event.model';
 import { Router } from '@angular/router';
+import { User } from '@supabase/supabase-js';
+import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { DialogModule } from 'primeng/dialog';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { Subject, takeUntil } from 'rxjs';
+
+import { MyEvent } from '../../models/event.model';
+import { AuthService } from '../../services/auth.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 // PrimeNG imports
-import { InputTextModule } from 'primeng/inputtext';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { CalendarModule } from 'primeng/calendar';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
-
 @Component({
   selector: 'app-create-event',
   standalone: true,
@@ -38,20 +39,24 @@ import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
   templateUrl: './create-event.component.html',
   styleUrls: ['./create-event.component.scss']
 })
-export class CreateEventComponent implements OnInit {
+export class CreateEventComponent implements OnInit, OnDestroy {
   @ViewChild('locationInput') locationInput!: ElementRef;
   eventForm: FormGroup;
   selectedFile: File | null = null;
   imageChangedEvent: any = '';
-  croppedImage: any = '';
+  cropppedImagePreview: any;
+  croppedImageBlob!: Blob;
   showCropper = false;
+
+  user: User | null = null;
+  private unsubscribe$: Subject<void> = new Subject<void>();
   
 
   constructor(
+    private authService: AuthService,
     private toastr: ToastrService,
     private fb: FormBuilder,
     private router: Router,
-    private supabaseService: SupabaseService,
     private ngZone: NgZone
   ) {
     this.eventForm = this.fb.group({
@@ -64,7 +69,23 @@ export class CreateEventComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService.user$
+    .pipe(takeUntil(this.unsubscribe$))  // Automatically unsubscribe when destroyed
+    .subscribe(user => {
+      this.user = user;
+      console.log('user', user);
+      
+
+    });
+    
+  }
+
+  ngOnDestroy(): void {
+    // Trigger unsubscribe to clean up the subscription
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
   onFileChange(event: any): void {
     console.log(event);
@@ -73,7 +94,8 @@ export class CreateEventComponent implements OnInit {
   }
 
   imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = event.base64;
+    this.cropppedImagePreview = event.objectUrl;
+    this.croppedImageBlob = event.blob!;
   }
 
   loadImageFailed() {
@@ -81,46 +103,44 @@ export class CreateEventComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.eventForm.valid && this.croppedImage) {
-      this.supabaseService.getCurrentUser().pipe(
-        take(1),
-        switchMap(user => {
-          if (!user) {
-            throw new Error('You must be logged in to create an event');
-          }
-          const eventData: Partial<MyEvent> = {
-            name: this.eventForm.get('name')?.value,
-            description: this.eventForm.get('description')?.value,
-            date: this.combineDateAndTime(
-              this.eventForm.get('date')?.value,
-              this.eventForm.get('time')?.value
-            ),
-            location: this.eventForm.get('location')?.value,
-            max_participants: this.eventForm.get('maxParticipants')?.value,
-            created_by: user.id
-          };
-          return this.supabaseService.createEvent(eventData as MyEvent, this.croppedImage);
-        })
-      ).subscribe({
-        next: (createdEvent) => {
-          console.log('Event created successfully:', createdEvent);
+    if (this.eventForm.valid && this.croppedImageBlob) {
+ 
+
+
+      if (this.user) {
+        console.log('user', this.user);
+
+        const eventData: Partial<MyEvent> = {
+          name: this.eventForm.get('name')?.value,
+          description: this.eventForm.get('description')?.value,
+          date: this.combineDateAndTime(
+            this.eventForm.get('date')?.value,
+            this.eventForm.get('time')?.value
+          ),
+          time: this.eventForm.get('time')?.value,
+          location: this.eventForm.get('location')?.value,
+          max_participants: this.eventForm.get('maxParticipants')?.value,
+          created_by: this.user.id
+        };
+        console.log('eventData', eventData);
+        this.authService.createEvent(eventData as MyEvent, this.croppedImageBlob).subscribe(resp => {
+          console.log('resp', resp);
+
           this.toastr.success('Event created successfully');
           this.router.navigate(['/']);
-        },
-        error: (error) => {
-          console.error('Error creating event:', error);
-          this.toastr.error('Error creating event: ' + error.message);
-        }
-      });
+        });
+      }
+
     } else {
       this.toastr.error('Please fill all required fields and select an image');
     }
   }
 
-  combineDateAndTime(date: Date, time: string): Date {
-    const [hours, minutes] = time.split(':').map(Number);
+  combineDateAndTime(date: Date, time: Date): Date {
+    console.log('date', date);
+    console.log('time', time);
     const combinedDate = new Date(date);
-    combinedDate.setHours(hours, minutes);
+    combinedDate.setHours(time.getHours(), time.getMinutes());
     return combinedDate;
   }
 }

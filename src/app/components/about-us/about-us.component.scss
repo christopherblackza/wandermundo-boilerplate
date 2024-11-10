@@ -1,0 +1,186 @@
+:host {
+    display: block;
+  }
+  
+  .page-wrapper {
+    min-height: 100vh;
+    color: #ffffff;
+    padding: 2rem;
+    position: relative;
+  
+  }
+  
+  .hero-section {
+    text-align: center;
+    padding: 6rem 0;
+  
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+  
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    p:first-of-type {
+      font-weight: 600;
+    }
+  
+    p:last-of-type {
+      font-style: italic;
+    }
+  }
+  
+  .primary-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+  
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+  
+  .timeline-section {
+    max-width: 800px;
+    margin: 4rem auto;
+  }
+  
+  .timeline {
+    position: relative;
+    padding: 2rem 0;
+  
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 100%;
+      background: #007bff;
+    }
+  }
+  
+  .timeline-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+  
+    &:nth-child(odd) {
+      flex-direction: row-reverse;
+    }
+  
+    .timeline-content {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 8px;
+      width: 45%;
+      backdrop-filter: blur(10px);
+    }
+  
+    .year {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  .team-section {
+    text-align: center;
+    margin: 4rem 0;
+  }
+  
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .team-member {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+  
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #ccc;
+      margin: 0 auto 1rem;
+      background-size: cover;
+      background-position: center;
+    }
+  
+    .member-name {
+      margin-bottom: 0.5rem;
+    }
+  
+    .member-role {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+  
+  .awards-section {
+    text-align: center;
+    margin: 4rem 0;
+  }
+  
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .award-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+  
+    .award-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+  
+    .award-title {
+      margin-bottom: 0.5rem;
+    }
+  
+    .award-year {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .timeline::before {
+      left: 0;
+    }
+  
+    .timeline-item {
+      flex-direction: column !important;
+      
+      .timeline-content {
+        width: 100%;
+        margin-left: 2rem;
+      }
+    }
+  
+    .team-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }

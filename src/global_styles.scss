@@ -1,0 +1,52 @@
+// Variables
+$primary-color: #4a90e2;
+$primary-hover: #357abd;
+$gradient-start: #f5f7fa;
+$gradient-end: #c3cfe2;
+
+// Reset Styles
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+// Body Styles
+body {
+  background: linear-gradient(135deg, $gradient-start 0%, $gradient-end 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  color: #333;
+  min-height: 100vh;
+  position: relative;
+}
+
+// Container Styles
+.container {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+// Button Styles
+.btn-primary {
+  background-color: $primary-color;
+  border-color: $primary-color;
+
+  &:hover {
+    background-color: $primary-hover;
+    border-color: $primary-hover;
+  }
+}
+
+// Form Styles
+input.form-control {
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+  }
+}

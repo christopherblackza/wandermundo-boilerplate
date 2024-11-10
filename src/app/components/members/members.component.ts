@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { SupabaseService } from '../../services/supabase.service';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { CarouselModule } from 'primeng/carousel';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CarouselModule } from 'primeng/carousel';
+
+import { AuthService } from '../../services/auth.service';
+import { SupabaseService } from '../../services/supabase.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-members',
@@ -38,7 +40,10 @@ export class MembersComponent implements OnInit {
     }
   ];
 
-  constructor(private supabaseService: SupabaseService) {}
+  constructor(
+    public authService: AuthService,
+    private supabaseService: SupabaseService
+  ) {}
 
   ngOnInit() {
     this.loadUsers();
@@ -53,7 +58,7 @@ export class MembersComponent implements OnInit {
         this.users = data;
 
         // Duplicate the users array to create a new array with the same data times 10
-        this.users = [...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users];
+        // this.users = [...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users];
 
 
         console.log(this.users);

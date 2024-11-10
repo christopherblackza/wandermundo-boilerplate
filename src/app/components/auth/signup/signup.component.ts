@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { SupabaseService } from '../../../services/supabase.service';
-import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
-import { StepsModule } from 'primeng/steps';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { StepsModule } from 'primeng/steps';
+
 import { AuthService } from '../../../services/auth.service';
+import { SupabaseService } from '../../../services/supabase.service';
 
 @Component({
   selector: 'app-signup',
@@ -48,7 +49,9 @@ export class SignupComponent implements OnInit {
       country: ['', Validators.required],
       heard_from: ['', Validators.required],
       referred_by: [''],
-      comments: ['']
+      comments: [''],
+      occupation: [''],
+      website: ['']
     });
   }
 
@@ -109,12 +112,16 @@ export class SignupComponent implements OnInit {
           country: this.f['country'].value,
           heard_from: this.f['heard_from'].value,
           referred_by: this.f['referred_by'].value,
-          comments: this.f['comments'].value
+          comments: this.f['comments'].value,
+          occupation: this.f['occupation'].value,
+          website: this.f['website'].value
         }
       );
 
       if (error) throw error;
       this.toastr.success('Sign up successful! Please check your email for verification.', 'Success');
+
+      this.router.navigate(['/login']);
     } catch (error: any) {
       console.error('Error signing up:', error);
       this.toastr.error(error.message || 'An error occurred during sign up', 'Sign Up Failed');

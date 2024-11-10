@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { createClient, RealtimeChannel, Session, SupabaseClient, User } from '@supabase/supabase-js';
+import { BehaviorSubject, catchError, filter, from, map, Observable, switchMap, tap, throwError } from 'rxjs';
+
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable, filter, map, switchMap, throwError, from, tap, catchError } from 'rxjs';
 import { MyEvent } from '../models/event.model';
 import { UserProfile } from '../models/user.model';
 
@@ -142,7 +143,7 @@ export class SupabaseService {
   }
 
   
-  createEvent(event: MyEvent, file: File): Observable<MyEvent> {
+  createEvent(event: MyEvent, file: Blob): Observable<MyEvent> {
 
     console.log('Creating event:', event);
 
@@ -171,8 +172,8 @@ export class SupabaseService {
     );
   }
 
-  private async uploadImage(file: File, userId: string): Promise<string> {
-    const filePath = `${userId}/${Date.now()}_${file.name}`;
+  private async uploadImage(file: Blob, userId: string): Promise<string> {
+    const filePath = `events/${userId}/${Date.now()}`;
     const { data, error } = await this.supabase.storage
       .from(this.bucketName)
       .upload(filePath, file, {

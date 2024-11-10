@@ -1,25 +1,22 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  importProvidersFrom,
-} from "@angular/core";
-import { bootstrapApplication } from "@angular/platform-browser";
-import { provideRouter, RouterOutlet } from "@angular/router";
-import { routes } from "./app/app.routes";
-import { NavbarComponent } from "./app/components/navbar/navbar.component";
-import { SupabaseService } from "./app/services/supabase.service";
-import { Subscription, take } from "rxjs";
-import { ToastrModule } from "ngx-toastr";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
-import { AuthService } from "./app/services/auth.service";
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { Component, importProvidersFrom, OnDestroy, OnInit } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideRouter, RouterOutlet } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
+import { Subscription, take } from 'rxjs';
+
+import { routes } from './app/app.routes';
+import { FooterComponent } from './app/components/footer/footer.component';
+import { NavbarComponent } from './app/components/navbar/navbar.component';
+import { AuthService } from './app/services/auth.service';
+import { SupabaseService } from './app/services/supabase.service';
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent],
+  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
 })
