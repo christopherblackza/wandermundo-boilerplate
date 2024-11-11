@@ -94,13 +94,13 @@ export class SignupComponent implements OnInit {
     private router: Router
   ) {
     this.signupForm = this.formBuilder.group({
-      email: ['chris@gmail.com', [Validators.required, Validators.email]],
-      password: ['123456', [Validators.required, Validators.minLength(6)]],
-      full_name: ['Chris', Validators.required],
-      display_name: ['Chris', Validators.required],
-      about_nomad: ['I am a digital nomad', [Validators.required, Validators.maxLength(500)]],
-      country: ['ZA', Validators.required],
-      heard_from: ['LinkedIn', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      full_name: ['', Validators.required],
+      display_name: ['', Validators.required],
+      about_nomad: ['', [Validators.required, Validators.maxLength(500)]],
+      country: ['', Validators.required],
+      heard_from: ['', Validators.required],
       referred_by: [''],
       gender: ['', Validators.required],
       comments: [''],

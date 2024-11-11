@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -11,4 +11,12 @@ import { RouterLink } from '@angular/router';
 })
 export class FooterComponent {
 
+  constructor(private router: Router) {}
+
+  scrollTo(page: string) {
+    this.router.navigate([page]).then(() => {
+      window.scrollTo(0, 0); // Scroll to the top
+    });
+  
+  }
 }

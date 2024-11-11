@@ -3,32 +3,33 @@
   }
   
   .hero {
-    height: 100vh;
-  
-    display: flex;
-    align-items: center;
-    text-align: center;
     color: white;
+    text-align: center;
+    padding: 6rem 0;
 
     .container {
-
-      h1 {
+   
+      h2 {
         font-size: 4rem;
         margin-bottom: 1.5rem;
         font-weight: 700;
+
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        text-shadow: 2px 2px 6px rgba(0,0,0,0.7);  // Stronger shadow
+  
+        background: rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        border-radius: 10px;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
       }
        
       p {
         font-size: 2rem;
         opacity: 0.9;
       }
-    }
-  
-    h2 {
-      font-size: 4rem;
-      margin-bottom: 1.5rem;
-      font-weight: 700;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);  // Stronger shadow
     }
   
 
@@ -50,9 +51,19 @@
 
     @media (max-width: 768px) {
 
+      .container {
+        margin-top: 200px;
+      }
+      
       h2 {
-        font-size: 4em;
+        font-size: 2em;
         padding: 0 15px;
+
+        background: rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        border-radius: 10px;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
       }
 
       p {
@@ -109,6 +120,12 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 2rem;
       text-align: center;
+
+      p {
+        font-size: 1.5em;  // Increased from 1.2em
+        margin-bottom: 20px;
+        color: white;
+      }
     }
   
     .stat-card {

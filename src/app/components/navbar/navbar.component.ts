@@ -54,7 +54,10 @@ export class NavbarComponent implements OnInit {
   }
 
   
-  toggleMenu() {
+  toggleMenu(event?: MouseEvent) {
+    if (event) {
+      event.stopPropagation(); // Prevent the document click handler from firing
+    }
     this.isMenuOpen = !this.isMenuOpen;
   }
 
@@ -63,6 +66,21 @@ export class NavbarComponent implements OnInit {
     console.log('onWindowScroll')
     this.isHeaderScrolled = window.pageYOffset > 50;
     console.log('isHeaderScrolled', this.isHeaderScrolled);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    console.log('onDocumentClick')
+    // Get references to the menu and hamburger button
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const hamburgerButton = document.querySelector('.hamburger');
+    
+    // Check if click is outside both the menu and hamburger button
+    if (mobileMenu && hamburgerButton && 
+        !mobileMenu.contains(event.target as Node) && 
+        !hamburgerButton.contains(event.target as Node)) {
+      this.isMenuOpen = false;
+    }
   }
   
 }

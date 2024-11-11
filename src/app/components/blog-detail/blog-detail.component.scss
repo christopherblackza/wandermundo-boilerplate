@@ -11,8 +11,13 @@ $border-color: #e5e7eb;
   padding: 0 1.5rem;
 }
 
+.blog-detail {
+  padding-top: 80px;
+}
+
 // Header Styles
 .blog-header {
+
   position: relative;
   height: 80vh;
   min-height: 600px;
@@ -22,11 +27,7 @@ $border-color: #e5e7eb;
   display: flex;
   align-items: center;
 
-  .overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
-  }
+ 
 
   .header-content {
     position: relative;
@@ -42,6 +43,8 @@ $border-color: #e5e7eb;
       font-size: 0.875rem;
       text-transform: uppercase;
       letter-spacing: 1px;
+
+      
     }
 
     h1 {
@@ -49,6 +52,12 @@ $border-color: #e5e7eb;
       margin: 1.5rem 0;
       line-height: 1.2;
       font-weight: 700;
+
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
 
     .meta {
@@ -57,6 +66,12 @@ $border-color: #e5e7eb;
       justify-content: center;
       gap: 1rem;
       font-size: 1rem;
+
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
 
       .author {
         display: flex;
@@ -313,6 +328,7 @@ $border-color: #e5e7eb;
   }
 
   .blog-header {
+
     height: 60vh;
     
     .header-content h1 {

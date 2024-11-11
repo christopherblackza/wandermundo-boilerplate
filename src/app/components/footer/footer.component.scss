@@ -38,6 +38,7 @@ footer {
       li {
         margin-bottom: 10px;
 
+
         a {
           color: #ccc;
           text-decoration: none;
@@ -45,9 +46,12 @@ footer {
 
           &:hover {
             color: white;
+            cursor: pointer;
           }
         }
       }
+
+      
     }
   }
 

@@ -43,7 +43,7 @@
         </ul>
 
         <!-- Hamburger Button -->
-        <button class="hamburger" [class.active]="isMenuOpen" (click)="toggleMenu()">
+        <button class="hamburger" [class.active]="isMenuOpen" (click)="toggleMenu($event)">
           <span [ngStyle]="isHeaderScrolled ? { 'background-color': 'black' } : {}"></span>
           <span [ngStyle]="isHeaderScrolled ? { 'background-color': 'black' } : {}"></span>
           <span [ngStyle]="isHeaderScrolled ? { 'background-color': 'black' } : {}"></span>
