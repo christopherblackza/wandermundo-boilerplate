@@ -9,14 +9,13 @@ import { Subscription, take } from 'rxjs';
 
 import { routes } from './app/app.routes';
 import { FooterComponent } from './app/components/footer/footer.component';
-import { NavbarComponent } from './app/components/navbar/navbar.component';
 import { AuthService } from './app/services/auth.service';
 import { SupabaseService } from './app/services/supabase.service';
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [CommonModule, RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [CommonModule, RouterOutlet, FooterComponent],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
 })
@@ -24,18 +23,28 @@ export class App implements OnInit, OnDestroy {
   private userSubscription!: Subscription;
 
   loadingPercentage = 0;
+  private backgroundImage: HTMLImageElement;
 
   isLoaded = false;
 
   constructor(
     private authService: AuthService,
     private supabaseService: SupabaseService
-  ) {}
+  ) {
+    this.backgroundImage = new Image();
+  }
 
   ngOnInit() {
     // Simulate a longer loading time
-    this.startLoading();
-    
+    const imagePath = window.innerWidth > 768 
+    ? '/assets/images/background.jpg' 
+    : '/assets/images/background-mobile.jpg';
+  
+    this.backgroundImage.src = imagePath;
+    this.backgroundImage.onload = () => {
+      this.startLoading();
+    };
+      
 
     this.userSubscription = this.authService.user$.pipe(take(1)).subscribe((user) => {
       if (user) {
@@ -48,12 +57,12 @@ export class App implements OnInit, OnDestroy {
 
   startLoading() {
     const interval = setInterval(() => {
-      this.loadingPercentage += 10; // Increase by 2% every 60ms
+      this.loadingPercentage += 10;
       if (this.loadingPercentage >= 100) {
         clearInterval(interval);
         this.isLoaded = true;
       }
-    }, 60); // 60ms * 50 steps = 3000ms (3 seconds)
+    }, 60);
   }
 
   ngOnDestroy() {

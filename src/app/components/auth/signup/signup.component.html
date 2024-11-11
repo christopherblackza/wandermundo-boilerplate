@@ -4,7 +4,7 @@
   </a>
   <div class="signup-form-wrapper animate__animated animate__fadeIn">
     <h2 class="signup-title">Join WanderMundo</h2>
-    
+
     <p-steps [model]="steps" [activeIndex]="currentStep" [readonly]="true"></p-steps>
 
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
@@ -35,8 +35,50 @@
           <input type="text" pInputText id="full_name" formControlName="full_name" required>
         </div>
         <div class="form-group">
+          <label for="display_name">What's your public display name?</label>
+          <input type="text" pInputText id="display_name" formControlName="display_name" required>
+        </div>
+        <div class="form-group">
           <label for="whatsapp_number">What's your WhatsApp number?</label>
-          <input type="text" pInputText id="whatsapp_number" formControlName="whatsapp_number" required>
+          <div class="p-inputgroup phone-input-group">
+            <p-dropdown [options]="phoneCountryCodes" formControlName="phoneCountryCode" optionLabel="name"
+              [filter]="true" filterBy="name,dial_code" placeholder="Code" [style]="{'width':'150px'}"
+              styleClass="country-code-dropdown">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-code-item" *ngIf="f['phoneCountryCode'].value">
+                  <img [src]="'https://flagcdn.com/24x18/' + f['phoneCountryCode'].value.code.toLowerCase() + '.png'"
+                    [alt]="f['phoneCountryCode'].value.name" class="country-flag">
+                  <span>{{f['phoneCountryCode'].value.dial_code}}</span>
+                </div>
+              </ng-template>
+              <ng-template let-country pTemplate="item">
+                <div class="country-code-item">
+                  <img [src]="'https://flagcdn.com/24x18/' + country.code.toLowerCase() + '.png'" [alt]="country.name"
+                    class="country-flag">
+                  <span>{{country.name}} ({{country.dial_code}})</span>
+                </div>
+              </ng-template>
+            </p-dropdown>
+            <input type="tel" pInputText id="whatsapp_number" formControlName="whatsapp_number"
+              placeholder="Phone number" required>
+          </div>
+          <div *ngIf="f['whatsapp_number'].touched && f['whatsapp_number'].invalid" class="error-message">
+            <div *ngIf="f['whatsapp_number'].errors?.['required']">Phone number is required.</div>
+            <div *ngIf="f['whatsapp_number'].errors?.['pattern']">Please enter a valid phone number.</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="avatar_url">Gender</label>
+          <div class="gender-options">
+            <div *ngFor="let option of genderOptions" class="gender-option">
+              <p-radioButton [inputId]="'gender_' + option.value" [value]="option.value" formControlName="gender"
+                [label]="option.label">
+              </p-radioButton>
+            </div>
+          </div>
+          <div *ngIf="f['gender'].touched && f['gender'].invalid" class="error-message">
+            <div *ngIf="f['gender'].errors?.['required']">Please select your gender.</div>
+          </div>
         </div>
       </div>
 
@@ -44,11 +86,13 @@
       <div *ngIf="currentStep === 2">
         <div class="form-group">
           <label for="about_nomad">What makes you a Digital Nomad?</label>
-          <textarea pInputTextarea id="about_nomad" formControlName="about_nomad" rows="3"></textarea>
+          <textarea pInputTextarea id="about_nomad" formControlName="about_nomad" class="about_nomad"
+            rows="3"></textarea>
         </div>
         <div class="form-group">
           <label for="country">Which country are you from?</label>
-          <input type="text" pInputText id="country" formControlName="country" required>
+          <p-dropdown id="country" formControlName="country" [options]="countries" optionLabel="name" [filter]="true"
+            filterBy="name" placeholder="Select a country" [style]="{'width':'100%'}" required></p-dropdown>
         </div>
         <div class="form-group">
           <label for="occupation">Occupation?</label>
@@ -56,7 +100,7 @@
         </div>
         <div class="form-group">
           <label for="website">Website?</label>
-          <input type="text" pInputText id="website" formControlName="website" required>
+          <input type="text" pInputText id="website" formControlName="website">
         </div>
       </div>
 
@@ -78,23 +122,15 @@
 
       <!-- Navigation Buttons -->
       <div class="button-container">
-        <p-button *ngIf="currentStep > 0" 
-                  type="button" 
-                  label="Previous" 
-                  (onClick)="previousStep()"
-                  styleClass="p-button-secondary"></p-button>
-        
-        <p-button *ngIf="currentStep < 3" 
-                  styleClass="p-button-primary"
-                  type="button" 
-                  label="Next" 
-                  (onClick)="nextStep()"
-                  [disabled]="!isStepValid()"></p-button>
-        
-        <p-button *ngIf="currentStep === 3" 
-                  type="submit" 
-                  [label]="loading ? 'Creating Account...' : 'Start Your Journey'"
-                  [disabled]="signupForm.invalid || loading"></p-button>
+        <p-button *ngIf="currentStep > 0" type="button" label="Previous" (onClick)="previousStep()"
+          styleClass="p-button-secondary"></p-button>
+
+        <p-button *ngIf="currentStep < 3" styleClass="p-button-primary" type="button" label="Next"
+          (onClick)="nextStep()" [disabled]="!isStepValid()"></p-button>
+
+        <p-button *ngIf="currentStep === 3" type="submit"
+          [label]="loading ? 'Creating Account...' : 'Start Your Journey'"
+          [disabled]="signupForm.invalid || loading"></p-button>
       </div>
     </form>
 

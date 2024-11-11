@@ -2,6 +2,7 @@
   <div class="container">
     <div class="navbar-content">
       <div class="left-section">
+        <img src="assets/images/logo.png" style="width: 100px; height: 50px;" alt="WanderMundo Logo" class="logo" routerLink="/">
         <h1 class="logo" routerLink="/">WanderMundo</h1>
 
 
@@ -43,9 +44,9 @@
 
         <!-- Hamburger Button -->
         <button class="hamburger" [class.active]="isMenuOpen" (click)="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
+          <span [ngStyle]="isHeaderScrolled ? { 'background-color': 'black' } : {}"></span>
+          <span [ngStyle]="isHeaderScrolled ? { 'background-color': 'black' } : {}"></span>
+          <span [ngStyle]="isHeaderScrolled ? { 'background-color': 'black' } : {}"></span>
         </button>
       </div>
     </div>

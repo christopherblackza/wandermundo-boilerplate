@@ -306,6 +306,12 @@ $border-color: #e5e7eb;
 
 // Responsive Adjustments
 @media (max-width: 768px) {
+
+  img {
+   margin-left: auto;
+   margin-right: auto;
+  }
+
   .blog-header {
     height: 60vh;
     

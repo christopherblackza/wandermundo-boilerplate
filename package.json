@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve --port 4300",
     "build": "ng build",
-    "build:prod": "ng build --configuration production",  
+    "build:prod": "ng build --configuration production",
     "deploy": "sh deploy.sh"
   },
   "dependencies": {
@@ -18,6 +18,7 @@
     "@angular/router": "^18.1.0",
     "@supabase/supabase-js": "^2.39.3",
     "bootstrap": "^5.3.2",
+    "libphonenumber-js": "^1.11.14",
     "ngx-image-cropper": "^8.0.0",
     "ngx-toastr": "^19.0.0",
     "primeicons": "^7.0.0",

@@ -1,20 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SupabaseService } from '../../services/supabase.service';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { User } from '@supabase/supabase-js';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
-
-// PrimeNG imports
-import { InputTextModule } from 'primeng/inputtext';
+import { ToastrService } from 'ngx-toastr';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { DomSanitizer } from '@angular/platform-browser';
-import { AuthService } from '../../services/auth.service';
-import { Subject, take, takeUntil } from 'rxjs';
+import { InputTextModule } from 'primeng/inputtext';
+import { Subject, takeUntil } from 'rxjs';
 
+import { AuthService } from '../../services/auth.service';
+import { SupabaseService } from '../../services/supabase.service';
+import { NavbarComponent } from '../navbar/navbar.component';
+
+// PrimeNG imports
 @Component({
   selector: 'app-account',
   standalone: true,
@@ -51,7 +51,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   ) {
     this.profileForm = this.formBuilder.group({
       full_name: ['', Validators.required],
-      username: [''],
+      display_name: [''],
       website: [''],
       occupation: ['', Validators.required],
       whatsapp_number: [''],

@@ -337,6 +337,6 @@ export class SupabaseService {
   async getUsers() {
     return await this.supabase
       .from('profiles')
-      .select('id, full_name, avatar_url, occupation');
+      .select('id, display_name, avatar_url, occupation');
   }
 }

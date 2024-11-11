@@ -1,17 +1,31 @@
 
-.landing-container {
 
+:host {
+  display: block;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+
+.content-wrapper {
+  padding: 0; // Remove default padding
+  min-height: calc(100vh - 56px);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  width: 100%; // Ensure full width
+
+  @media (min-width: 769px) {
+    padding: 20px 20px 40px 20px; // Add padding back for desktop
+    background-image: url('/assets/images/background.jpg');
+    will-change: transform;
   }
   
-  .content-wrapper {
-    padding: 20px 20px 40px 20px;
-    min-height: 100vh;
-    background-image: url('/assets/images/background.jpg'); // Make sure to add this image to your assets
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: calc(100vh - 56px); /* Adjust based on your navbar height */
+  @media (max-width: 768px) {
+    background-image: url('/assets/images/background-mobile.jpg');
+    background-attachment: scroll;
   }
+}
 
   .app-loading {
     position: fixed;

@@ -30,6 +30,24 @@
 
 
   }
+
+  .landing-container {
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  
+    main {
+      width: 100%;
+      overflow-x: hidden;
+    }
+  
+    section {
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+  }
   
   nav {
     display: flex;
@@ -92,23 +110,47 @@
     margin-bottom: 80px; // Increased margin
     padding: 60px 0;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+ 
+
+    h2 {
+      font-size: 4em;
+      margin-bottom: 30px;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: transform 0.3s ease;
+      animation: pulse 1s infinite alternate;
+    }
+
+    p {
+      font-size: 1.5em;  // Increased from 1.2em
+      margin-bottom: 20px;
+      color: white;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);  // Stronger shadow
+      font-weight: 500;  // Added medium font weight
+      letter-spacing: 0.5px;  // Added letter spacing
+      line-height: 1.4;  // Added line height for better readability
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+
+    }
+
+    @media (max-width: 768px) {
+
+      h2 {
+        font-size: 2em;
+        padding: 0 15px;
+      }
+   
+    }
   }
   
-  #hero h2 {
-    font-size: 4em;
-    margin-bottom: 30px;
-    color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 0.3s ease;
-  }
-
-  #hero h2 {
-    animation: pulse 1s infinite alternate;
-  }
 
   @keyframes pulse {
     from {

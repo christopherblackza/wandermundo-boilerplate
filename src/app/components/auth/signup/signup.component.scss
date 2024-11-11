@@ -91,6 +91,83 @@
     padding: 0.75rem 1rem;
     margin-top: 0.5rem;
   }
+
+  .p-dropdown {
+    width: 100%;
+    margin-top: 0.5rem;
+    
+    .p-dropdown-label {
+      padding: 0.75rem 1rem;
+    }
+    
+    .p-dropdown-filter {
+      padding: 0.75rem 1rem;
+    }
+  }
+
+  .phone-input-group {
+    margin-top: 0.5rem;
+    
+    .country-code-dropdown {
+      .p-dropdown-label {
+        padding: 0.75rem 0.5rem;
+        
+        &.p-placeholder {
+          padding-left: 1rem;
+        }
+      }
+      
+      .p-dropdown-trigger {
+        width: 2rem;
+      }
+    }
+    
+    .p-inputtext {
+      flex: 1;
+    }
+  }
+
+  // Gender options
+  .gender-options {
+    display: flex;
+    gap: 2rem;
+    margin-top: 0.5rem;
+
+    .gender-option {
+      .p-radiobutton {
+        margin-right: 0.5rem;
+      }
+
+      .p-radiobutton-label {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  // Style for selected radio button
+  .p-radiobutton .p-radiobutton-box.p-highlight {
+    border-color: #4CAF50;
+    background: #4CAF50;
+
+    &:not(.p-disabled):hover {
+      border-color: #4CAF50;
+      background: #4CAF50;
+    }
+  }
+
+  .country-code-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem;
+
+    .country-flag {
+      width: 24px;
+      height: 18px;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+  }
 }
 
 .signup-container {
@@ -128,6 +205,12 @@
 .form-group {
   margin-bottom: 1.5rem;
   text-align: left;
+
+  .about_nomad {
+    max-height: 200px;
+    min-height: 100px;
+
+  }
 
   label {
     display: block;

@@ -10,8 +10,8 @@
       class="carousel-container">
       <ng-template pTemplate="item" let-user>
         <div class="member-card">
-          <img [src]="user.avatar_url || 'assets/images/no-profile-photo.png'" class="avatar">
-          <p class="name">{{ user.full_name }}</p>
+          <img [src]="user.avatar_url || 'assets/images/no-profile-photo.png'" style="height: 140px; width: 140px;" class="avatar">
+          <p class="name">{{ user.display_name || 'Private' }}</p>
           <p class="occupation">{{ user.occupation }}</p>
         </div>
       </ng-template>

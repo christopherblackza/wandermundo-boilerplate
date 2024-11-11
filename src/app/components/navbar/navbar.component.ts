@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -28,7 +28,6 @@ export class NavbarComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    window.addEventListener('scroll', this.onScroll.bind(this));
 
     this.unreadMessagesSubscription = this.authService.unreadMessages$.subscribe(count => {
       this.unreadMessages = count;
@@ -59,10 +58,11 @@ export class NavbarComponent implements OnInit {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  private onScroll(): void {
-    console.log('onScroll');
-    this.isHeaderScrolled = window.scrollY > 50; // Change header after 50px of scrolling
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    console.log('onWindowScroll')
+    this.isHeaderScrolled = window.pageYOffset > 50;
+    console.log('isHeaderScrolled', this.isHeaderScrolled);
   }
-
   
 }

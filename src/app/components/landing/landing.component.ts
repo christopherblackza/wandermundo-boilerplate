@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { ComingSoonComponent } from '../coming-soon/coming-soon.component';
 import { HomeComponent } from '../home/home.component';
@@ -31,7 +31,6 @@ export class LandingComponent implements OnInit {
   currentTestimonialIndex = 0;
 
   isMenuOpen = false;
-  isHeaderScrolled = false;
 
   ngOnInit() {
     setInterval(() => {
@@ -46,6 +45,7 @@ export class LandingComponent implements OnInit {
       const headerHeight = 80; // Adjust this value to match your header height
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+      console.log('offsetPosition:', offsetPosition)
 
       window.scrollTo({
         top: offsetPosition,
@@ -69,9 +69,5 @@ export class LandingComponent implements OnInit {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll() {
-    this.isHeaderScrolled = window.pageYOffset > 50;
-  }
   
 }
