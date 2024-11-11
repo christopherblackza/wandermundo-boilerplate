@@ -5,11 +5,12 @@ import { ComingSoonComponent } from '../coming-soon/coming-soon.component';
 import { HomeComponent } from '../home/home.component';
 import { MembersComponent } from '../members/members.component';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: "app-landing",
   standalone: true,
-  imports: [CommonModule, MembersComponent, HomeComponent, NavbarComponent, ComingSoonComponent],
+  imports: [CommonModule, MembersComponent, HomeComponent, NavbarComponent, ComingSoonComponent, RouterLink],
   templateUrl: "./landing.component.html",
   styleUrls: ["./landing.component.scss"],
 })
