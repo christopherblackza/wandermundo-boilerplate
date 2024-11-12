@@ -30,7 +30,7 @@ export const routes: Routes = [
   { path: 'events-detail', component: EventsDetailComponent, canActivate: [AuthGuard] },
   { path: 'communities', component: CommunityComponent, canActivate: [AuthGuard] },
   { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
-  { path: 'blog', component: BlogListComponent },
-  { path: 'blog/:id', component: BlogDetailComponent },
+  { path: 'blog', component: BlogListComponent, canActivate: [AuthGuard]  },
+  { path: 'blog/:id', component: BlogDetailComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/' } 
 ];
