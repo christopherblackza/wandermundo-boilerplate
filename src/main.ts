@@ -46,11 +46,15 @@ export class App implements OnInit, OnDestroy {
     };
       
 
-    this.userSubscription = this.authService.user$.pipe(take(1)).subscribe((user) => {
+  
+    this.userSubscription = this.authService.user$.pipe().subscribe((user) => {
+      console.log('User:', user);
       if (user) {
         this.supabaseService.subscribeToMessages();
+        this.authService.subscribeToPresence(); // Add this line
       } else {
         this.supabaseService.unsubscribeFromMessages();
+        this.authService.unsubscribeFromPresence(); // Add this line
       }
     });
   }
@@ -70,6 +74,7 @@ export class App implements OnInit, OnDestroy {
       this.userSubscription.unsubscribe();
     }
     this.supabaseService.unsubscribeFromMessages();
+    this.authService.unsubscribeFromPresence(); 
   }
 }
 

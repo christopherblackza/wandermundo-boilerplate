@@ -17,8 +17,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('chatMessages') private chatMessagesContainer!: ElementRef;
 
-  onlineUsers: number = 0;
-  private presenceChannel: RealtimeChannel | null = null;
+  onlineUsers$ = this.authService.onlineUsers$;
 
   messages: any[] = [];
   newMessage: string = '';
@@ -58,8 +57,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     });
 
-    this.setupPresence();
-
 
 
     this.messageSubscription = this.authService.message$.subscribe(message => {
@@ -67,37 +64,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
       if (message) {
         this.messages.push(message);
         setTimeout(() => this.scrollToBottom(), 0);
-      }
-    });
-  }
-
-  private setupPresence() {
-    const user = this.authService.getUser();
-    if (!user) return;
-
-    this.presenceChannel = this.authService.supabase
-      .channel('online-users')
-      .on('presence', { event: 'sync' }, () => {
-        const presenceState = this.presenceChannel?.presenceState() ?? {};
-        this.onlineUsers = Object.keys(presenceState).length;
-        console.log('Online users:', this.onlineUsers);
-      })
-      .on('presence', { event: 'join' }, ({ key, newPresences }) => {
-        // Optional: Handle new user joining
-        console.log('User joined:', newPresences);
-      })
-      .on('presence', { event: 'leave' }, ({ key, leftPresences }) => {
-        // Optional: Handle user leaving
-        console.log('User left:', leftPresences);
-      });
-
-    // Track this user's presence
-    this.presenceChannel.subscribe(async (status) => {
-      if (status === 'SUBSCRIBED') {
-        await this.presenceChannel?.track({
-          user_id: user.id,
-          online_at: new Date().toISOString(),
-        });
       }
     });
   }
@@ -112,10 +78,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
       this.messageSubscription.unsubscribe();
     }
 
-    if (this.presenceChannel) {
-      this.authService.supabase.removeChannel(this.presenceChannel);
-    }
-    
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }

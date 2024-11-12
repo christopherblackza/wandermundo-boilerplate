@@ -243,4 +243,37 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.getUser();
   }
+
+  
+
+  private onlineUsersSubject = new BehaviorSubject<number>(0);
+  onlineUsers$ = this.onlineUsersSubject.asObservable();
+  private presenceChannel: RealtimeChannel | null = null;
+  subscribeToPresence() {
+    console.log('Subscribing to presence');
+    if (this.presenceChannel) return;
+
+    this.presenceChannel = this.supabase.channel('online-users')
+      .on('presence', { event: 'sync' }, () => {
+        const presenceState = this.presenceChannel?.presenceState() || {};
+        const onlineUsers = Object.keys(presenceState).length;
+        console.log('Online users:', onlineUsers);
+        this.onlineUsersSubject.next(onlineUsers);
+      })
+      .subscribe(async (status) => {
+        if (status === 'SUBSCRIBED') {
+          await this.presenceChannel?.track({
+            user_id: this.getUser()?.id,
+            online_at: new Date().toISOString(),
+          });
+        }
+      });
+  }
+
+  unsubscribeFromPresence() {
+    if (this.presenceChannel) {
+      this.supabase.removeChannel(this.presenceChannel);
+      this.presenceChannel = null;
+    }
+  }
 }
