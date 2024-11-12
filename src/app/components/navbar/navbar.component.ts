@@ -65,19 +65,19 @@ export class NavbarComponent implements OnInit {
     this.isHeaderScrolled = window.pageYOffset > 50;
   }
 
-  // @HostListener('document:click', ['$event'])
-  // onDocumentClick(event: MouseEvent) {
-  //   console.log('onDocumentClick')
-  //   // Get references to the menu and hamburger button
-  //   const mobileMenu = document.querySelector('.mobile-menu');
-  //   const hamburgerButton = document.querySelector('.hamburger');
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    console.log('onDocumentClick')
+    // Get references to the menu and hamburger button
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const hamburgerButton = document.querySelector('.hamburger');
     
-  //   // Check if click is outside both the menu and hamburger button
-  //   if (mobileMenu && hamburgerButton && 
-  //       !mobileMenu.contains(event.target as Node) && 
-  //       !hamburgerButton.contains(event.target as Node)) {
-  //     this.isMenuOpen = false;
-  //   }
-  // }
+    // Check if click is outside both the menu and hamburger button
+    if (mobileMenu && hamburgerButton && 
+        !mobileMenu.contains(event.target as Node) && 
+        !hamburgerButton.contains(event.target as Node)) {
+      this.isMenuOpen = false;
+    }
+  }
   
 }

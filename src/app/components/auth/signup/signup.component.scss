@@ -3,6 +3,10 @@
   .p-steps {
     margin: 2rem 0 3rem;
 
+    ul {
+      padding-left: 0;
+    }
+
     .p-steps-item {
       .p-menuitem-link {
         padding: 1rem 0;
@@ -131,7 +135,7 @@
   .gender-options {
     display: flex;
     gap: 2rem;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 
 
     .gender-option {

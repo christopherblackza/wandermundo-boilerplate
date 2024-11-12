@@ -4,7 +4,7 @@
     <div class="chat-messages" #chatMessages>
       <div *ngFor="let message of messages" class="message" [ngClass]="{'own-message': message.user_email === user?.email}">
         <div class="message-wrapper">
-          <img [src]="message.user_avatar_url || 'assets/images/no-profile-photo.png'" class="user-avatar" alt="User avatar">
+          <img [src]="message.user_avatar_url || 'assets/images/no-profile-photo.jpg'" class="user-avatar" alt="User avatar">
           <div class="message-content">
             <strong>{{ message.user_full_name }}</strong> 
             <small>({{ message.created_at | date:'short' }})</small>

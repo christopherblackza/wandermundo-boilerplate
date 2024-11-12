@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
     try {
       const { error } = await this.authService.signIn(this.f['email'].value, this.f['password'].value);
       if (error) throw error;
-      this.toastr.success('Login successful!', 'Welcome');
+      // this.toastr.success('Login successful!', 'Welcome');
       this.router.navigate(['/']);
     } catch (error: any) {
       console.error('Error logging in:', error);
