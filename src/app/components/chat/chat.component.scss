@@ -7,6 +7,32 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-top: 80px;
+
+  
+  .online-users {
+    font-size: 0.8em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-left: 10px;
+ 
+
+   
+    p {
+      font-size: 1.2em;
+      margin: 0;
+      color: white;
+      margin-left: 10px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background-color: #28a745;
+      border-radius: 50%;
+      display: inline-block;
+    }
+  }
 }
 
 .chat-header {
@@ -14,6 +40,11 @@
   background-color: #f8f9fa;
   border-bottom: 1px solid #ccc;
   text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+
 }
 
 .chat-messages {
@@ -77,6 +108,22 @@
     small {
       color: rgba(255,255,255,0.8);
     }
+  }
+}
+
+.system-message {
+  margin: 20px auto;
+  max-width: 80%;
+  text-align: center;
+  
+  .message-content {
+    background-color: #f8f9fa;
+    color: #666;
+    font-style: italic;
+    border: 1px solid #eee;
+    padding: 15px 20px;
+    border-radius: 10px;
+    display: inline-block;
   }
 }
 

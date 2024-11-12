@@ -1,20 +1,42 @@
 <app-navbar></app-navbar>
 <div class="chat-container">
-    <h2 class="chat-header">Real-Time Chat</h2>
-    <div class="chat-messages" #chatMessages>
-      <div *ngFor="let message of messages" class="message" [ngClass]="{'own-message': message.user_email === user?.email}">
-        <div class="message-wrapper">
-          <img [src]="message.user_avatar_url || 'assets/images/no-profile-photo.jpg'" class="user-avatar" alt="User avatar">
-          <div class="message-content">
-            <strong>{{ message.user_full_name }}</strong> 
-            <small>({{ message.created_at | date:'short' }})</small>
-            <p>{{ message.content }}</p>
-          </div>
+  <h2 class="chat-header">Real-Time Chat</h2>
+  <span class="online-users" *ngIf="onlineUsers > 0">
+    <span class="dot"></span>
+    <p class="online-users-text">{{ onlineUsers }} online</p>
+  </span>
+  <div class="chat-messages" #chatMessages>
+    <div *ngFor="let message of messages" 
+         class="message" 
+         [ngClass]="{
+           'own-message': message.user_email === user?.email,
+           'system-message': message.is_system_message
+         }">
+      <!-- System Message -->
+      <div class="message-content" *ngIf="message.is_system_message">
+        {{ message.content }}
+      </div>
+      
+      <!-- Regular Message -->
+      <div class="message-wrapper" *ngIf="!message.is_system_message">
+        <img [src]="message.user_avatar_url || 'assets/images/no-profile-photo.jpg'" 
+             class="user-avatar" 
+             alt="User avatar">
+        <div class="message-content">
+          <strong>{{ message.user_full_name }}</strong>
+          <small>({{ message.created_at | date:'short' }})</small>
+          <p>{{ message.content }}</p>
         </div>
       </div>
     </div>
-    <div class="chat-input">
-      <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type a message...">
-      <button (click)="sendMessage()" class="btn btn-primary">Send</button>
-    </div>
   </div>
+  
+  <div class="chat-input">
+    <input type="text" 
+           [(ngModel)]="newMessage" 
+           (keyup.enter)="sendMessage()" 
+           placeholder="Type a message...">
+    <button (click)="sendMessage()" 
+            class="btn btn-primary">Send</button>
+  </div>
+</div>

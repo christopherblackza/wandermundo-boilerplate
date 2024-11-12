@@ -24,7 +24,7 @@ export class AuthService {
 
   private bucketName = 'event-images';
 
-  private supabase: SupabaseClient;
+  public supabase: SupabaseClient;
   private userSubject = new BehaviorSubject<any>(null);
   user$ = this.userSubject.asObservable();
   private messageSubject = new BehaviorSubject<any>(null);
@@ -42,7 +42,9 @@ export class AuthService {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
     this.loadUserFromSession();
   }
-
+  
+  
+  
   private async loadUserFromSession() {
     const { data } = await this.supabase.auth.getSession();
     if (data?.session) {
