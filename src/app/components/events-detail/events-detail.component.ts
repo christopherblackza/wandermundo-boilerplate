@@ -27,7 +27,6 @@ export class EventsDetailComponent implements OnInit {
 
   ngOnInit() {
     this.event = history.state.event;
-    console.log(this.event);
   }
 
 }

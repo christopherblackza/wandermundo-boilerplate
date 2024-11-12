@@ -46,7 +46,7 @@ export class LandingComponent implements OnInit {
       const headerHeight = 80; // Adjust this value to match your header height
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
-      console.log('offsetPosition:', offsetPosition)
+
 
       window.scrollTo({
         top: offsetPosition,

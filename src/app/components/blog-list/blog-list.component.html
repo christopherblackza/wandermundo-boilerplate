@@ -18,6 +18,10 @@
           <div class="blog-content">
             <span class="category">{{post.category}}</span>
             <h2>{{post.title}}</h2>
+            <div class="author-info">
+              <img [src]="post.authorImage" [alt]="post.author" class="author-avatar">
+              <span class="author-name">{{post.author}}</span>
+            </div>
             <p>{{post.excerpt}}</p>
             <a [routerLink]="['/blog', post.id]" class="read-more">Read more</a>
           </div>

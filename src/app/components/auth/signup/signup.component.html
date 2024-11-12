@@ -31,15 +31,15 @@
       <!-- Step 2: Personal Info -->
       <div *ngIf="currentStep === 1">
         <div class="form-group">
-          <label for="full_name">What's your name?</label>
+          <label for="full_name">What's your name? *</label>
           <input type="text" pInputText id="full_name" formControlName="full_name" required>
         </div>
         <div class="form-group">
-          <label for="display_name">What's your public display name?</label>
+          <label for="display_name">What's your public display name? *</label>
           <input type="text" pInputText id="display_name" formControlName="display_name" required>
         </div>
         <div class="form-group">
-          <label for="whatsapp_number">What's your WhatsApp number?</label>
+          <label for="whatsapp_number">WhatsApp number?</label>
           <div class="p-inputgroup phone-input-group">
             <p-dropdown [options]="phoneCountryCodes" formControlName="phoneCountryCode" optionLabel="name"
               [filter]="true" filterBy="name,dial_code" placeholder="Code" [style]="{'width':'150px'}"
@@ -60,7 +60,7 @@
               </ng-template>
             </p-dropdown>
             <input type="tel" pInputText id="whatsapp_number" formControlName="whatsapp_number"
-              placeholder="Phone number" required>
+              placeholder="Phone number">
           </div>
           <div *ngIf="f['whatsapp_number'].touched && f['whatsapp_number'].invalid" class="error-message">
             <div *ngIf="f['whatsapp_number'].errors?.['required']">Phone number is required.</div>
@@ -68,10 +68,10 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="avatar_url">Gender</label>
+          <label for="avatar_url">Gender *</label>
           <div class="gender-options">
             <div *ngFor="let option of genderOptions" class="gender-option">
-              <p-radioButton [inputId]="'gender_' + option.value" [value]="option.value" formControlName="gender"
+              <p-radioButton [inputId]="'gender_' + option.value" [value]="option.value" formControlName="gender" class="gender-radio"
                 [label]="option.label">
               </p-radioButton>
             </div>
@@ -85,17 +85,17 @@
       <!-- Step 3: Nomad Life -->
       <div *ngIf="currentStep === 2">
         <div class="form-group">
-          <label for="about_nomad">What makes you a Digital Nomad?</label>
+          <label for="about_nomad">What makes you a Digital Nomad? *</label>
           <textarea pInputTextarea id="about_nomad" formControlName="about_nomad" class="about_nomad"
             rows="3"></textarea>
         </div>
         <div class="form-group">
-          <label for="country">Which country are you from?</label>
+          <label for="country">Which country are you from? *</label>
           <p-dropdown id="country" formControlName="country" [options]="countries" optionLabel="name" [filter]="true"
             filterBy="name" placeholder="Select a country" [style]="{'width':'100%'}" required></p-dropdown>
         </div>
         <div class="form-group">
-          <label for="occupation">Occupation?</label>
+          <label for="occupation">Occupation? *</label>
           <input type="text" pInputText id="occupation" formControlName="occupation" required>
         </div>
         <div class="form-group">
@@ -107,7 +107,7 @@
       <!-- Step 4: Community -->
       <div *ngIf="currentStep === 3">
         <div class="form-group">
-          <label for="heard_from">How did you hear about us?</label>
+          <label for="heard_from">How did you hear about us? *</label>
           <input type="text" pInputText id="heard_from" formControlName="heard_from" required>
         </div>
         <div class="form-group">
@@ -128,9 +128,9 @@
         <p-button *ngIf="currentStep < 3" styleClass="p-button-primary" type="button" label="Next"
           (onClick)="nextStep()" [disabled]="!isStepValid()"></p-button>
 
-        <p-button *ngIf="currentStep === 3" type="submit"
-          [label]="loading ? 'Creating Account...' : 'Start Your Journey'"
-          [disabled]="signupForm.invalid || loading"></p-button>
+        <p-button *ngIf="currentStep === 3" type="submit" styleClass="p-button-primary" 
+          [label]="loading ? 'Creating Account...' : 'Start Your Journey'"  [disabled]="signupForm.invalid || loading"
+          ></p-button>
       </div>
     </form>
 

@@ -133,14 +133,23 @@
     gap: 2rem;
     margin-top: 0.5rem;
 
+
     .gender-option {
+      
+
       .p-radiobutton {
         margin-right: 0.5rem;
       }
 
       .p-radiobutton-label {
         margin-left: 0.5rem;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
+
+   
     }
   }
 

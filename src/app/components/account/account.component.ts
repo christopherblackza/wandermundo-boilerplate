@@ -64,7 +64,6 @@ export class AccountComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.unsubscribe$))  // Automatically unsubscribe when destroyed
     .subscribe(user => {
       this.user = user;
-      console.log('user', user);
       
 
       this.loadUserProfile();
@@ -83,17 +82,16 @@ export class AccountComponent implements OnInit, OnDestroy {
 
       if (this.user) {
     
-        console.log('user', this.user);
 
         this.supabaseService.getProfile(this.user.id).then(({ data, error }) => {
           if (error) {
             this.toastr.error('Error loading profile', 'Profile Error');
           } else if (data) {
+            console.error('data', data);
             this.profileForm.patchValue(data);
 
             if (data.avatar_url) {
               this.cropppedImagePreview = data.avatar_url;
-              console.log('cropppedImagePreview', this.cropppedImagePreview);
             }
           }
           this.loading = false;
@@ -106,6 +104,8 @@ export class AccountComponent implements OnInit, OnDestroy {
   onFileChange(event: any): void {
     this.imageChangedEvent = event;
     this.showCropper = true;
+    console.error('event', event);
+    this.cropppedImagePreview = this.imageChangedEvent.target.files[0];
   }
 
   imageCropped(event: ImageCroppedEvent) {
@@ -119,24 +119,17 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   async onSubmit() {
-    console.log(this.profileForm);
     if (this.profileForm.invalid) {
       return;
     }
 
     this.loading = true;
 
-
-
-    console.log(this.user);
     if (this.user) {
       let avatarUrl = this.profileForm.get('avatar_url')?.value;
-      console.log(avatarUrl);
 
       if (this.croppedImageBlob) {
         const { data, error } = await this.supabaseService.uploadAvatar(this.user.id, this.croppedImageBlob);
-        console.log(data);
-        console.log(error);
         if (error) {
           this.toastr.error('Error uploading avatar', 'Upload Error');
           this.loading = false;

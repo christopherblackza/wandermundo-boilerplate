@@ -71,6 +71,25 @@
         text-transform: uppercase;
         letter-spacing: 1px;
       }
+
+      .author-info {
+        display: flex;
+        align-items: center;
+        margin: 0.5rem 0;
+
+        .author-avatar {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin-right: 10px;
+          object-fit: cover;
+        }
+
+        .author-name {
+          color: #555;
+          font-size: 0.9rem;
+        }
+      }
   
       h2 {
         margin: 1rem 0;

@@ -41,17 +41,15 @@ export class SupabaseService {
 
   private async initSession() {
     const storedSession = this.getStoredSession();
-    console.log('storedSession', storedSession);
     if (storedSession) {
       try {
         const { data, error } = await this.supabase.auth.setSession(storedSession);
         if (error) throw error;
 
         if (data.user) {
-          console.log('data.user', data.user);
+      
           this.userSubject$.next(data.user);
           const profile = await this.getProfile(data.user.id);
-          console.log('profile', profile);
           // this.userProfileSubject.next(profile);
         } else {
           this.userSubject$.next(null);
@@ -109,7 +107,7 @@ export class SupabaseService {
 
   async signIn(email: string, password: string): Promise<{ error: any }> {
     const { data, error } = await this.supabase.auth.signInWithPassword({ email, password });
-    console.log('data', data);
+
     if (data.user) {
       this.userSubject$.next(data.user);
       if (data.session) {
@@ -145,8 +143,6 @@ export class SupabaseService {
   
   createEvent(event: MyEvent, file: Blob): Observable<MyEvent> {
 
-    console.log('Creating event:', event);
-
     return this.getCurrentUser().pipe(
       switchMap(user => {
         if (!user) {
@@ -164,7 +160,7 @@ export class SupabaseService {
         }
         return data as MyEvent;
       }),
-      tap(createdEvent => console.log('Created event:', createdEvent)),
+      // tap(createdEvent => console.log('Created event:', createdEvent)),
       catchError((error: any) => {
         console.error('Error in createEvent:', error);
         return throwError(() => new Error(`Failed to create event: ${error.message}`));
@@ -216,19 +212,19 @@ export class SupabaseService {
   subscribeToMessages() {
     if (this.channel) return;
 
-    console.log('Subscribing to messages...');
+    // console.log('Subscribing to messages...');
     this.channel = this.supabase
       .channel('public:messages')
       .on('postgres_changes', 
         { event: 'INSERT', schema: 'public', table: 'messages' }, 
         (payload) => {
-          console.log('Received message:', payload);
+          // console.log('Received message:', payload);
           this.messageSubject.next(payload.new);
           this.handleNewMessage(payload.new);
         }
       )
       .subscribe((status) => {
-        console.log('Subscription status:', status);
+        // console.log('Subscription status:', status);
       });
   }
 
@@ -276,7 +272,7 @@ export class SupabaseService {
   }
 
   async sendMessage(message: any) {
-    console.log('Sending message:', message);
+    // console.log('Sending message:', message);
     const { data: { user } } = await this.supabase.auth.getUser();
     if (user) {
       const result = await this.supabase.from('messages').insert({
@@ -284,7 +280,7 @@ export class SupabaseService {
         user_id: user.id,
         user_email: user.email
       });
-      console.log('Message sent result:', result);
+      // console.log('Message sent result:', result);
       return result;
     } else {
       throw new Error('User not authenticated');
@@ -337,6 +333,6 @@ export class SupabaseService {
   async getUsers() {
     return await this.supabase
       .from('profiles')
-      .select('id, display_name, avatar_url, occupation');
+      .select('id, display_name, avatar_url, occupation, website');
   }
 }

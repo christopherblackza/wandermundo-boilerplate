@@ -51,7 +51,7 @@
           <input type="file" (change)="onFileChange($event)" accept="image/*">
         </div>
 
-        <p-dialog header="Crop Avatar" [(visible)]="showCropper" [modal]="true" [style]="{width: '50vw'}">
+        <!-- <p-dialog header="Crop Avatar" [(visible)]="showCropper" [modal]="true" [style]="{width: '50vw'}">
           <image-cropper
             [imageChangedEvent]="imageChangedEvent"
             [maintainAspectRatio]="true"
@@ -63,7 +63,7 @@
           <ng-template pTemplate="footer">
             <p-button (click)="showCropper=false" label="Done"></p-button>
           </ng-template>
-        </p-dialog>
+        </p-dialog> -->
 
         <div *ngIf="cropppedImagePreview" class="avatar-preview">
           <img [src]="cropppedImagePreview" alt="Avatar preview">

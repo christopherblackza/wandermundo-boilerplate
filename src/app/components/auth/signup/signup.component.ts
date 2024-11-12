@@ -64,7 +64,7 @@ export class SignupComponent implements OnInit {
     { name: 'Spain', dial_code: '+34', code: 'ES' },
     { name: 'Sweden', dial_code: '+46', code: 'SE' },
     { name: 'Switzerland', dial_code: '+41', code: 'CH' },
-    { name: 'United Kingdom', dial_code: '+44', code: 'GB' },
+    { name: 'United Kingdom', dial_code: '+44',  code: 'GB' },
     { name: 'United States', dial_code: '+1', code: 'US' }
   ];
   countries: any[] = [
@@ -106,11 +106,13 @@ export class SignupComponent implements OnInit {
       comments: [''],
       occupation: ['', Validators.required],
       website: [''],
-      phoneCountryCode: ['', Validators.required],
-      whatsapp_number: ['', [
-        Validators.required,
-        this.phoneNumberValidator()
-      ]],
+      phoneCountryCode: [''],
+      whatsapp_number: [''],
+      // phoneCountryCode: ['', Validators.required],
+      // whatsapp_number: ['', [
+      //   Validators.required,
+      //   this.phoneNumberValidator()
+      // ]],
     });
   }
 
@@ -131,20 +133,14 @@ export class SignupComponent implements OnInit {
           countryCode as CountryCode
         );
 
-        console.log('phoneNumber', phoneNumber);
         if (!phoneNumber) {
           return { invalidPhone: true };
         }
 
-
-
         const isValid = isValidPhoneNumber(phoneNumber.number);
-        console.log('isValid', isValid);
         if (!isValid) {
           return { invalidPhone: true };
         }
-
-
 
         return null;
       } catch (e) {
@@ -193,7 +189,7 @@ export class SignupComponent implements OnInit {
       case 0:
         return this.f['email'].valid && this.f['password'].valid;
       case 1:
-        return this.f['full_name'].valid && this.f['whatsapp_number'].valid && this.f['gender'].valid;
+        return this.f['full_name'].valid && this.f['gender'].valid;
       case 2:
         return this.f['about_nomad'].valid && this.f['country'].valid && this.f['occupation'].valid;
       case 3:
@@ -209,11 +205,11 @@ export class SignupComponent implements OnInit {
     }
 
     const fullPhoneNumber = this.getFullPhoneNumber();
-    if (!fullPhoneNumber) {
-      console.log('Invalid phone number');
-      // Handle invalid phone number
-      return;
-    }
+    // if (!fullPhoneNumber) {
+    //   console.log('Invalid phone number');
+    //   // Handle invalid phone number
+    //   return;
+    // }
 
     this.loading = true;
     try {
@@ -222,8 +218,9 @@ export class SignupComponent implements OnInit {
         this.f['password'].value,
         {
           full_name: this.f['full_name'].value,
-          whatsapp_number: fullPhoneNumber,
+          whatsapp_number: fullPhoneNumber ?? '',
           about_nomad: this.f['about_nomad'].value,
+          display_name: this.f['display_name'].value,
           country: this.f['country'].value,
           heard_from: this.f['heard_from'].value,
           referred_by: this.f['referred_by'].value,

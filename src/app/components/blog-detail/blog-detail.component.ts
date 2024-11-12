@@ -126,7 +126,7 @@ export class BlogDetailComponent implements OnInit {
     try {
       await navigator.clipboard.writeText(this.currentUrl);
       // You could add a toast notification here
-      console.log('Link copied to clipboard!');
+      // console.log('Link copied to clipboard!');
     } catch (err) {
       console.error('Failed to copy link:', err);
     }
@@ -134,6 +134,6 @@ export class BlogDetailComponent implements OnInit {
 
   subscribeToNewsletter(email: string) {
     // Implement newsletter subscription logic
-    console.log('Subscribe email:', email);
+    // console.log('Subscribe email:', email);
   }
 }

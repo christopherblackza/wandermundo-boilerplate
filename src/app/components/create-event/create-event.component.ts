@@ -74,7 +74,6 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.unsubscribe$))  // Automatically unsubscribe when destroyed
     .subscribe(user => {
       this.user = user;
-      console.log('user', user);
       
 
     });
@@ -88,7 +87,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
   }
 
   onFileChange(event: any): void {
-    console.log(event);
+    // console.log(event);
     this.imageChangedEvent = event;
     this.showCropper = true;
   }
@@ -108,7 +107,6 @@ export class CreateEventComponent implements OnInit, OnDestroy {
 
 
       if (this.user) {
-        console.log('user', this.user);
 
         const eventData: Partial<MyEvent> = {
           name: this.eventForm.get('name')?.value,
@@ -122,9 +120,9 @@ export class CreateEventComponent implements OnInit, OnDestroy {
           max_participants: this.eventForm.get('maxParticipants')?.value,
           created_by: this.user.id
         };
-        console.log('eventData', eventData);
+        // console.log('eventData', eventData);
         this.authService.createEvent(eventData as MyEvent, this.croppedImageBlob).subscribe(resp => {
-          console.log('resp', resp);
+
 
           this.toastr.success('Event created successfully');
           this.router.navigate(['/']);
@@ -137,8 +135,6 @@ export class CreateEventComponent implements OnInit, OnDestroy {
   }
 
   combineDateAndTime(date: Date, time: Date): Date {
-    console.log('date', date);
-    console.log('time', time);
     const combinedDate = new Date(date);
     combinedDate.setHours(time.getHours(), time.getMinutes());
     return combinedDate;

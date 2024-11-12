@@ -56,12 +56,9 @@ export class MembersComponent implements OnInit {
         console.error('Error fetching users:', error);
       } else {
         this.users = data;
-
+        
         // Duplicate the users array to create a new array with the same data times 10
         // this.users = [...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users, ...this.users];
-
-
-        console.log(this.users);
       }
     } catch (error) {
       console.error('Error loading users:', error);

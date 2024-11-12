@@ -34,12 +34,9 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    console.log('ChatComponent initialized');
-
     this.authService.profile$.subscribe(profile => {
       if (profile) {
         // Use profile data
-        console.log('Profile:', profile);
         this.profile = profile;
       }
     });
@@ -53,8 +50,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     .pipe(takeUntil(this.unsubscribe$))  // Automatically unsubscribe when destroyed
     .subscribe(user => {
       this.user = user;
-      console.log('user', user);
-      
       if (user) {
         this.loadMessages();
       }
@@ -63,7 +58,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
     this.messageSubscription = this.authService.message$.subscribe(message => {
-      console.log('New message received:', message);
+
       if (message) {
         this.messages.push(message);
         setTimeout(() => this.scrollToBottom(), 0);
@@ -101,7 +96,6 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
       console.error('Error loading messages:', error);
     } else {
       this.messages = data || [];
-      console.log('messages', this.messages);
       setTimeout(() => this.scrollToBottom(), 0);
     }
   }

@@ -82,9 +82,6 @@ export class AuthService {
   }
 
   createEvent(event: MyEvent, file: Blob): Observable<MyEvent> {
-
-    console.log('Creating event:', event);
-
     return this.getCurrentUser().pipe(
       switchMap(user => {
         if (!user) {
@@ -102,7 +99,6 @@ export class AuthService {
         }
         return data as MyEvent;
       }),
-      tap(createdEvent => console.log('Created event:', createdEvent)),
       catchError((error: any) => {
         console.error('Error in createEvent:', error);
         return throwError(() => new Error(`Failed to create event: ${error.message}`));
@@ -133,7 +129,6 @@ export class AuthService {
 
   async signIn(email: string, password: string) {
     const { data, error } = await this.supabase.auth.signInWithPassword({ email, password });
-    console.log('data', data);
     if (data.user) {
       this.userSubject.next(data.user);
     }
@@ -141,7 +136,6 @@ export class AuthService {
   }
 
   async signUp(email: string, password: string, profileData?: any) {
-    console.log('profileData', profileData);  
     const { data, error } = await this.supabase.auth.signUp({ 
       email, 
       password 
@@ -155,7 +149,6 @@ export class AuthService {
           ...profileData,
           updated_at: new Date()
         });
-        console.log('resp', resp);
     }
   
     return { data, error };
@@ -165,7 +158,6 @@ export class AuthService {
     const { error } = await this.supabase.auth.signOut();
     if (!error) {
       this.userSubject.next(null);
-      console.log('signOut: User signed out');
       this.router.navigate(['/']);
     }
   }
@@ -173,9 +165,7 @@ export class AuthService {
 
   // Live Chat Messaging 
   async sendMessage(user: any, message: any, profile: Profile | null) {
-    console.log('Sending message:', message);
-
-    
+  
     
     const result = await this.supabase.from('messages').insert({
       ...message,
@@ -185,7 +175,6 @@ export class AuthService {
       user_full_name: profile?.full_name || null
     });
 
-    console.log('Message sent result:', result);
     return result;
   }
 
@@ -211,19 +200,17 @@ export class AuthService {
   subscribeToMessages() {
     if (this.channel) return;
 
-    console.log('Subscribing to messages...');
     this.channel = this.supabase
       .channel('public:messages')
       .on('postgres_changes', 
         { event: 'INSERT', schema: 'public', table: 'messages' }, 
         (payload) => {
-          console.log('Received message:', payload);
           this.messageSubject.next(payload.new);
           this.handleNewMessage(payload.new);
         }
       )
       .subscribe((status) => {
-        console.log('Subscription status:', status);
+        // console.log('Subscription status:', status);
       });
   }
 
