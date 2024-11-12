@@ -105,7 +105,25 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.imageChangedEvent = event;
     this.showCropper = true;
     console.error('event', event);
-    this.cropppedImagePreview = this.imageChangedEvent.target.files[0];
+    const input = event.target as HTMLInputElement;
+    
+    // Check if a file was selected
+    if (input?.files?.length) {
+      const file = input.files[0];
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        // Once the file is loaded, set the image preview URL
+        this.cropppedImagePreview = reader.result as string;
+      };
+      reader.readAsDataURL(file); // Read file as data URL
+
+      // Create a Blob from the file
+      const blob = new Blob([file], { type: file.type });
+
+      // You can now use `blob`, for example:
+      this.croppedImageBlob = blob;
+    }
   }
 
   imageCropped(event: ImageCroppedEvent) {

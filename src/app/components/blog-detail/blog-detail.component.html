@@ -10,13 +10,13 @@
         <h1>{{post.title}}</h1>
         <div class="meta">
           <div class="author">
-            <img [src]="post.authorImage" [alt]="post.author">
+            <img [src]="post.author_image" [alt]="post.author">
             <span>{{post.author}}</span>
           </div>
           <div class="divider">•</div>
           <div class="date">{{post.date | date:'mediumDate'}}</div>
           <div class="divider">•</div>
-          <div class="read-time">{{post.readTime}} min read</div>
+          <div class="read-time">{{post.read_time}} min read</div>
         </div>
       </div>
     </div>
@@ -37,10 +37,10 @@
 
           <!-- Author Bio -->
           <div class="author-bio">
-            <img [src]="post.authorImage" [alt]="post.author">
+            <img [src]="post.author_image" [alt]="post.author">
             <div class="bio-content">
               <h3>{{post.author}}</h3>
-              <p>{{post.authorBio}}</p>
+              <p>{{post.author_bio}}</p>
             </div>
           </div>
 

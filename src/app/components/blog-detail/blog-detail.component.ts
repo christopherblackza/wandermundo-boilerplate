@@ -16,11 +16,13 @@ interface BlogPost {
   date: string;
   category: string;
   author: string;
-  authorImage: string;
-  authorBio: string;
+  author_image: string;
+  author_bio: string;
   tags: string[];
-  readTime: number;
+  read_time: number;
 }
+
+
 
 @Component({
   selector: 'app-blog-detail',
