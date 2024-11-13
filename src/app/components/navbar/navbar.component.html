@@ -63,7 +63,7 @@
           <a class="nav-link" [routerLink]="['/account']" routerLinkActive="active">{{ user?.firstName || "Profile"
             }}</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
           <a class="nav-link" routerLink="/chat" routerLinkActive="active">Live Chat</a>
         </li>
         <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
