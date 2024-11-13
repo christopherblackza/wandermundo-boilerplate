@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 import { NavbarComponent } from '../navbar/navbar.component';
+import { RouterModule } from '@angular/router';
 
 interface TeamMember {
   name: string;
@@ -23,7 +24,7 @@ interface Award {
 @Component({
   selector: 'app-about-us',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, NavbarComponent, RouterModule],
   templateUrl: './about-us.component.html',
   styleUrl: './about-us.component.scss'
 })
@@ -38,7 +39,7 @@ export class AboutUsComponent {
   ];
 
   teamMembers: TeamMember[] = [
-    { name: 'Christopher Black', role: 'Chief Executive Officer', avatar: 'assets/images/christopher.jpeg' },
+    { name: 'Christopher Black', role: 'Founder of Wandermundo', avatar: 'assets/images/christopher.jpeg' },
     // { name: 'Jane Smith', role: 'Lead Developer', avatar: 'assets/avatar-placeholder.png' },
     // { name: 'Mike Johnson', role: 'UX Designer', avatar: 'assets/avatar-placeholder.png' },
     // { name: 'Sarah Wilson', role: 'Community Lead', avatar: 'assets/avatar-placeholder.png' },
@@ -50,4 +51,12 @@ export class AboutUsComponent {
     { icon: '🏆', title: 'Best Community Platform', year: 2024 },
     { icon: '🌟', title: 'Innovation Award', year: 2023 }
   ];
+
+  openInstagram() {
+    window.open('https://www.instagram.com/upgradedspicy', '_blank');
+  }
+
+  openLinkedIn() {
+    window.open('https://www.linkedin.com/in/upgradedspicy', '_blank');
+  }
 }

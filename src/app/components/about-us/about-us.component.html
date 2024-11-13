@@ -1,8 +1,9 @@
 <app-navbar></app-navbar>
 <div class="page-wrapper">
   <section class="hero-section">
-    <div class="container">
+  
       <h1>About Us</h1>
+      <div class="container">
       <p>
         Hello everyone! I’m Christopher Black, a South African originally from Mossel Bay, and a passionate digital
         nomad who’s called Cape Town home for the past 8 years.
@@ -43,6 +44,12 @@
         <div class="avatar" [style.backgroundImage]="'url(' + member.avatar + ')'"></div>
         <h3 class="member-name">{{ member.name }}</h3>
         <p class="member-role">{{ member.role }}</p>
+        <div class="social-links">
+          <!-- <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a> -->
+          <a><i (click)="openInstagram()" class="fab fa-instagram"></i></a>
+          <a><i (click)="openLinkedIn()"  class="fab fa-linkedin"></i></a>
+        </div>
       </div>
     </div>
   </section>

@@ -1,3 +1,5 @@
+$mobile-breakpoint: 768px;
+
 :host {
     display: block;
   }
@@ -8,6 +10,38 @@
     padding: 2rem;
     position: relative;
   
+  }
+
+  .social-links {
+    display: flex;
+    gap: 15px;
+   justify-content: center;
+    margin-top: 15px;
+
+    @media (max-width: $mobile-breakpoint) {
+      justify-content: center;
+    }
+
+    a {
+      cursor: pointer;
+      color: #ccc;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(3px);
+    color: black;
+    background: rgba(255, 255, 255, 0.1);
   }
   
   .hero-section {
@@ -22,17 +56,13 @@
     }
   
     p {
+      color: white;
       font-size: 1.2rem;
       margin-bottom: 1.5rem;
       line-height: 1.6;
       max-width: 800px;
       margin-left: auto;
       margin-right: auto;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-      padding: 0 20px;
-      backdrop-filter: blur(3px); // Moved here to only affect paragraphs
-      background-color: rgba(0, 0, 0, 0.3); // Added subtle background for better text readability
-      border-radius: 8px; // Optional: rounds the corners of the paragraph blocks
     }
   
     p:first-of-type {

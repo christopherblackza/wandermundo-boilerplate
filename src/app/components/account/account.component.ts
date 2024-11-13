@@ -54,7 +54,8 @@ export class AccountComponent implements OnInit, OnDestroy {
       website: [''],
       occupation: ['', Validators.required],
       whatsapp_number: [''],
-      avatar_url: ['']
+      avatar_url: [''],
+      bio: ['']
     });
   }
 

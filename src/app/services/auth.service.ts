@@ -245,7 +245,7 @@ export class AuthService {
   async getUsers() {
     return await this.supabase
       .from('profiles')
-      .select('id, display_name, avatar_url, occupation, website')
+      .select('id, display_name, avatar_url, occupation, website, bio')
       .neq('id', '00000000-0000-0000-0000-000000000000');
   }
 

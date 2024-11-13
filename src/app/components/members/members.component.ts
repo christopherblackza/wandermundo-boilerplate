@@ -6,11 +6,14 @@ import { CarouselModule } from 'primeng/carousel';
 import { AuthService } from '../../services/auth.service';
 import { SupabaseService } from '../../services/supabase.service';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { DialogService } from 'primeng/dynamicdialog';
+import { Dialog } from 'primeng/dialog';
 
 @Component({
   selector: 'app-members',
   standalone: true,
   imports: [CommonModule, NavbarComponent, CarouselModule, RouterModule, NavbarComponent],
+  providers: [DialogService],
   templateUrl: './members.component.html',
   styleUrls: ['./members.component.scss']
 })
@@ -42,7 +45,7 @@ export class MembersComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private supabaseService: SupabaseService
+    private dialogService: DialogService
   ) {}
 
   ngOnInit() {
@@ -64,4 +67,6 @@ export class MembersComponent implements OnInit {
       console.error('Error loading users:', error);
     }
   }
+
+
 }
