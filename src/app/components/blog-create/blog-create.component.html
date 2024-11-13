@@ -1,0 +1,142 @@
+<app-navbar></app-navbar>
+
+<div class="create-blog-page">
+  <h1>Create New Blog Post</h1>
+  <div class="container">
+    <form [formGroup]="blogForm" (ngSubmit)="onSubmit()" class="blog-form">
+      <div class="form-group">
+        <label for="title">Title *</label>
+        <input
+          pInputText
+          id="title"
+          formControlName="title"
+          placeholder="Enter post title"
+          [class.ng-invalid]="
+            blogForm.get('title')?.invalid && blogForm.get('title')?.touched
+          "
+        />
+        <small
+          class="error"
+          *ngIf="
+            blogForm.get('title')?.invalid && blogForm.get('title')?.touched
+          "
+        >
+          Title is required and must be at least 5 characters long
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="excerpt">Excerpt *</label>
+        <textarea
+          pInputTextarea
+          id="excerpt"
+          formControlName="excerpt"
+          placeholder="Enter a brief summary"
+          [rows]="3"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="title">Average Read Time</label>
+        <input
+          pInputText
+          id="read_time"
+          formControlName="read_time"
+          placeholder="Enter a read time in minutes"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category *</label>
+        <p-dropdown
+          [options]="categories"
+          formControlName="category"
+          placeholder="Select a category"
+          [style]="{ width: '100%' }"
+        ></p-dropdown>
+      </div>
+
+      <div class="form-group">
+        <label for="tags">Tags</label>
+        <p-chips
+          formControlName="tags"
+          placeholder="Enter tags and press enter"
+          [allowDuplicate]="false"
+        ></p-chips>
+      </div>
+
+      <div class="form-group">
+        <label for="image">Featured Image *</label>
+        <div class="image-upload-container">
+          <div class="upload-area" 
+               (dragover)="onDragOver($event)" 
+               (dragleave)="onDragLeave($event)" 
+               (drop)="onDrop($event)">
+            <div *ngIf="!imagePreview" class="upload-placeholder">
+              <i class="pi pi-image"></i>
+              <p>Drag and drop an image here or</p>
+              <p-button 
+                type="button" 
+                label="Browse Files" 
+                (click)="fileInput.click()"
+                styleClass="p-button-secondary">
+              </p-button>
+            </div>
+            <img *ngIf="imagePreview" [src]="imagePreview" alt="Preview" class="image-preview">
+            <input 
+              #fileInput
+              type="file"
+              hidden
+              accept="image/*"
+              (change)="onFileSelected($event)">
+          </div>
+          <small *ngIf="imageError" class="error">{{ imageError }}</small>
+          <small
+          class="error"
+          *ngIf="
+            blogForm.get('image')?.invalid && blogForm.get('image')?.touched || (blogForm.get('image')?.invalid && formSubmitted)
+          "
+        >
+          Image is required 
+        </small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="content">Content *</label>
+        <quill-editor
+          formControlName="content"
+          [styles]="{ height: '320px' }"
+          [modules]="quillConfig"
+          placeholder="Write your blog post content here..."
+        ></quill-editor>
+        <small
+          class="error"
+          *ngIf="
+            blogForm.get('content')?.invalid && blogForm.get('content')?.touched || (blogForm.get('content')?.invalid && formSubmitted)
+          "
+        >
+          Content is required and must be at least 100 characters long
+        </small>
+      </div>
+
+      <div class="form-actions">
+      
+        <p-button
+          type="button"
+          label="Cancel"
+          styleClass="p-button-secondary"
+          routerLink="/blog"
+        ></p-button>
+        <p-button
+        type="submit"
+        label="Publish Post"
+        [loading]="isSubmitting"
+        styleClass="p-button-primary"
+      ></p-button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<p-toast></p-toast>

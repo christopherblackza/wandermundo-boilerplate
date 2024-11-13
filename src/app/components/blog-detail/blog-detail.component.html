@@ -10,7 +10,7 @@
         <h1>{{post.title}}</h1>
         <div class="meta">
           <div class="author">
-            <img [src]="post.author_image" [alt]="post.author">
+            <img [src]="post.author_image || 'assets/images/no-profile-photo.jpg'" [alt]="post.author || 'Anonymous'">
             <span>{{post.author}}</span>
           </div>
           <div class="divider">•</div>

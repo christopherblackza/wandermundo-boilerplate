@@ -61,33 +61,7 @@
     margin-top: 0.5rem;
   }
 
-  .p-button {
-    height: 3rem;
-    font-weight: 500;
 
-    
-    &.p-button-primary {
-      background-color: #4CAF50;
-      color: white;
-
-
-      
-      &:hover {
-        background-color: #5a6268;
-        border-color: #545b62;
-      }
-    }
-
-    &.p-button-secondary {
-      background-color: #6c757d;
-      border-color: #6c757d;
-      
-      &:hover {
-        background-color: #5a6268;
-        border-color: #545b62;
-      }
-    }
-  }
 
   // Input styling
   .p-inputtext {

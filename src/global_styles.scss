@@ -1,3 +1,9 @@
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css"; 
+@import 'quill/dist/quill.core.css';
+@import 'quill/dist/quill.snow.css';
+
 // Variables
 $primary-color: #4CAF50;
 $primary-hover: #45a049;
@@ -40,5 +46,33 @@ input.form-control {
   &:focus {
     border-color: $primary-color;
     box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+  }
+}
+
+.p-button {
+  height: 3rem;
+  font-weight: 500;
+
+  
+  &.p-button-primary {
+    background-color: #4CAF50;
+    color: white;
+
+
+    
+    &:hover {
+      background-color: #5a6268;
+      border-color: #545b62;
+    }
+  }
+
+  &.p-button-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    
+    &:hover {
+      background-color: #5a6268;
+      border-color: #545b62;
+    }
   }
 }

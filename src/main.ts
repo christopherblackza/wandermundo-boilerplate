@@ -11,6 +11,7 @@ import { routes } from './app/app.routes';
 import { FooterComponent } from './app/components/footer/footer.component';
 import { AuthService } from './app/services/auth.service';
 import { SupabaseService } from './app/services/supabase.service';
+import { QuillModule } from 'ngx-quill';
 
 @Component({
   selector: "app-root",
@@ -81,6 +82,7 @@ bootstrapApplication(App, {
   providers: [
     provideRouter(routes),
     importProvidersFrom(BrowserAnimationsModule),
+    importProvidersFrom(QuillModule.forRoot()),
     importProvidersFrom(ToastrModule.forRoot()),
     importProvidersFrom(HttpClientModule)
   ],

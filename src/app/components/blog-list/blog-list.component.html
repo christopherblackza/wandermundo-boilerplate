@@ -24,7 +24,14 @@
               <span class="author-name">{{post.author}}</span>
             </div>
             <p>{{post.excerpt}}</p>
-            <a [routerLink]="['/blog', post.id]" class="read-more">Read more</a>
+            <div class="card-actions">
+              <a [routerLink]="['/blog', post.id]" class="read-more">Read more</a>
+              <button *ngIf="canDelete(post)" 
+                      class="delete-button" 
+                      (click)="deletePost(post, $event)">
+                Delete
+              </button>
+            </div>
           </div>
         </article>
       </div>

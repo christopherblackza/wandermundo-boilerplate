@@ -15,6 +15,7 @@ import { LandingComponent } from './components/landing/landing.component';
 import { MembersComponent } from './components/members/members.component';
 import { OurStoryComponent } from './components/our-story/our-story.component';
 import { AuthGuard } from './guards/auth.guard';
+import { BlogCreateComponent } from './components/blog-create/blog-create.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -31,6 +32,21 @@ export const routes: Routes = [
   { path: 'communities', component: CommunityComponent, canActivate: [AuthGuard] },
   { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
   { path: 'blog', component: BlogListComponent, canActivate: [AuthGuard]  },
-  { path: 'blog/:id', component: BlogDetailComponent, canActivate: [AuthGuard] },
+  {
+    path: 'blog',
+    children: [
+      { 
+        path: 'create',
+        loadComponent: () => import('./components/blog-create/blog-create.component')
+          .then(m => m.BlogCreateComponent),
+        canActivate: [AuthGuard]
+      },
+      { 
+        path: ':id',
+        loadComponent: () => import('./components/blog-detail/blog-detail.component')
+          .then(m => m.BlogDetailComponent)
+      }
+    ]
+  },
   { path: '**', redirectTo: '/' } 
 ];

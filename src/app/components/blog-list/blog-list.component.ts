@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 
 import { BlogPost, BlogService } from '../../services/blog.service';
 import { NavbarComponent } from '../navbar/navbar.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-blog-list',
@@ -47,5 +48,44 @@ export class BlogListComponent implements OnInit {
         console.error('Failed to load trending posts:', error);
       }
     });
+  }
+
+  deletePost(post: BlogPost, event: Event) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this post!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.blogService.deletePost(post.id).subscribe({
+          next: () => {
+            this.blogPosts = this.blogPosts.filter(p => p.id !== post.id);
+            Swal.fire(
+              'Deleted!',
+              'Your post has been deleted.',
+              'success'
+            );
+          },
+          error: (error) => {
+            console.error('Failed to delete post:', error);
+            Swal.fire(
+              'Error!',
+              'Failed to delete post.',
+              'error'
+            );
+          }
+        });
+      }
+    });
+  }
+
+  canDelete(post: BlogPost): boolean {
+    return this.blogService.canUserDeletePost(post);
   }
 }

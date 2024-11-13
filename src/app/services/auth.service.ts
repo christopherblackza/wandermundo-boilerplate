@@ -16,6 +16,7 @@ export interface Profile {
   website?: string;
   occupation?: string;
   whatsapp_number?: string;
+  bio?: string;
   updated_at?: string;
 }
 
@@ -55,6 +56,10 @@ export class AuthService {
     });
     this.userSubject$ = new BehaviorSubject<User | null>(null);
     this.initSession();
+  }
+
+  get client() {
+    return this.supabase;
   }
   
   private async initSession() {

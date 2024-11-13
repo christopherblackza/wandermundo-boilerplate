@@ -4,7 +4,6 @@ import { BehaviorSubject, catchError, filter, from, map, Observable, switchMap, 
 
 import { environment } from '../../environments/environment';
 import { MyEvent } from '../models/event.model';
-import { UserProfile } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +11,7 @@ import { UserProfile } from '../models/user.model';
 export class SupabaseService {
   private supabase!: SupabaseClient;
   public userSubject$ = new BehaviorSubject<User | null>(null);
-  public userProfileSubject$ = new BehaviorSubject<UserProfile | null>(null);
+  // public userProfileSubject$ = new BehaviorSubject<Profile | null>(null);
   private messageSubject = new BehaviorSubject<any>(null);
   message$ = this.messageSubject.asObservable();
   private channel: RealtimeChannel | null = null;

@@ -82,8 +82,19 @@ ALTER TABLE public.messages ADD COLUMN user_email TEXT NOT NULL;
 -- Update the RLS policy for inserting messages
 DROP POLICY IF EXISTS "Authenticated users can insert messages" ON public.messages;
 CREATE POLICY "Authenticated users can insert messages" ON public.messages
-  FOR INSERT WITH CHECK (auth.uid() = user_id AND auth.email() = user_email);
+FOR INSERT WITH CHECK (auth.uid() = user_id AND auth.email() = user_email);
 
-  UPDATE auth.users
+UPDATE auth.users
 SET email_confirmed_at = NOW()
 WHERE email = 'test@gmail.com';
+
+CREATE POLICY "Allow public read access"
+ON storage.objects FOR SELECT
+USING (bucket_id = 'blog-images');
+
+CREATE POLICY "Allow authenticated users to upload"
+ON storage.objects FOR INSERT
+WITH CHECK (
+  bucket_id = 'blog-images' 
+  AND auth.role() = 'authenticated'
+);
