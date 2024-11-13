@@ -21,6 +21,10 @@
              {{ user.website }}
           </a> -->
           <p class="bio">{{ user.bio ?? "This user is keeping things mysterious – no bio yet!"}}</p>
+          <div class="admin-badge" *ngIf="user.is_admin">
+            <i class="pi pi-star-fill"></i>
+            Founder
+          </div>
         </div>
       </ng-template>
     </p-carousel>
