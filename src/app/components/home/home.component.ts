@@ -4,6 +4,7 @@ import { SupabaseService } from '../../services/supabase.service';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -29,14 +30,14 @@ export class HomeComponent {
 
   constructor(
     private router: Router,
-    private supabaseService: SupabaseService) {}
+    private authService: AuthService) {}
 
   ngOnInit() {
     this.loadUpcomingEvents();
   }
 
   async loadUpcomingEvents() {
-    const { data, error } = await this.supabaseService.getUpcomingEvents();
+    const { data, error } = await this.authService.getUpcomingEvents();
     if (error) {
       console.error('Error loading upcoming events:', error);
     } else {
@@ -54,7 +55,7 @@ export class HomeComponent {
       return;
     }
 
-    const { data, error } = await this.supabaseService.searchEvents(this.searchQuery);
+    const { data, error } = await this.authService.searchEvents(this.searchQuery);
     if (error) {
       console.error('Error searching events:', error);
     } else {

@@ -28,8 +28,7 @@ export class App implements OnInit, OnDestroy {
   isLoaded = false;
 
   constructor(
-    private authService: AuthService,
-    private supabaseService: SupabaseService
+    private authService: AuthService
   ) {
     this.backgroundImage = new Image();
   }
@@ -47,13 +46,13 @@ export class App implements OnInit, OnDestroy {
       
 
   
-    this.userSubscription = this.authService.user$.pipe().subscribe((user) => {
+    this.userSubscription = this.authService.userSubject$.pipe().subscribe((user) => {
       console.log('User:', user);
       if (user) {
-        this.supabaseService.subscribeToMessages();
+        this.authService.subscribeToMessages();
         this.authService.subscribeToPresence(); // Add this line
       } else {
-        this.supabaseService.unsubscribeFromMessages();
+        this.authService.unsubscribeFromMessages();
         this.authService.unsubscribeFromPresence(); // Add this line
       }
     });
@@ -73,7 +72,7 @@ export class App implements OnInit, OnDestroy {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }
-    this.supabaseService.unsubscribeFromMessages();
+    this.authService.unsubscribeFromMessages();
     this.authService.unsubscribeFromPresence(); 
   }
 }

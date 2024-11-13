@@ -70,7 +70,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.authService.user$
+    this.authService.userSubject$
     .pipe(takeUntil(this.unsubscribe$))  // Automatically unsubscribe when destroyed
     .subscribe(user => {
       this.user = user;

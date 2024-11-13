@@ -4,7 +4,7 @@
       <section id="hero">
         <h2>Are you a digital nomad looking for events?</h2>
         <p>Connect with fellow digital nomads, find events, and explore together!</p>
-        <button class="cta-button" routerLink="/signup">Join Us</button>
+        <button *ngIf="!(authService.userSubject$ | async)" class="cta-button" routerLink="/signup">Join Us</button>
         <!-- <button class="cta-button" (click)="scrollToSection('members')">Our Members</button> -->
       </section>
   

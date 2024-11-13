@@ -1,11 +1,17 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
+@import "../../../global_styles.scss";
 
 :host ::ng-deep {
   .p-button {
     width: 100%;
     margin-top: 20px;
+
+    background-color: $primary-color;
+    border-color: $primary-color;
+
+  
   }
 
   .p-steps {
@@ -157,5 +163,27 @@
 
   .form-section {
     padding: 1rem;
+  }
+}
+
+.avatar-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  .avatar-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e0e0e0;
+  }
+
+  .upload-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
   }
 }

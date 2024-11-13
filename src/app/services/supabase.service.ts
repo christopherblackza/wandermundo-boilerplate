@@ -10,7 +10,7 @@ import { UserProfile } from '../models/user.model';
   providedIn: 'root'
 })
 export class SupabaseService {
-  private supabase: SupabaseClient;
+  private supabase!: SupabaseClient;
   public userSubject$ = new BehaviorSubject<User | null>(null);
   public userProfileSubject$ = new BehaviorSubject<UserProfile | null>(null);
   private messageSubject = new BehaviorSubject<any>(null);
@@ -28,15 +28,15 @@ export class SupabaseService {
   private isViewingChat = false;
 
   constructor() {
-    this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey, {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false,
-        detectSessionInUrl: false
-      }
-    });
-    this.userSubject$ = new BehaviorSubject<User | null>(null);
-    this.initSession();
+    // this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey, {
+    //   auth: {
+    //     autoRefreshToken: false,
+    //     persistSession: false,
+    //     detectSessionInUrl: false
+    //   }
+    // });
+    // this.userSubject$ = new BehaviorSubject<User | null>(null);
+    // this.initSession();
   }
 
   private async initSession() {

@@ -23,7 +23,7 @@
              class="user-avatar" 
              alt="User avatar">
         <div class="message-content">
-          <strong>{{ message.user_full_name }}</strong>
+          <strong>{{ message.user_display_name }}</strong>
           <small>({{ message.created_at | date:'short' }})</small>
           <p>{{ message.content }}</p>
         </div>

@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
   isMenuOpen = false;
   isHeaderScrolled = false;
 
-  user$ = this.authService.user$;
+  user$ = this.authService.userSubject$;
 
   
 
@@ -30,8 +30,10 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
 
     this.unreadMessagesSubscription = this.authService.unreadMessages$.subscribe(count => {
+      console.log('Unread Messages:', count);
       this.unreadMessages = count;
     });
+
   }
 
   ngOnDestroy() {

@@ -6,7 +6,7 @@
         <h1 class="logo" routerLink="/">WanderMundo</h1>
 
 
-        <ul class="nav-links" *ngIf="authService.user$ | async as user">
+        <ul class="nav-links" *ngIf="authService.userSubject$ | async as user">
           <!-- <li class="nav-item">
             <a class="nav-link" routerLink="/create-event" routerLinkActive="active">Create Event</a>
           </li> -->
@@ -27,7 +27,7 @@
       <div class="right-section">
         <!-- Desktop Navigation -->
         <ul class="nav-links">
-          <li class="nav-item" *ngIf="authService.user$ | async as user">
+          <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
             <a class="nav-link" routerLink="/blog" routerLinkActive="active">Blog</a>
           </li>
           <li class="nav-item">
@@ -36,12 +36,12 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/about-us" routerLinkActive="active">About Us</a>
           </li>
-          <li class="nav-item" *ngIf="authService.user$ | async as user">
+          <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
             <a class="nav-link" style="cursor: pointer;" (click)="signOut()" routerLinkActive="active">Sign Out</a>
           </li>
         </ul>
 
-        <ul class="auth-links" *ngIf="!(authService.user$ | async)">
+        <ul class="auth-links" *ngIf="!(authService.userSubject$ | async)">
           <li class="nav-item">
             <a routerLink="/signup" class="nav-link">Join us</a>
           </li>
@@ -59,11 +59,14 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" [class.active]="isMenuOpen">
       <ul class="nav-links">
-        <li class="nav-item" *ngIf="authService.user$ | async as user">
+        <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
           <a class="nav-link" [routerLink]="['/account']" routerLinkActive="active">{{ user?.firstName || "Profile"
             }}</a>
         </li>
-        <li class="nav-item" *ngIf="authService.user$ | async as user">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/chat" routerLinkActive="active">Live Chat</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
           <a class="nav-link" routerLink="/blog" routerLinkActive="active">Blog</a>
         </li>
         <li class="nav-item">
@@ -72,11 +75,11 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/about-us" routerLinkActive="active">About Us</a>
         </li>
-        <li class="nav-item" *ngIf="authService.user$ | async as user">
+        <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
           <a class="nav-link" style="cursor: pointer;" (click)="signOut()" routerLinkActive="active">Sign Out</a>
         </li>
       </ul>
-      <ul class="auth-links" *ngIf="!(authService.user$ | async)">
+      <ul class="auth-links" *ngIf="!(authService.userSubject$ | async)">
         <li class="nav-item">
           <a routerLink="/signup" class="nav-link" (click)="toggleMenu()">Apply now</a>
         </li>

@@ -146,14 +146,8 @@
   button {
     padding: 8px 20px;
     border-radius: 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
     cursor: pointer;
     transition: background-color 0.2s;
 
-    &:hover {
-      background-color: #0056b3;
-    }
   }
 }

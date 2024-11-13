@@ -23,7 +23,7 @@
         </div>
       </ng-template>
     </p-carousel>
-    <div class="cta-container" *ngIf="!(authService.user$ | async)">
+    <div class="cta-container" *ngIf="!(authService.userSubject$ | async)">
       <button class="cta-button" routerLink="/signup">Join Our Community</button>
     </div>
   </div>

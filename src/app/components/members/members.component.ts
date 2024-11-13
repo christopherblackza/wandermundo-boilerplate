@@ -51,7 +51,7 @@ export class MembersComponent implements OnInit {
 
   async loadUsers() {
     try {
-      const { data, error } = await this.supabaseService.getUsers();
+      const { data, error } = await this.authService.getUsers();
       if (error) {
         console.error('Error fetching users:', error);
       } else {

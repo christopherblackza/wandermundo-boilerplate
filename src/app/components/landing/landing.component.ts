@@ -6,6 +6,7 @@ import { HomeComponent } from '../home/home.component';
 import { MembersComponent } from '../members/members.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: "app-landing",
@@ -32,6 +33,8 @@ export class LandingComponent implements OnInit {
   currentTestimonialIndex = 0;
 
   isMenuOpen = false;
+
+  constructor(public authService: AuthService) {}
 
   ngOnInit() {
     setInterval(() => {

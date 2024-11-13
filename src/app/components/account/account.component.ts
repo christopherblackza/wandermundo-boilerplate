@@ -33,14 +33,13 @@ import { NavbarComponent } from '../navbar/navbar.component';
 export class AccountComponent implements OnInit, OnDestroy {
   profileForm: FormGroup;
   loading = false;
-  imageChangedEvent: any = '';
-  cropppedImagePreview: any;
-  croppedImageBlob: Blob | null = null;
-  showCropper = false;
+
 
   // user: User | null = null;
   user: User | null = null;
   private unsubscribe$: Subject<void> = new Subject<void>();
+  avatarUrl: string | null = null;
+  private avatarFile: File | null = null;
 
   constructor(
     public authService: AuthService,
@@ -60,7 +59,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.authService.user$
+    this.authService.userSubject$
     .pipe(takeUntil(this.unsubscribe$))  // Automatically unsubscribe when destroyed
     .subscribe(user => {
       this.user = user;
@@ -75,24 +74,27 @@ export class AccountComponent implements OnInit, OnDestroy {
     // Trigger unsubscribe to clean up the subscription
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+    if (this.avatarUrl) {
+      URL.revokeObjectURL(this.avatarUrl);
+    }
   }
 
   loadUserProfile() {
+    console.log('loading user profile');
     this.loading = true;
 
       if (this.user) {
     
 
-        this.supabaseService.getProfile(this.user.id).then(({ data, error }) => {
+        this.authService.getProfile(this.user.id).then(({ data, error }) => {
           if (error) {
             this.toastr.error('Error loading profile', 'Profile Error');
           } else if (data) {
             console.error('data', data);
+            this.avatarUrl = data.avatar_url;
             this.profileForm.patchValue(data);
 
-            if (data.avatar_url) {
-              this.cropppedImagePreview = data.avatar_url;
-            }
+    
           }
           this.loading = false;
         });
@@ -101,74 +103,89 @@ export class AccountComponent implements OnInit, OnDestroy {
       
   }
 
-  onFileChange(event: any): void {
-    this.imageChangedEvent = event;
-    this.showCropper = true;
-    console.error('event', event);
-    const input = event.target as HTMLInputElement;
-    
-    // Check if a file was selected
-    if (input?.files?.length) {
-      const file = input.files[0];
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        // Once the file is loaded, set the image preview URL
-        this.cropppedImagePreview = reader.result as string;
-      };
-      reader.readAsDataURL(file); // Read file as data URL
-
-      // Create a Blob from the file
-      const blob = new Blob([file], { type: file.type });
-
-      // You can now use `blob`, for example:
-      this.croppedImageBlob = blob;
-    }
-  }
-
-  imageCropped(event: ImageCroppedEvent) {
-    this.cropppedImagePreview = event.objectUrl;
-    this.croppedImageBlob = event.blob || null;
-  }
 
 
   loadImageFailed() {
     this.toastr.error('Failed to load image');
   }
 
-  async onSubmit() {
-    if (this.profileForm.invalid) {
-      return;
-    }
+  // async onSubmit() {
+  //   console.log('submitting');
+  //   if (this.profileForm.invalid) {
+  //     return;
+  //   }
 
+  //   if (this.user) {
+  //     console.log('user', this.user);
+  //     let avatarUrl = this.profileForm.get('avatar_url')?.value;
+
+     
+
+
+  //     const updatedProfile = {
+  //       ...this.profileForm.value,
+  //       avatar_url: avatarUrl
+  //     };
+
+  //     const { error } = await this.supabaseService.updateProfile(this.user.id, updatedProfile);
+  //     if (error) {
+  //       this.toastr.error('Error updating profile', 'Update Error');
+  //     } else {
+  //       this.toastr.success('Profile updated successfully', 'Update Success');
+  //       this.profileForm.patchValue({ avatar_url: avatarUrl });
+  //     }
+  //   }
+
+    
+  // }
+
+  async onAvatarSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.avatarFile = file;
+      // Create a preview URL
+      this.avatarUrl = URL.createObjectURL(file);
+    }
+  }
+
+  async onSubmit() {
+    console.log('submitting');  
+    if (this.loading) return;
     this.loading = true;
 
-    if (this.user) {
+    try {
+      const user = this.authService.getUser();
+      if (!user) throw new Error('No user found');
+
       let avatarUrl = this.profileForm.get('avatar_url')?.value;
 
-      if (this.croppedImageBlob) {
-        const { data, error } = await this.supabaseService.uploadAvatar(this.user.id, this.croppedImageBlob);
-        if (error) {
-          this.toastr.error('Error uploading avatar', 'Upload Error');
-          this.loading = false;
-          return;
-        }
+      // Upload new avatar if selected
+      if (this.avatarFile) {
+        const { data, error } = await this.authService.uploadAvatar(user.id, this.avatarFile);
+        if (error) throw error;
         avatarUrl = data.path;
       }
 
-      const updatedProfile = {
+      const updates = {
         ...this.profileForm.value,
-        avatar_url: avatarUrl
+        avatar_url: avatarUrl,
+        updated_at: new Date()
       };
 
-      const { error } = await this.supabaseService.updateProfile(this.user.id, updatedProfile);
+      const { error } = await this.authService.updateProfile(user.id, updates);
       if (error) {
         this.toastr.error('Error updating profile', 'Update Error');
       } else {
         this.toastr.success('Profile updated successfully', 'Update Success');
         this.profileForm.patchValue({ avatar_url: avatarUrl });
       }
+
+      // Rest of your submission logic...
+    } catch (error) {
+      this.toastr.error('Error updating profile');
+      console.error(error);
+    } finally {
+      this.loading = false;
     }
-    this.loading = false;
   }
 }

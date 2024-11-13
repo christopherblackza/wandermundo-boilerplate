@@ -47,30 +47,27 @@
           <i class="fas fa-info-circle" title="This profile picture will be publicly available"></i>
         </h3>
         <div class="form-group">
-          <label for="avatar" class="form-label">Avatar</label>
-          <input type="file" (change)="onFileChange($event)" accept="image/*">
-        </div>
-
-        <!-- <p-dialog header="Crop Avatar" [(visible)]="showCropper" [modal]="true" [style]="{width: '50vw'}">
-          <image-cropper
-            [imageChangedEvent]="imageChangedEvent"
-            [maintainAspectRatio]="true"
-            [aspectRatio]="1 / 1"
-            format="png"
-            (imageCropped)="imageCropped($event)"
-            (loadImageFailed)="loadImageFailed()"
-          ></image-cropper>
-          <ng-template pTemplate="footer">
-            <p-button (click)="showCropper=false" label="Done"></p-button>
-          </ng-template>
-        </p-dialog> -->
-
-        <div *ngIf="cropppedImagePreview" class="avatar-preview">
-          <img [src]="cropppedImagePreview" alt="Avatar preview">
+          <div class="avatar-upload-container">
+            <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar-preview" alt="Avatar preview">
+            <div class="upload-controls">
+              <input
+                type="file"
+                accept="image/*"
+                (change)="onAvatarSelected($event)"
+                #avatarInput
+                style="display: none">
+              <p-button 
+                type="button"
+                [label]="avatarUrl ? 'Change Photo' : 'Upload Photo'"
+                (onClick)="avatarInput.click()"
+                styleClass="p-button-secondary">
+              </p-button>
+            </div>
+          </div>
         </div>
       </div>
       
-      <p-button type="submit" [label]="loading ? 'Updating...' : 'Update Profile'" [disabled]="profileForm.invalid || loading"></p-button>
+      <p-button  type="submit" [label]="loading ? 'Updating...' : 'Update Profile'" [disabled]="profileForm.invalid || loading"></p-button>
     </form>
   </div>
 </div>

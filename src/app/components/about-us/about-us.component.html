@@ -1,19 +1,27 @@
 <app-navbar></app-navbar>
 <div class="page-wrapper">
   <section class="hero-section">
-    <h1>About Us</h1>
-    <p>
-      Hello everyone! I’m Christopher Black, a South African originally from Mossel Bay, and a passionate digital nomad who’s called Cape Town home for the past 8 years.
-    </p>
-    <p>
-      After traveling and working remotely, I discovered a love for connecting with others on the move and found my inspiration in being part of various communities in South East Asia and Cape Town. Cape Town is a paradise for digital nomads, but with so many people coming and going, it can be challenging to find a lasting community.
-    </p>
-    <p>
-      I enjoy meeting new people, hosting events, and uncovering the hidden gems around town. That’s why I’m creating a platform where digital nomads like us can truly connect, share stories, and swap travel tips to get the most out of life in Cape Town.
-    </p>
-    <p>
-      Whether you're exploring trails, checking out unique bars and restaurants, or looking for your next adventure, this platform is for everyone wanting to embrace the digital nomad lifestyle.
-    </p>
+    <div class="container">
+      <h1>About Us</h1>
+      <p>
+        Hello everyone! I’m Christopher Black, a South African originally from Mossel Bay, and a passionate digital
+        nomad who’s called Cape Town home for the past 8 years.
+      </p>
+      <p>
+        After traveling and working remotely, I discovered a love for connecting with others on the move and found my
+        inspiration in being part of various communities in South East Asia and Cape Town. Cape Town is a paradise for
+        digital nomads, but with so many people coming and going, it can be challenging to find a lasting community.
+      </p>
+      <p>
+        I enjoy meeting new people, hosting events, and uncovering the hidden gems around town. That’s why I’m creating
+        a platform where digital nomads like us can truly connect, share stories, and swap travel tips to get the most
+        out of life in Cape Town.
+      </p>
+      <p>
+        Whether you're exploring trails, checking out unique bars and restaurants, or looking for your next adventure,
+        this platform is for everyone wanting to embrace the digital nomad lifestyle.
+      </p>
+    </div>
   </section>
 
   <section class="timeline-section">
@@ -32,10 +40,7 @@
     <h2>Our Team</h2>
     <div class="team-grid">
       <div class="team-member" *ngFor="let member of teamMembers">
-        <div
-          class="avatar"
-          [style.backgroundImage]="'url(' + member.avatar + ')'"
-        ></div>
+        <div class="avatar" [style.backgroundImage]="'url(' + member.avatar + ')'"></div>
         <h3 class="member-name">{{ member.name }}</h3>
         <p class="member-role">{{ member.role }}</p>
       </div>

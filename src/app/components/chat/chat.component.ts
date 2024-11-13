@@ -48,7 +48,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     this.authService.subscribeToMessages();
 
 
-    this.authService.user$
+    this.authService.userSubject$
     .pipe(takeUntil(this.unsubscribe$))  // Automatically unsubscribe when destroyed
     .subscribe(user => {
       this.user = user;
@@ -106,6 +106,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
     if (error) {
       console.error('Error loading messages:', error);
     } else {
+      console.log('Messages:', data);
       // Ensure system messages appear at the top
       this.messages = (data || []).sort((a, b) => {
         if (a.is_system_message && !b.is_system_message) return -1;
