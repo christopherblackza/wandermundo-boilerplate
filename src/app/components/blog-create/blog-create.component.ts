@@ -93,8 +93,8 @@ export class BlogCreateComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.blogForm = this.fb.group({
-      title: ['Test Blog', [Validators.required, Validators.minLength(5)]],
-      excerpt: ['This is the exceprt for my test blog that has a long excerpt', [Validators.required, Validators.minLength(50)]],
+      title: ['', [Validators.required, Validators.minLength(5)]],
+      excerpt: ['', [Validators.required, Validators.minLength(50)]],
       content: ['', [Validators.required, Validators.minLength(100)]],
       category: ['', Validators.required],
       tags: [[]],
@@ -186,7 +186,6 @@ export class BlogCreateComponent implements OnInit {
         // Create the blog post with the image file
         const blogPost = await this.blogService.createPost(formValue, this.profile, this.imageFile)
           .toPromise();
-        console.log('Blog post:', blogPost);
 
         this.toastService.success('Blog post created successfully!');
         this.router.navigate(['/blog']); // Navigate to blog list or wherever appropriate

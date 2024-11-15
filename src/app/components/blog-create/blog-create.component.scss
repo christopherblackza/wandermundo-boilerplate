@@ -1,3 +1,7 @@
+.quill-editor{
+  max-width: 100%;
+}
+
 .create-blog-page {
     margin-top: 100px;
     min-height: 100vh;
@@ -53,6 +57,7 @@
   
     .ql-editor {
       min-height: 200px;
+      max-width: 100%;
     }
   
     .ql-toolbar {

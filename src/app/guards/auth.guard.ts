@@ -34,17 +34,19 @@ export class AuthGuard implements CanActivate {
 //     );
 //   }
 
-canActivate(): Observable<boolean> {
-  return this.authService.userSubject$.pipe(
-    map(user => {
-      if (user) {
-        return true;  // User is logged in, allow access
-      } else {
-        this.router.navigate(['/']);  // Redirect to landing page
-        return false;  // Block access
-      }
-    })
-  );
+async canActivate(): Promise<boolean> {
+
+
+  const { data, error } = await this.authService.supabase.auth.getUser();
+    console.log('user', data);
+
+    if (data && data.user) {
+      return true;
+    } else {
+      this.router.navigate(['/']);
+      return false;
+    }
+ 
 }
 
 // canActivate(): Observable<boolean | UrlTree> {
