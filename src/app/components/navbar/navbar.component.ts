@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, CommonModule, RouterModule],
+  imports: [RouterLink, CommonModule, RouterModule, RouterLink],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
@@ -20,6 +20,9 @@ export class NavbarComponent implements OnInit {
 
   isMenuOpen = false;
   isHeaderScrolled = false;
+  isMobileMenuOpen = false;
+  avatarUrl: string | null = null;
+  isMobile: boolean = false;
 
   user$ = this.authService.userSubject$;
 
@@ -27,12 +30,32 @@ export class NavbarComponent implements OnInit {
 
   constructor(public authService: AuthService, private router: Router) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.checkScreenSize();
+    window.addEventListener('resize', () => this.checkScreenSize());
+
+    const { data, error } = await this.authService.supabase.auth.getUser();
+    console.log('user', data);
+
+    if (data && data.user) {
+      this.authService.getProfile(data.user.id).then(({ data, error }) => {
+        if (data) {
+          this.avatarUrl = data.avatar_url;
+          
+  
+  
+        }
+      });
+    }
+
+   
+
 
     this.unreadMessagesSubscription = this.authService.unreadMessages$.subscribe(count => {
       console.log('Unread Messages:', count);
       this.unreadMessages = count;
     });
+
 
   }
 
@@ -43,6 +66,7 @@ export class NavbarComponent implements OnInit {
     if (this.unreadMessagesSubscription) {
       this.unreadMessagesSubscription.unsubscribe();
     }
+    window.removeEventListener('resize', () => this.checkScreenSize());
   }
 
   signOut() {
@@ -71,15 +95,23 @@ export class NavbarComponent implements OnInit {
   onDocumentClick(event: MouseEvent) {
     console.log('onDocumentClick')
     // Get references to the menu and hamburger button
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const hamburgerButton = document.querySelector('.hamburger');
+    const mobileMenu = document.querySelector('.nav-links');
+    const hamburgerButton = document.querySelector('.mobile-menu-btn');
     
     // Check if click is outside both the menu and hamburger button
     if (mobileMenu && hamburgerButton && 
         !mobileMenu.contains(event.target as Node) && 
         !hamburgerButton.contains(event.target as Node)) {
-      this.isMenuOpen = false;
+      this.isMobileMenuOpen = false;
     }
   }
   
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    console.log('isMobileMenuOpen', this.isMobileMenuOpen);
+  }
+
+  private checkScreenSize() {
+    this.isMobile = window.innerWidth <= 768;
+  }
 }

@@ -1,168 +1,36 @@
-<header [class.scrolled]="isHeaderScrolled">
-  <div class="container">
-    <div class="navbar-content">
-      <div class="left-section">
-        <img src="assets/images/logo.png" style="width: 100px; height: 50px;" alt="WanderMundo Logo" class="logo" routerLink="/">
-        <h1 class="logo" routerLink="/">WanderMundo</h1>
+<nav class="navbar">
+  <div class="navbar-left">
+    <a routerLink="/" class="logo">
+      <img src="assets/images/logo.png" alt="Logo">
+      <span>Wandermundo</span>
+    </a>
+    <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-links" [class.active]="isMobileMenuOpen">
+      <li><a routerLink="/" routerLinkActive="active" (click)="toggleMobileMenu()">Home</a></li>
+      <li><a routerLink="/our-story" routerLinkActive="active" (click)="toggleMobileMenu()">Our Story</a></li>
+      <li><a routerLink="/about-us" routerLinkActive="active" (click)="toggleMobileMenu()">About Us</a></li>
+      <li *ngIf="authService.userSubject$ | async" (click)="toggleMobileMenu()"><a routerLink="/create-event" routerLinkActive="active">Create Event</a></li>
+      <li *ngIf="authService.userSubject$ | async" (click)="toggleMobileMenu()"><a routerLink="/blog" routerLinkActive="active">Blog</a></li>
+      <li *ngIf="authService.userSubject$ | async" (click)="toggleMobileMenu()"><a routerLink="/chat" routerLinkActive="active">Live Chat</a></li>
+      <li><a routerLink="/login" routerLinkActive="active" *ngIf="isMobile" (click)="toggleMobileMenu()">Login</a></li>
+      <li><a routerLink="/signup" routerLinkActive="active" *ngIf="isMobile" (click)="toggleMobileMenu()">Join Us</a></li>
 
-
-        <ul class="nav-links" *ngIf="authService.userSubject$ | async as user">
-          <!-- <li class="nav-item">
-            <a class="nav-link" routerLink="/create-event" routerLinkActive="active">Create Event</a>
-          </li> -->
-          
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/chat" routerLinkActive="active">Live Chat</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/account']" routerLinkActive="active">{{ user?.firstName || "Profile"
-              }}</a>
-          </li>
-
-          <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
-            <a class="nav-link" routerLink="/blog/create" routerLinkActive="active">Create Post</a>
-          </li>
-
-          
-        </ul>
-      </div>
-
-     
-    
-      <div class="right-section">
-        <!-- Desktop Navigation -->
-        <ul class="nav-links">
-          <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
-            <a class="nav-link" routerLink="/blog" routerLinkActive="active">Blog</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/our-story" routerLinkActive="active">Our Story</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/about-us" routerLinkActive="active">About Us</a>
-          </li>
-          <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
-            <a class="nav-link" style="cursor: pointer;" (click)="signOut()" routerLinkActive="active">Sign Out</a>
-          </li>
-        </ul>
-
-        <ul class="auth-links" *ngIf="!(authService.userSubject$ | async)">
-          <li class="nav-item">
-            <a routerLink="/signup" class="nav-link">Join us</a>
-          </li>
-        </ul>
-
-        <!-- Hamburger Button -->
-        <button class="hamburger" [class.active]="isMenuOpen" (click)="toggleMenu($event)">
-          <span [ngStyle]="isHeaderScrolled ? { 'background-color': 'black' } : {}"></span>
-          <span [ngStyle]="isHeaderScrolled ? { 'background-color': 'black' } : {}"></span>
-          <span [ngStyle]="isHeaderScrolled ? { 'background-color': 'black' } : {}"></span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" [class.active]="isMenuOpen">
-      <ul class="nav-links">
-        <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
-          <a class="nav-link" [routerLink]="['/account']" routerLinkActive="active">{{ user?.firstName || "Profile"
-            }}</a>
-        </li>
-        <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
-          <a class="nav-link" routerLink="/blog/create" routerLinkActive="active">Create Post</a>
-        </li>
-        <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
-          <a class="nav-link" routerLink="/chat" routerLinkActive="active">Live Chat</a>
-        </li>
-        <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
-          <a class="nav-link" routerLink="/blog" routerLinkActive="active">Blog</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/our-story" routerLinkActive="active">Our Story</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/about-us" routerLinkActive="active">About Us</a>
-        </li>
-        <li class="nav-item" *ngIf="authService.userSubject$ | async as user">
-          <a class="nav-link" style="cursor: pointer;" (click)="signOut()" routerLinkActive="active">Sign Out</a>
-        </li>
-      </ul>
-      <ul class="auth-links" *ngIf="!(authService.userSubject$ | async)">
-        <li class="nav-item">
-          <a routerLink="/signup" class="nav-link" (click)="toggleMenu()">Apply now</a>
-        </li>
-      </ul>
-    </div>
+    </ul>
   </div>
-</header>
-
-<!-- 
-<header [class.scrolled]="isHeaderScrolled"></header>
-  <div class="container">
-    <div class="navbar-content">
-      <div class="left-section">
-        <h1 class="logo" routerLink="/">WanderMundo</h1>
-        <button class="hamburger" [class.active]="isMenuOpen" (click)="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <ul class="nav-links">
-     
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/blog" routerLinkActive="active">Blog</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/our-story" routerLinkActive="active">Our Story</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/about-us" routerLinkActive="active">About Us</a>
-          </li>
-        </ul>
-
-
+  <div class="navbar-right" >
+    <ng-container *ngIf="authService.userSubject$ | async; else loginTemplate">
+      <div class="user-menu">
+        <img [src]="avatarUrl" alt="User avatar" class="avatar">
+        <button (click)="signOut()" class="btn-logout">Logout</button>
       </div>
-
-      <div class="right-section">
-        <ul class="nav-links" *ngIf="authService.user$ | async as user">
-          <li class="nav-item">
-            <a class="nav-link position-relative" routerLink="/chat" routerLinkActive="active">
-              Live Chat
-              <span *ngIf="unreadMessages > 0"
-                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                {{ unreadMessages > 99 ? "99+" : unreadMessages }}
-                <span class="visually-hidden">unread messages</span>
-              </span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/communities" routerLinkActive="active">Communities</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/members" routerLinkActive="active">Members</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/create-event" routerLinkActive="active">Create Event</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/account']" routerLinkActive="active">{{ user?.firstName || "Profile"
-              }}</a>
-          </li>
-        </ul>
-
-        <ul class="auth-links" [class.active]="isMenuOpen">
-          <li class="nav-item" *ngIf="!(authService.user$ | async)">
-            <a class="nav-link" routerLink="/login">Login</a>
-          </li>
-          <li class="nav-item" *ngIf="!(authService.user$ | async)">
-            <a class="nav-link" routerLink="/signup">Sign Up</a>
-          </li>
-          <li class="nav-item" *ngIf="authService.user$ | async">
-            <a class="nav-link" (click)="signOut()">Sign Out</a>
-          </li>
-        </ul>
-      </div>
-    </div>
+    </ng-container>
+    <ng-template #loginTemplate>
+      <button *ngIf="!isMobile" routerLink="/login" class="btn-login">Login</button>
+      <button *ngIf="!isMobile" routerLink="/signup" class="btn-register">Join Us</button>
+    </ng-template>
   </div>
-</header> -->
+</nav>

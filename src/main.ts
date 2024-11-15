@@ -12,11 +12,12 @@ import { FooterComponent } from './app/components/footer/footer.component';
 import { AuthService } from './app/services/auth.service';
 import { SupabaseService } from './app/services/supabase.service';
 import { QuillModule } from 'ngx-quill';
+import { NavbarComponent } from './app/components/navbar/navbar.component';
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FooterComponent],
+  imports: [CommonModule, RouterOutlet, FooterComponent, NavbarComponent],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
 })
