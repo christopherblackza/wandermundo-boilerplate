@@ -40,6 +40,7 @@ export class NavbarComponent implements OnInit {
     if (data && data.user) {
       this.authService.getProfile(data.user.id).then(({ data, error }) => {
         if (data) {
+          console.log('data', data);
           this.avatarUrl = data.avatar_url;
           
   
@@ -57,6 +58,11 @@ export class NavbarComponent implements OnInit {
     });
 
 
+  }
+
+  goToProfile() {
+    console.log('goToProfile');
+    this.router.navigate(['/account']);
   }
 
   ngOnDestroy() {
@@ -91,20 +97,20 @@ export class NavbarComponent implements OnInit {
     this.isHeaderScrolled = window.pageYOffset > 50;
   }
 
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    console.log('onDocumentClick')
-    // Get references to the menu and hamburger button
-    const mobileMenu = document.querySelector('.nav-links');
-    const hamburgerButton = document.querySelector('.mobile-menu-btn');
+  // @HostListener('document:click', ['$event'])
+  // onDocumentClick(event: MouseEvent) {
+  //   console.log('onDocumentClick')
+  //   // Get references to the menu and hamburger button
+  //   const mobileMenu = document.querySelector('.nav-links');
+  //   const hamburgerButton = document.querySelector('.mobile-menu-btn');
     
-    // Check if click is outside both the menu and hamburger button
-    if (mobileMenu && hamburgerButton && 
-        !mobileMenu.contains(event.target as Node) && 
-        !hamburgerButton.contains(event.target as Node)) {
-      this.isMobileMenuOpen = false;
-    }
-  }
+  //   // Check if click is outside both the menu and hamburger button
+  //   if (mobileMenu && hamburgerButton && 
+  //       !mobileMenu.contains(event.target as Node) && 
+  //       !hamburgerButton.contains(event.target as Node)) {
+  //     this.isMobileMenuOpen = false;
+  //   }
+  // }
   
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;

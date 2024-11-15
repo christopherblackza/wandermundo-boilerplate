@@ -24,7 +24,7 @@
   <div class="navbar-right" >
     <ng-container *ngIf="authService.userSubject$ | async; else loginTemplate">
       <div class="user-menu">
-        <img [src]="avatarUrl" alt="User avatar" class="avatar">
+        <img [src]="avatarUrl || 'assets/images/no-profile-photo.jpg'" alt="User avatar" class="avatar" (click)="goToProfile()">
         <button (click)="signOut()" class="btn-logout">Logout</button>
       </div>
     </ng-container>

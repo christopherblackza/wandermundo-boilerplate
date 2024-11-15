@@ -44,7 +44,11 @@ $border-color: #e5e7eb;
       text-transform: uppercase;
       letter-spacing: 1px;
 
-      
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
 
     h1 {
@@ -299,6 +303,10 @@ $border-color: #e5e7eb;
   align-items: center;
   justify-content: center;
   min-height: 400px;
+  background: $light-gray;
+  padding: 2rem;
+  border-radius: 1rem;
+
   
   .spinner {
     width: 40px;
