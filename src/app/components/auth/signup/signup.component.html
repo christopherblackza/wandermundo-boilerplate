@@ -131,7 +131,7 @@
         <p-button *ngIf="currentStep === 3" type="submit" styleClass="p-button-primary">
           <ng-template pTemplate="content">
             <span *ngIf="!loading">Start Your Journey</span>
-            Creating Account...<span *ngIf="loading" class="spinner"></span>
+            <ng-container *ngIf="loading">Creating Account...</ng-container><span *ngIf="loading" class="spinner"></span>
           </ng-template>
         </p-button>
       </div>
