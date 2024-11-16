@@ -151,7 +151,19 @@
 
 @media screen and (max-width: 768px) {
   .navbar {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 64px;
     
     .mobile-menu-btn {
       display: flex !important;
@@ -191,11 +203,30 @@
     }
 
     .navbar-right {
-      display: none;
       position: absolute;
       right: 1rem;
+
+      button {
+        &.btn-logout {
+          display: none;
+        }
+      }
       
       .user-menu {
+
+        margin-right: 70px;
+
+        .avatar {
+          width: 32px;
+          cursor: pointer;
+          height: 32px;
+          border-radius: 50%;
+          object-fit: cover;
+          padding: 0;
+          margin: 0;
+
+        }
+
         span {
           display: none;
         }

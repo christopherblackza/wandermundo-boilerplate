@@ -64,6 +64,7 @@ export class AuthService {
   
   private async initSession() {
     const storedSession = this.getStoredSession();
+    console.log('Stored session:', storedSession);
     if (storedSession) {
       console.log('Stored session found:', storedSession);
       try {
@@ -88,6 +89,7 @@ export class AuthService {
         this.clearStoredSession();
       }
     }
+    this.loadUserFromSession();
     this.sessionInitialized.next(true);
   }
 
@@ -282,6 +284,7 @@ export class AuthService {
       user_avatar_url: profile?.avatar_url || null,
       user_display_name: profile?.display_name || null
     });
+    console.log('Message sent:', result);
 
     return result;
   }

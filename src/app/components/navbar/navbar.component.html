@@ -16,8 +16,8 @@
       <li *ngIf="authService.userSubject$ | async" (click)="toggleMobileMenu()"><a routerLink="/create-event" routerLinkActive="active">Create Event</a></li>
       <li *ngIf="authService.userSubject$ | async" (click)="toggleMobileMenu()"><a routerLink="/blog" routerLinkActive="active">Blog</a></li>
       <li *ngIf="authService.userSubject$ | async" (click)="toggleMobileMenu()"><a routerLink="/chat" routerLinkActive="active">Live Chat</a></li>
-      <li><a routerLink="/login" routerLinkActive="active" *ngIf="isMobile" (click)="toggleMobileMenu()">Login</a></li>
-      <li><a routerLink="/signup" routerLinkActive="active" *ngIf="isMobile" (click)="toggleMobileMenu()">Join Us</a></li>
+      <li><a routerLink="/login" routerLinkActive="active" *ngIf="isMobile && !(authService.userSubject$ | async)" (click)="toggleMobileMenu()">Login</a></li>
+      <li><a routerLink="/signup" routerLinkActive="active" *ngIf="isMobile && !(authService.userSubject$ | async)" (click)="toggleMobileMenu()">Join Us</a></li>
 
     </ul>
   </div>

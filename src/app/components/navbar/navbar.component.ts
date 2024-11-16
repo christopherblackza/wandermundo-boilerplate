@@ -31,6 +31,7 @@ export class NavbarComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router) {}
 
   async ngOnInit() {
+    console.log('ngOnInit');
     this.checkScreenSize();
     window.addEventListener('resize', () => this.checkScreenSize());
 
@@ -38,6 +39,8 @@ export class NavbarComponent implements OnInit {
     console.log('user', data);
 
     if (data && data.user) {
+      this.authService.userSubject$.next(data.user);
+      
       this.authService.getProfile(data.user.id).then(({ data, error }) => {
         if (data) {
           console.log('data', data);

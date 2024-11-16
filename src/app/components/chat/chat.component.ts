@@ -37,6 +37,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.authService.profile$.subscribe(profile => {
+      console.log('Profile:', profile);
       if (profile) {
         // Use profile data
         this.profile = profile;

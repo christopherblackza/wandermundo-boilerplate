@@ -1,6 +1,7 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
+@import "../../../global_styles.scss";
 
 .create-event-container {
   display: flex;
@@ -54,6 +55,8 @@
   .p-button {
     width: 100%;
     margin-top: 20px;
+
+    background-color: $primary-color;
   }
 }
 
