@@ -116,9 +116,9 @@ ON blog_posts
 FOR INSERT
 WITH CHECK (auth.uid() = user_id);
 
--- Step 4: Create policy to allow users to delete their own blog posts
-CREATE POLICY "Allow delete access for blog post owner"
+-- Step 4: Create policy to allow users to update their own blog posts to inactive status
+CREATE POLICY "Allow update access for blog post owner"
 ON blog_posts
-FOR DELETE
+FOR UPDATE
 USING (auth.uid() = user_id);
 

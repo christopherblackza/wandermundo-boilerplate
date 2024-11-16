@@ -23,7 +23,7 @@ export const routes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'our-story', component: OurStoryComponent },
   { path: 'landing', component: LandingComponent },
-  { path: 'landing2', component: Landing2Component },
+  // { path: 'landing2', component: Landing2Component },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
   { path: 'members', component: MembersComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupComponent },
@@ -44,7 +44,8 @@ export const routes: Routes = [
       { 
         path: ':id',
         loadComponent: () => import('./components/blog-detail/blog-detail.component')
-          .then(m => m.BlogDetailComponent)
+          .then(m => m.BlogDetailComponent),
+        canActivate: [AuthGuard] 
       }
     ]
   },
