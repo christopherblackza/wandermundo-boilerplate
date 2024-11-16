@@ -98,3 +98,27 @@ WITH CHECK (
   bucket_id = 'blog-images' 
   AND auth.role() = 'authenticated'
 );
+
+
+-- Blog Posts Policies
+-- Step 1: Enable Row Level Security (RLS) for the table
+ALTER TABLE blog_posts ENABLE ROW LEVEL SECURITY;
+
+-- Step 2: Create policy to allow authenticated users to view all blog posts
+CREATE POLICY "Allow read access to authenticated users"
+ON blog_posts
+FOR SELECT
+USING (auth.uid() IS NOT NULL);
+
+-- Step 3: Create policy to allow authenticated users to create blog posts
+CREATE POLICY "Allow insert access to authenticated users"
+ON blog_posts
+FOR INSERT
+WITH CHECK (auth.uid() = user_id);
+
+-- Step 4: Create policy to allow users to delete their own blog posts
+CREATE POLICY "Allow delete access for blog post owner"
+ON blog_posts
+FOR DELETE
+USING (auth.uid() = user_id);
+

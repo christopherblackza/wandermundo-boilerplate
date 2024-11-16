@@ -15,6 +15,7 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  isLoading = false;
 
   constructor(
     private authService: AuthService,
@@ -38,23 +39,16 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    // try {
-    //   const { error } = await this.supabaseService.signIn(this.f['email'].value, this.f['password'].value);
-    //   if (error) throw error;
-    //   this.toastr.success('Login successful!', 'Welcome');
-    //   this.router.navigate(['/']);
-    // } catch (error: any) {
-    //   console.error('Error logging in:', error);
-    //   this.toastr.error(error.message || 'An error occurred during login', 'Login Failed');
-    // }
+    this.isLoading = true;
     try {
       const { error } = await this.authService.signIn(this.f['email'].value, this.f['password'].value);
       if (error) throw error;
-      // this.toastr.success('Login successful!', 'Welcome');
       this.router.navigate(['/']);
     } catch (error: any) {
       console.error('Error logging in:', error);
       this.toastr.error(error.message || 'An error occurred during login', 'Login Failed');
+    } finally {
+      this.isLoading = false;
     }
   }
 }

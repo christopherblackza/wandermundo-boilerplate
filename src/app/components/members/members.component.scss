@@ -131,6 +131,11 @@
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
+
+  // Add these properties to ensure smooth animations
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);  // Force GPU acceleration
 }
 
 .avatar {
@@ -231,6 +236,16 @@
       letter-spacing: 1px;
       margin-top: 10px;
       font-weight: 600;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+
+  .member-card {
+    .admin-badge {
+      font-size: 8px;
+      margin-right: 25px;
     }
   }
 }

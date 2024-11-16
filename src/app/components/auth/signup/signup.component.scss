@@ -1,3 +1,6 @@
+@import '../../../../global_styles.scss';
+
+
 // Update the deep styles for PrimeNG components
 :host ::ng-deep {
   .p-steps {
@@ -155,6 +158,33 @@
       border-radius: 2px;
     }
   }
+
+  .spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .p-button {
+    &.p-button-primary {
+      min-width: 150px;  // Ensures button doesn't resize during loading
+      
+      .p-button-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 24px;  // Maintains consistent height
+      }
+    }
+  }
 }
 
 .signup-container {
@@ -181,6 +211,10 @@
   font-weight: 600;
   margin-bottom: 1.5rem;
   color: #2c3e50;
+
+  span {
+    color: $primary-color;
+  }
 }
 
 .signup-form {

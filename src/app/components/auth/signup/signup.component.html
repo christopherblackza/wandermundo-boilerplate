@@ -3,7 +3,7 @@
     <img src="assets/images/logo.png" alt="WanderMundo Logo" class="logo">
   </a>
   <div class="signup-form-wrapper animate__animated animate__fadeIn">
-    <h2 class="signup-title">Join WanderMundo</h2>
+    <h2 class="signup-title">Join <span>Wandermundo</span></h2>
 
     <p-steps [model]="steps" [activeIndex]="currentStep" [readonly]="true"></p-steps>
 
@@ -128,9 +128,12 @@
         <p-button *ngIf="currentStep < 3" styleClass="p-button-primary" type="button" label="Next"
           (onClick)="nextStep()" [disabled]="!isStepValid()"></p-button>
 
-        <p-button *ngIf="currentStep === 3" type="submit" styleClass="p-button-primary" 
-          [label]="loading ? 'Creating Account...' : 'Start Your Journey'"  [disabled]="signupForm.invalid || loading"
-          ></p-button>
+        <p-button *ngIf="currentStep === 3" type="submit" styleClass="p-button-primary">
+          <ng-template pTemplate="content">
+            <span *ngIf="!loading">Start Your Journey</span>
+            Creating Account...<span *ngIf="loading" class="spinner"></span>
+          </ng-template>
+        </p-button>
       </div>
     </form>
 

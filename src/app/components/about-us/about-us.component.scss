@@ -46,7 +46,7 @@ $mobile-breakpoint: 768px;
   
   .hero-section {
     text-align: center;
-    padding: 6rem 0;
+    padding: 3rem 0;
     
   
     h1 {
@@ -203,6 +203,10 @@ $mobile-breakpoint: 768px;
   }
   
   @media (max-width: 768px) {
+
+    .hero-section {
+      padding: 1rem 0;
+    }
 
     .page-wrapper {
       padding-top: 100px;

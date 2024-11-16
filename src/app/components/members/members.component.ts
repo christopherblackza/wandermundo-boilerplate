@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CarouselModule } from 'primeng/carousel';
+import { trigger, transition, style, animate, query, stagger, state } from '@angular/animations';
 
 import { AuthService } from '../../services/auth.service';
 import { SupabaseService } from '../../services/supabase.service';
@@ -15,10 +16,33 @@ import { Dialog } from 'primeng/dialog';
   imports: [CommonModule, NavbarComponent, CarouselModule, RouterModule, NavbarComponent],
   providers: [DialogService],
   templateUrl: './members.component.html',
-  styleUrls: ['./members.component.scss']
+  styleUrls: ['./members.component.scss'],
+  animations: [
+    trigger('fadeInOnScroll', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(30px)' }),
+        animate('600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ]),
+    trigger('staggerFadeOnScroll', [
+      state('visible', style({ 
+        opacity: 1, 
+        transform: 'translateY(0)' 
+      })),
+      state('hidden', style({ 
+        opacity: 0, 
+        transform: 'translateY(30px)' 
+      })),
+      transition('hidden => visible', [
+        animate('600ms ease-out')
+      ])
+    ])
+  ]
 })
-export class MembersComponent implements OnInit {
+export class MembersComponent implements OnInit, AfterViewInit {
   users: any[] = [];
+  @ViewChildren('memberCard') memberCards!: QueryList<ElementRef>;
+  cardStates: { [key: number]: string } = {};
 
   responsiveOptions = [
     {
@@ -45,11 +69,42 @@ export class MembersComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit() {
     this.loadUsers();
+  }
+
+  ngAfterViewInit() {
+    this.setupIntersectionObserver();
+  }
+
+  private setupIntersectionObserver() {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.3
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = this.memberCards.toArray().findIndex(card => card.nativeElement === entry.target);
+          if (index !== -1) {
+            this.cardStates[index] = 'visible';
+          }
+        }
+      });
+    }, options);
+
+    // Observe each card
+    this.memberCards.forEach((card) => {
+      observer.observe(card.nativeElement);
+      const index = this.memberCards.toArray().indexOf(card);
+      this.cardStates[index] = 'hidden';
+    });
   }
 
   async loadUsers() {

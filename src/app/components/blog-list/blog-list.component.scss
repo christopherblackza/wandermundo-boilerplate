@@ -126,6 +126,9 @@
       p {
         color: #666;
         margin-bottom: 1.5rem;
+        display: flex;
+        height: 100px;
+        overflow-wrap: anywhere;
       }
   
       .read-more {

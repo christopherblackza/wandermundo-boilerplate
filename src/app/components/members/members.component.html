@@ -1,6 +1,6 @@
 
   <div class="overlay">
-    <h1 class="heading">Our members</h1>
+    <h1 class="heading" @fadeInOnScroll>Our members</h1>
     <p-carousel 
       [value]="users" 
       [numVisible]="5"
@@ -9,8 +9,10 @@
       [responsiveOptions]="responsiveOptions"
       [autoplayInterval]="7000"
       class="carousel-container">
-      <ng-template pTemplate="item" let-user>
-        <div class="member-card">
+      <ng-template pTemplate="item" let-user let-i="index">
+        <div #memberCard 
+             class="member-card" 
+             [@staggerFadeOnScroll]="cardStates[i]">
           <img [src]="user.avatar_url || 'assets/images/no-profile-photo.jpg'" style="height: 140px; width: 140px;" class="avatar">
           <p class="name">{{ user.display_name || 'Private' }}</p>
           <p class="occupation">{{ user.occupation ?? "No Occupation provided" }}</p>
@@ -28,7 +30,7 @@
         </div>
       </ng-template>
     </p-carousel>
-    <div class="cta-container" *ngIf="!(authService.userSubject$ | async)">
+    <div class="cta-container" *ngIf="!(authService.userSubject$ | async)" @fadeIn>
       <button class="cta-button" routerLink="/signup">Join Our Community</button>
     </div>
   </div>

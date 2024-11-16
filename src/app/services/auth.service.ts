@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { createClient, RealtimeChannel, Session, SupabaseClient, User } from '@supabase/supabase-js';
 import { BehaviorSubject, catchError, from, map, Observable, switchMap, tap, throwError } from 'rxjs';
-
 import { environment } from '../../environments/environment';
 import { MyEvent } from '../models/event.model';
 import { ToastrService } from 'ngx-toastr';
@@ -93,6 +92,20 @@ export class AuthService {
     this.sessionInitialized.next(true);
   }
 
+  async checkEmailExists(email: string): Promise<boolean> {
+    const { data, error } = await this.supabase
+      .from('users')
+      .select('email')
+      .eq('email', email)
+      .single();
+
+    if (error && error.code !== 'PGRST116') { // PGRST116 is the "no rows returned" error
+      throw error;
+    }
+
+    return !!data;
+  }
+
   async uploadAvatar(userId: string, avatarFile: Blob): Promise<any> {
     const fileName = `${userId}_${new Date().getTime()}.png`;
     const { data, error } = await this.supabase.storage
@@ -138,7 +151,7 @@ export class AuthService {
     }
 
     const { data, error } = await this.supabase
-      .from('profiles')
+      .from('users')
       .select('*')
       .eq('id', userId)
       .single();
@@ -221,25 +234,30 @@ export class AuthService {
     localStorage.setItem(this.SESSION_KEY, JSON.stringify(session));
   }
 
-  async signUp(email: string, password: string, profileData?: any) {
-    const { data, error } = await this.supabase.auth.signUp({ 
-      email, 
-      password 
+  async signUp(email: string, password: string, profileData?: any): Promise<any>{  
+    const { data, error: registerError } = await this.supabase.auth.signUp({
+      email,
+      password,
     });
-  
-    if (data?.user && profileData) {
-      const resp = await this.supabase
-        .from('profiles')
-        .upsert({
-          id: data.user.id,
-          ...profileData,
-          updated_at: new Date()
-        });
-    }
-  
-    return { data, error };
-  }
 
+    if (registerError) {
+      throw new Error(registerError.message);
+    }
+
+    if (data && data.user) {
+      // Update the user's profile
+      const { error: profileError } = await this.supabase
+        .from('users')
+        .upsert({ id: data.user.id, ...profileData })
+        .single();
+
+      if (profileError) {
+        throw new Error(profileError.message);
+      }
+
+      return data.user;
+    }
+  }
   async signOut() {
     const { error } = await this.supabase.auth.signOut();
     this.userSubject$.next(null);
@@ -251,7 +269,7 @@ export class AuthService {
 
   async getUsers() {
     return await this.supabase
-      .from('profiles')
+      .from('users')
       .select('id, display_name, avatar_url, occupation, website, bio, is_admin')
       .neq('id', '00000000-0000-0000-0000-000000000000');
   }
@@ -259,7 +277,7 @@ export class AuthService {
   
   async getProfile(userId: string) {
     return await this.supabase
-      .from('profiles')
+      .from('users')
       .select('*')
       .eq('id', userId)
       .single();
@@ -267,7 +285,7 @@ export class AuthService {
 
   async updateProfile(userId: string, updates: any) {
     return await this.supabase
-      .from('profiles')
+      .from('users')
       .update(updates)
       .eq('id', userId);
   }

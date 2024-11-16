@@ -163,6 +163,7 @@ export class SignupComponent implements OnInit {
     }
   }
 
+
   initializeSteps() {
     this.steps = [
       { label: 'Account' },
@@ -174,8 +175,17 @@ export class SignupComponent implements OnInit {
 
   get f() { return this.signupForm.controls; }
 
-  nextStep() {
+  async nextStep() {
     if (this.isStepValid()) {
+
+      const emailExists = await this.authService.checkEmailExists(this.f['email'].value);
+      if (emailExists) {
+        this.toastr.error('Sorry, this email is already taken', 'Email Taken');
+  
+        return;
+      }
+      
+
       this.currentStep++;
     }
   }
@@ -204,6 +214,7 @@ export class SignupComponent implements OnInit {
       return;
     }
 
+
     const fullPhoneNumber = this.getFullPhoneNumber();
     // if (!fullPhoneNumber) {
     //   console.log('Invalid phone number');
@@ -222,6 +233,7 @@ export class SignupComponent implements OnInit {
           about_nomad: this.f['about_nomad'].value,
           display_name: this.f['display_name'].value,
           country: this.f['country'].value,
+          gender: this.f['gender'].value,
           heard_from: this.f['heard_from'].value,
           referred_by: this.f['referred_by'].value,
           comments: this.f['comments'].value,
