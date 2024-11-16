@@ -238,6 +238,9 @@ export class AuthService {
     const { data, error: registerError } = await this.supabase.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: 'https://wandermundo.com',
+      }
     });
 
     if (registerError) {
