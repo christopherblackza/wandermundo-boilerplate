@@ -229,6 +229,7 @@ export class SignupComponent implements OnInit {
         this.f['password'].value,
         {
           full_name: this.f['full_name'].value,
+          email: this.f['email'].value,
           whatsapp_number: fullPhoneNumber ?? '',
           about_nomad: this.f['about_nomad'].value,
           display_name: this.f['display_name'].value,
