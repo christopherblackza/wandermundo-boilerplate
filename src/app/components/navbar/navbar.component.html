@@ -1,4 +1,4 @@
-<nav class="navbar">
+<!-- <nav class="navbar">
   <div class="navbar-left">
     <a routerLink="/" class="logo">
       <img src="assets/images/logo.png" alt="Logo" class="logo-image">
@@ -32,5 +32,86 @@
       <button *ngIf="!isMobile" routerLink="/login" class="btn-login">Login</button>
       <button *ngIf="!isMobile" routerLink="/signup" class="btn-register">Join Us</button>
     </ng-template>
+  </div>
+</nav> -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top sticky-nav"  [class.bg-white]="isHeaderScrolled" 
+[class.navbar-transparent]="!isHeaderScrolled">
+  <div class="container-fluid">
+    <!-- Logo and App Name -->
+    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+      <img src="assets/images/logo.png" alt="WANDERMUNDO Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
+      <span class="logo-text">WANDERMUNDO</span>
+    </a>
+
+    <!-- Profile Picture (Next to Mobile Menu) -->
+    <div class="d-flex align-items-center">
+      <ng-container *ngIf="authService.userSubject$ | async">
+        <img [src]="avatarUrl || 'assets/images/no-profile-photo.jpg'" alt="Profile" 
+             class="rounded-circle d-lg-none me-2" width="30" height="30">
+      </ng-container>
+
+      <!-- Mobile Menu Icon -->
+      <button 
+        class="navbar-toggler" 
+        type="button" 
+        data-bs-toggle="collapse" 
+        data-bs-target="#navbarNav" 
+        aria-controls="navbarNav" 
+        aria-expanded="false" 
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <!-- Navbar Items -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Left-Side Navigation Links -->
+      <ul class="navbar-nav me-auto">
+       
+          <li class="nav-item">
+            <a routerLink="/" routerLinkActive="active" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/our-story" routerLinkActive="active" class="nav-link">Our Story</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/about-us" routerLinkActive="active" class="nav-link">About Us</a>
+          </li>
+
+        <!-- Logged-In Links -->
+        <ng-container *ngIf="authService.userSubject$ | async">
+          <li class="nav-item">
+            <a routerLink="/create-event" routerLinkActive="active" class="nav-link">Create Event</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/blog" routerLinkActive="active" class="nav-link">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/chat" routerLinkActive="active" class="nav-link">Live Chat</a>
+          </li>
+        </ng-container>
+      </ul>
+
+      <!-- Right-Side Authentication Links -->
+      <ul class="navbar-nav">
+        <ng-container *ngIf="!(authService.userSubject$ | async); else loggedInTemplate">
+          <li class="nav-item">
+            <a routerLink="/login" class="btn btn-clear-primary  me-2 btn-login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/signup" class="btn  btn-register"  [ngClass]="{'btn-outline-secondary': !isHeaderScrolled, 'text-dark': isHeaderScrolled}" >Join Us</a>
+          </li>
+        </ng-container>
+
+        <!-- Logged-In Template -->
+        <ng-template #loggedInTemplate>
+          <li class="nav-item d-flex align-items-center">
+            <a (click)="signOut()" class="btn btn-outline-danger me-3 btn-logout">Logout</a>
+            <img [src]="avatarUrl || 'assets/images/no-profile-photo.jpg'" alt="Profile" 
+                 class="rounded-circle d-none d-lg-block avatar" width="30" height="30">
+          </li>
+        </ng-template>
+      </ul>
+    </div>
   </div>
 </nav>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -28,7 +28,11 @@ export class NavbarComponent implements OnInit {
 
   
 
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router, private el: ElementRef, private renderer: Renderer2) {
+    this.router.events.subscribe(() => {
+      this.closeMenu();
+    });
+  }
 
   async ngOnInit() {
     console.log('ngOnInit');
@@ -87,37 +91,17 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/chat']);
   }
 
-  
-  toggleMenu(event?: MouseEvent) {
-    if (event) {
-      event.stopPropagation(); // Prevent the document click handler from firing
-    }
-    this.isMenuOpen = !this.isMenuOpen;
-  }
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
     this.isHeaderScrolled = window.pageYOffset > 50;
   }
 
-  // @HostListener('document:click', ['$event'])
-  // onDocumentClick(event: MouseEvent) {
-  //   console.log('onDocumentClick')
-  //   // Get references to the menu and hamburger button
-  //   const mobileMenu = document.querySelector('.nav-links');
-  //   const hamburgerButton = document.querySelector('.mobile-menu-btn');
-    
-  //   // Check if click is outside both the menu and hamburger button
-  //   if (mobileMenu && hamburgerButton && 
-  //       !mobileMenu.contains(event.target as Node) && 
-  //       !hamburgerButton.contains(event.target as Node)) {
-  //     this.isMobileMenuOpen = false;
-  //   }
-  // }
-  
-  toggleMobileMenu() {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
-    console.log('isMobileMenuOpen', this.isMobileMenuOpen);
+  closeMenu() {
+    const navbarCollapse = this.el.nativeElement.querySelector('.navbar-collapse');
+    if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+      this.renderer.removeClass(navbarCollapse, 'show');
+    }
   }
 
   private checkScreenSize() {
