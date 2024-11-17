@@ -34,8 +34,7 @@
     </ng-template>
   </div>
 </nav> -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top sticky-nav"  [class.bg-white]="isHeaderScrolled" 
-[class.navbar-transparent]="!isHeaderScrolled">
+<nav class="navbar navbar-expand-lg navbar-light bg-light  sticky-nav">
   <div class="container-fluid">
     <!-- Logo and App Name -->
     <a class="navbar-brand d-flex align-items-center" routerLink="/">
@@ -99,7 +98,7 @@
             <a routerLink="/login" class="btn btn-clear-primary  me-2 btn-login">Login</a>
           </li>
           <li class="nav-item">
-            <a routerLink="/signup" class="btn  btn-register"  [ngClass]="{'btn-outline-secondary': !isHeaderScrolled, 'text-dark': isHeaderScrolled}" >Join Us</a>
+            <a routerLink="/signup" class="btn btn-outline-secondary btn-register" >Join Us</a>
           </li>
         </ng-container>
 

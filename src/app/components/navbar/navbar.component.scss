@@ -257,13 +257,10 @@
 
 .nav-link {
 
-    color: white;
+    color: #000;
     font-weight: 500;
     transition: color 0.2s ease;
 
-    .scrolled {
-      color: #000;
-    }
 
     &:hover {
       color: $primary-hover;
@@ -291,6 +288,7 @@
 
 
 
+
 .btn-login {
   color: $primary-color;
   font-weight: 500;
@@ -310,7 +308,7 @@
 }
 
 .btn-register {
-  color: white;
+  color: #000;
   font-weight: 500;
   transition: color 0.2s ease;
   
@@ -341,29 +339,3 @@
 .navbar-toggler {
   background: $primary-color;
 }
-
-
-.navbar.navbar-transparent {
-  color: #fff !important;
-  background-color: transparent !important;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Scrolled Navbar */
-.navbar.bg-white {
-  background-color: white !important;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  
-
-  .nav-link:not(.active) {
-    color: #000;
-  }
-
-  .btn-register:hover {
-    color: #fff !important;
-  }
-
-
-}
-
-

@@ -105,6 +105,6 @@ export class NavbarComponent implements OnInit {
   }
 
   private checkScreenSize() {
-    this.isMobile = window.innerWidth <= 768;
+    this.isMobile = window.innerWidth <= 992;
   }
 }
