@@ -237,10 +237,7 @@ export class AuthService {
   async signUp(email: string, password: string, profileData?: any): Promise<any>{  
     const { data, error: registerError } = await this.supabase.auth.signUp({
       email,
-      password,
-      options: {
-        emailRedirectTo: 'https://wandermundo.com',
-      }
+      password
     });
 
     if (registerError) {
