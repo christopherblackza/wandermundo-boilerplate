@@ -11,6 +11,13 @@ $gradient-start: #f5f7fa;
 $gradient-end: #c3cfe2;
 
 
+:root {
+  --primary-color: #{$primary-color};
+  --primary-color-light: #{$primary-hover};
+  --text-color: #{$primary-color};
+  --text-secondary-color: #ffffff;
+}
+
 // Reset Styles
 
 // Body Styles

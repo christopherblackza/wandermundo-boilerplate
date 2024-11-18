@@ -1,12 +1,11 @@
 
   <div class="overlay">
-    <h1 class="heading" @fadeInOnScroll>Our members</h1>
+    <h1 class="heading" @fadeInOnScroll>Our Top 10 Latest Members</h1>
     <p-carousel 
       [value]="users" 
-      [numVisible]="5"
-      [numScroll]="1"
+
       [circular]="true"
-      [responsiveOptions]="responsiveOptions"
+ 
       [autoplayInterval]="7000"
       class="carousel-container">
       <ng-template pTemplate="item" let-user let-i="index">
@@ -16,12 +15,7 @@
           <img [src]="user.avatar_url || 'assets/images/no-profile-photo.jpg'" style="height: 140px; width: 140px;" class="avatar">
           <p class="name">{{ user.display_name || 'Private' }}</p>
           <p class="occupation">{{ user.occupation ?? "No Occupation provided" }}</p>
-          <!-- <a *ngIf="user.website" [href]="user.website" 
-             target="_blank" 
-             rel="noopener noreferrer" 
-             class="website">
-             {{ user.website }}
-          </a> -->
+      
           <p class="bio">{{ user.bio ?? "This user is keeping things mysterious – no bio yet!"}}</p>
           <div class="admin-badge" *ngIf="user.is_admin">
             <i class="pi pi-star-fill"></i>

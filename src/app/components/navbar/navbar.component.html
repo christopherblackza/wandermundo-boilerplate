@@ -45,7 +45,7 @@
     <!-- Profile Picture (Next to Mobile Menu) -->
     <div class="d-flex align-items-center">
       <ng-container *ngIf="authService.userSubject$ | async">
-        <img [src]="avatarUrl || 'assets/images/no-profile-photo.jpg'" alt="Profile" 
+        <img [src]="avatarUrl || 'assets/images/no-profile-photo.jpg'" alt="Profile"  routerLink="/account"
              class="rounded-circle d-lg-none me-2" width="30" height="30">
       </ng-container>
 
