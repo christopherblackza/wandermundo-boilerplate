@@ -106,7 +106,7 @@
         <ng-template #loggedInTemplate>
           <li class="nav-item d-flex align-items-center">
             <a (click)="signOut()" class="btn btn-outline-danger me-3 btn-logout">Logout</a>
-            <img [src]="avatarUrl || 'assets/images/no-profile-photo.jpg'" alt="Profile" 
+            <img [src]="avatarUrl || 'assets/images/no-profile-photo.jpg'" alt="Profile" routerLink="/account"
                  class="rounded-circle d-none d-lg-block avatar" width="30" height="30">
           </li>
         </ng-template>
