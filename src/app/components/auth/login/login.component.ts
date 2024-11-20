@@ -5,11 +5,21 @@ import { ToastrService } from 'ngx-toastr';
 import { SupabaseService } from '../../../services/supabase.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    ButtonModule,
+    InputTextModule,
+    InputTextareaModule
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
