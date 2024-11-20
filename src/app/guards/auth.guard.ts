@@ -34,16 +34,15 @@ export class AuthGuard implements CanActivate {
 //     );
 //   }
 
-async canActivate(): Promise<boolean> {
-
-
-  const { data, error } = await this.authService.supabase.auth.getUser();
+async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
+    const { data, error } = await this.authService.supabase.auth.getUser();
     console.log('user', data);
+    console.log('route', route);
 
     if (data && data.user) {
       return true;
     } else {
-      this.router.navigate(['/']);
+      this.router.navigate(['/landing']);
       return false;
     }
  

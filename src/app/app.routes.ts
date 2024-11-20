@@ -16,9 +16,10 @@ import { MembersComponent } from './components/members/members.component';
 import { OurStoryComponent } from './components/our-story/our-story.component';
 import { AuthGuard } from './guards/auth.guard';
 import { BlogCreateComponent } from './components/blog-create/blog-create.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 export const routes: Routes = [
-  { path: '', component: LandingComponent },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'about-us', component: AboutUsComponent },
   { path: 'our-story', component: OurStoryComponent },
@@ -48,6 +49,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard] 
       }
     ]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   { path: '**', redirectTo: '/' } 
 ];

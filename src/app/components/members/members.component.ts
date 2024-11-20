@@ -47,21 +47,16 @@ export class MembersComponent implements OnInit, AfterViewInit {
   responsiveOptions = [
     {
       breakpoint: '1400px',
-      numVisible: 4,
-      numScroll: 1
-    },
-    {
-      breakpoint: '1200px',
       numVisible: 3,
       numScroll: 1
     },
     {
-      breakpoint: '768px',
+      breakpoint: '1024px',
       numVisible: 2,
       numScroll: 1
     },
     {
-      breakpoint: '560px',
+      breakpoint: '768px',
       numVisible: 1,
       numScroll: 1
     }

@@ -1,0 +1,18 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container">
+  <div class="dashboard-content">
+    <h1>Welcome to Your Dashboard</h1>
+    <p class="subtitle">What would you like to do today?</p>
+
+    <div class="options-grid">
+      <div class="option-card" *ngFor="let option of dashboardOptions" (click)="navigateTo(option.route)">
+        <div class="icon-container">
+          <i class="fas {{option.icon}}"></i>
+        </div>
+        <h2>{{option.title}}</h2>
+        <p>{{option.description}}</p>
+      </div>
+    </div>
+  </div>
+</div> 

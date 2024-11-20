@@ -263,7 +263,7 @@ export class AuthService {
     this.userSubject$.next(null);
     if (!error) {
       this.userSubject$.next(null);
-      this.router.navigate(['/']);
+      this.router.navigate(['/landing']);
     }
   }
 

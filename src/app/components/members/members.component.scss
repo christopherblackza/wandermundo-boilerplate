@@ -1,140 +1,193 @@
 @import '../../../global_styles.scss';
 
 .overlay {
-  padding: 4rem 2rem;
-  text-align: center;
+  padding: 2rem;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
 }
 
 .heading {
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
-  color:  #fff
+  color: #fff;
+  text-align: center;
+  margin-bottom: 2rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 .carousel-container {
-  margin: 2rem auto;
+  margin: 0 auto;
   max-width: 1200px;
-
-  ::ng-deep .p-carousel-indicators {
-    margin-top: 2rem;
-    
-    .p-carousel-indicator button {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.3);
-      transition: all 0.3s ease;
-
-      &.p-highlight {
-        background: $primary-color;
-        transform: scale(1.2);
+  padding: 2rem 0;
+  
+  ::ng-deep {
+    .p-carousel {
+      .p-carousel-content {
+        padding: 0 1rem;
+      }
+      
+      .p-carousel-prev,
+      .p-carousel-next {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background: white;
+          transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+          width: 2rem;
+          height: 2rem;
+        }
+      }
+      
+      .p-carousel-indicators {
+        .p-carousel-indicator {
+          button {
+            background-color: rgba(0, 123, 255, 0.3);
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            
+            &.p-highlight {
+              background-color: #c530be;
+              transform: scale(1.2);
+            }
+          }
+        }
       }
     }
   }
 }
 
 .member-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  padding: 2rem 1.5rem;
   margin: 1rem;
-  height: 400px;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  background: linear-gradient(145deg, #ffffff, #f5f7fa);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  height: 100%;
+  min-height: 400px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  p {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-  }
+  border: 1px solid rgba(255, 255, 255, 0.8);
   
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
   }
-
+  
+  @media (max-width: 768px) {
+    margin: 0.5rem;
+    padding: 1rem;
+    min-height: 350px;
+  }
+  
   .avatar {
     border-radius: 50%;
-    object-fit: cover;
     margin-bottom: 1.5rem;
-    border: 3px solid #fff;
-    padding: 3px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 4px solid white;
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+    
+    @media (max-width: 768px) {
+      height: 100px !important;
+      width: 100px !important;
+    }
   }
-
+  
   .name {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #fff;
+    color: $primary-color;
   }
-
+  
   .occupation {
     display: inline-block;
-    font-size: 0.8rem;
-    background: #fff;
-    color: $primary-color;
-    margin: 0.5rem 0 1rem;
+    background: linear-gradient(135deg, #e8f0fe, #d4e4fd);
+    color: $secondary-color;
     padding: 0.4rem 1rem;
-    border-radius: 20px;
-    border: 1px solid rgba(76, 175, 80, 0.2);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .bio {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: var(--text-secondary-color);
-    margin-bottom: 1rem;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-  }
-
-  .admin-badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(4, 241, 95, 0.9);
-    color: white;
-    padding: 3px 8px;
     border-radius: 15px;
-    font-size: 10px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(45, 92, 165, 0.15);
     
-    i {
-      font-size: 14px;
+    @media (max-width: 768px) {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.8rem;
+    }
+  }
+  
+  .bio {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #4a5568;
+    padding: 0 0.5rem;
+    
+    @media (max-width: 768px) {
+      font-size: 0.85rem;
     }
   }
 }
 
-.cta-container {
-  margin-top: 3rem;
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #ffd700, #ffc400);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
 
+.cta-container {
+  text-align: center;
+  margin-top: 2rem;
+  
   .cta-button {
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    border: none;
     background: $primary-color;
     color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease;
+    
+    @media (max-width: 768px) {
+      padding: 0.6rem 1.5rem;
+      font-size: 1rem;
+    }
     
     &:hover {
-      background: var(--primary-color-light);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.3);
+      background: $primary-hover;
     }
   }
 }
