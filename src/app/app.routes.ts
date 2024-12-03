@@ -14,6 +14,7 @@ import { Landing2Component } from './components/landing-2/landing-2.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { MembersComponent } from './components/members/members.component';
 import { OurStoryComponent } from './components/our-story/our-story.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { AuthGuard } from './guards/auth.guard';
 import { BlogCreateComponent } from './components/blog-create/blog-create.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -28,6 +29,7 @@ export const routes: Routes = [
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
   { path: 'members', component: MembersComponent, canActivate: [AuthGuard] },
   { path: 'signup', component: SignupComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'create-event', component: CreateEventComponent, canActivate: [AuthGuard] },
   { path: 'events-detail', component: EventsDetailComponent, canActivate: [AuthGuard] },
   { path: 'communities', component: CommunityComponent, canActivate: [AuthGuard] },
